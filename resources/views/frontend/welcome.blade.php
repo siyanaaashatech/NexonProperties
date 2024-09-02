@@ -19,6 +19,17 @@
 
 
 <body>
+    
+      <section class="container-fluid">
+    <div class="container">
+    <div class="button-collection row  gap-sm-5 nav-button-collection py-2">
+          <button class="btn-buttonyellow reg-logbutton reg-logbutton-white mb-1 mx-1 coloryellow">register</button>
+          <button class="btn-buttonyellow reg-logbutton mx-1 ">login</button>
+        </div>
+      
+    </div>
+
+  </section>
   <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -29,37 +40,29 @@
   <section class="container-fluid navsection">
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-light navcustom">
-        <a class="navbar-brand" href="#"> <img src="{{ asset('image/nexonlogoa2.png') }}" alt="Logo" /></a>
+        <a class="navbar-brand" href="#"> <img src="{{ asset('image/logo.png') }}" alt="Logo" /></a>
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{{ route('index') }}">Introduction</a>
+              <a class="nav-link active" aria-current="page" href="#">Introduction</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="{{ route('properties') }}">Rent</a>
+              <a class="nav-link" aria-current="page" href="{{route('properties')}}">Rent</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="{{ route('properties') }}">Buy</a>
+              <a class="nav-link" aria-current="page" href="{{route('properties')}}">Buy</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{{ route('about') }}">About</a>
+              <a class="nav-link active" aria-current="page" href="{{route('about') }}">About</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="{{ route('blog') }}">Blog</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="{{ route('contact') }}">Contact</a>
-            </li>
-       
 
           </ul>
 
         </div>
-        <div class="button-collection d-flex">
-          <button
-            class="btn-buttonyellow btn-buttonyellowextrasmall  btn-buttonyellowextrasmallbac mx-1">register</button>
-          <button class="btn-buttonyellow btn-buttonyellowextrasmall ">login</button>
+       <div class="button-collection  flex-column ">
+          <button class="btn-buttonyellow reg-logbutton reg-logbutton-white mb-1">register</button>
+          <button class="btn-buttonyellow reg-logbutton ">login</button>
         </div>
         <i class="fa-solid fa-bars customicons mx-4 " onclick="funmenu()"></i>
 
@@ -130,13 +133,15 @@
                         sale &
                         rent in the country</p>
                       <h4 class="lg-text1 mb-4">Find Your Dream Home</h4>
+
                       <div class="d-flex justify-content-center mb-1">
                         <div class="btn-buttonyellow btn-buttonyellowsmall">Buy</div>
                         <div class="btn-buttongreen mx-2">Rent</div>
                       </div>
                       <div
-                        class="formsection d-flex flex-column justify-content-center align-items-center py-md-3 py-2 gap-2 col-md-10 px-4 mx-md-4">
-                        <div class="d-flex flex-wrap  gap-md-3">
+                        class="formsection  flex-column justify-content-center align-items-center py-md-3 py-2 gap-2 col-md-10 px-4 mx-md-4">
+
+                        <div class="d-flex flex-wrap  gap-md-3 showform">
                           <input type="text" class="input bannerinput" placeholder="List type">
                           <input type="text" class="input bannerinput" placeholder="property type">
                           <input type="text" class="input bannerinput" placeholder="Location">
@@ -150,6 +155,7 @@
                 </div>
               </div>
             </div>
+
             <div class="carousel-item ">
               <div class="row d-flex">
                 <div class="col-md-12 text-center d-flex flex-column justify-content-center align-items-center mb-2 ">
@@ -167,7 +173,7 @@
                         <div class="btn-buttongreen mx-2">Rent</div>
                       </div>
                       <div
-                        class="formsection d-flex flex-column justify-content-center align-items-center py-md-3 py-2 gap-2 col-md-10 px-4 mx-md-4">
+                        class="formsection  flex-column justify-content-center align-items-center py-md-3 py-2 gap-2 col-md-10 px-4 mx-md-4">
                         <div class="d-flex flex-wrap  gap-md-3">
                           <input type="text" class="input bannerinput" placeholder="List type">
                           <input type="text" class="input bannerinput" placeholder="property type">
@@ -182,6 +188,7 @@
                 </div>
               </div>
             </div>
+
 
           </div>
         </div>
@@ -252,6 +259,44 @@
     </a>
 
   </section>
+
+  <section class="container-fluid py-4 propertiesfinder propertiesfinderhome">
+    <div class="container">
+      <h1 class="lg-text1 text-center searchhide" onclick="funsearchingon()">
+        <i class="fa-brands fa-searchengin customicons"></i> Find your properties
+      </h1>
+      <div class="justify-content-center align-items-center gap-1 flex-wrap hiddenform hiddenformhome" id="hiddenform">
+        <div class="d-flex flex-column col-md-3">
+          <label for="" class="sm-text1 des-text">Listing type</label>
+          <input type="text" class="input bannerinput">
+        </div>
+        <div class="d-flex flex-column col-md-3">
+          <label for="" class="sm-text1 des-text">Properties type</label>
+          <input type="text" class="input bannerinput">
+        </div>
+        <div class="d-flex flex-column col-md-3">
+          <label for="" class="sm-text1 des-text">Location</label>
+          <input type="text" class="input bannerinput">
+        </div>
+        <div class="d-flex flex-column col-md-3">
+          <label for="" class="sm-text1 des-text">Location</label>
+          <input type="text" class="input bannerinput">
+        </div>
+        <div class="d-flex flex-column col-md-3">
+          <label for="" class="md-text1 des-text">Price</label>
+          <input type="text" class="input bannerinput">
+        </div>
+        <div class="d-flex flex-column col-md-3">
+          <label for="" class="sm-text1 des-text">Search</label>
+          <button class="btn-buttonyellow btn-buttonyellowlg">Find properties</button>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+
 
   {{--advantage --}}
   <section class="advantage py-4">
@@ -520,7 +565,7 @@
       </div>
       <div class="content-body d-md-flex justify-content-center align-items-center pt-3">
         <div class="col-md-8">
-          <div class="card flex-md-row  box-shadow px-1 py-4">
+          <div class="card flex-md-row  box-shadow px-1 py-4" id="graacard">
             <div class="img-container col-md-5">
               <img class="img-fluid" data-src="holder.js/200x250?theme=thumb" alt=""
                 src="{{asset('image/bighouse.png')}}" />
@@ -553,8 +598,8 @@
           </div>
         </div>
         <div class="col-md-2 mx-md-4 d-flex gap-2 pt-2">
-          <button class="next-button"><i class="fa-solid fa-arrow-right "></i></button>
-          <button class="next-button"><i class="fa-solid fa-arrow-left "></i></button>
+          <button class="next-button" id="forward"><i class="fa-solid fa-arrow-right " onclick="funChangeCard(1)"></i></button>
+          <button class="next-button" id="backward"><i class="fa-solid fa-arrow-left " onclick="funChangeCard(-1)"></i></button>
 
         </div>
 
@@ -562,6 +607,19 @@
 
     </div>
   </section>
+
+  <script>
+     function funforward(element){
+     const grabCard= document.getElementById("grabcard");
+     const forward= document.getElementById("forwar")
+     const backward= document.getElementById("backward")
+     let initialPosition=0;
+   
+      if(grabCard.)
+
+
+     }
+  </script>
 
   {{--<!-- connect us --> --}}
 
@@ -688,6 +746,15 @@
 
 
   <script>
+    function funsearchingon() {
+      const hiddenformdata = document.getElementsByClassName("hiddenform")[0];
+      if (hiddenformdata.style.display === "block") {
+        hiddenformdata.style.display = "none";
+      }
+      hiddenformdata.style.display = "block";
+
+    }
+
     function funmenu() {
       const burmenu = document.getElementById("bur-menu");
 

@@ -18,81 +18,98 @@
 </head>
 
 <body>
+    
+    
+    
+    
+    
+    
+    
+      <section class="container-fluid">
+    <div class="container">
+    <div class="button-collection row  gap-sm-5 nav-button-collection py-2">
+          <button class="btn-buttonyellow reg-logbutton reg-logbutton-white mb-1 mx-1 coloryellow">register</button>
+          <button class="btn-buttonyellow reg-logbutton mx-1 ">login</button>
+        </div>
+      
+    </div>
+
+  </section>
 
     <!-- navbar -->
 
     <section class="container-fluid navsection">
-    <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-light navcustom">
-        <a class="navbar-brand" href="#"> <img src="{{ asset('image/nexonlogoa2.png') }}" alt="Logo" /></a>
-      
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{{route('index')}}">Introduction</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{{route('properties')}}">Rent</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{{route('properties')}}">Buy</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{{route('about') }}">About</a>
-            </li>
-          
-          </ul> 
-        
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light navcustom">
+                <a class="navbar-brand" href="#"> <img src="{{ asset('image/logo.png') }}" alt="Logo" /></a>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{route('/')}}">Introduction</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="{{route('properties')}}">Rent</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="{{route('properties')}}">Buy</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="{{route('about') }}">About</a>
+                        </li>
+
+                    </ul>
+
+                </div>
+               <div class="button-collection  flex-column ">
+          <button class="btn-buttonyellow reg-logbutton reg-logbutton-white mb-1">register</button>
+          <button class="btn-buttonyellow reg-logbutton ">login</button>
         </div>
-        <div class="button-collection d-flex">
-          <button class="btn-buttonyellow btn-buttonyellowextrasmall  btn-buttonyellowextrasmallbac mx-1">register</button>
-          <button class="btn-buttonyellow btn-buttonyellowextrasmall ">login</button>
-          </div>
-          <i class="fa-solid fa-bars customicons mx-4 " onclick="funmenu()"></i>
-         
-        
-      </nav>
-    </div>
-    <div class="bur-menu py-3" id="bur-menu">
-      <div class="activites">
-         <h2 class="navdestext pt-3">activities section</h2>
-          <li class="nav-item">
-          <i class="fa-solid fa-house customiconssmall "></i>
-              <a class="nav-link " aria-current="page" href="#">Introduction</a>
-            </li>
-            <li class="nav-item">
-            
-            <i class="fa-solid fa-truck-moving  customiconssmall"></i>
-              <a class="nav-link " aria-current="page" href="{{route('properties')}}">Rent</a>
-            </li>
-            <li class="nav-item">
-            <i class="fa-solid fa-cart-shopping customiconssmall"></i>
-              <a class="nav-link" aria-current="page" href="{{route('properties')}}">Buy</a>
-            </li>
+                <i class="fa-solid fa-bars customicons mx-4 " onclick="funmenu()"></i>
+
+
+            </nav>
+        </div>
+        <div class="bur-menu py-3" id="bur-menu">
+            <div class="activites">
+                <h2 class="navdestext pt-3">activities section</h2>
+                <li class="nav-item">
+                    <i class="fa-solid fa-house customiconssmall "></i>
+                    <a class="nav-link " aria-current="page" href="#">Introduction</a>
+                </li>
+                <li class="nav-item">
+
+                    <i class="fa-solid fa-truck-moving  customiconssmall"></i>
+                    <a class="nav-link " aria-current="page" href="{{route('properties')}}">Rent</a>
+                </li>
+                <li class="nav-item">
+                    <i class="fa-solid fa-cart-shopping customiconssmall"></i>
+                    <a class="nav-link" aria-current="page" href="{{route('properties')}}">Buy</a>
+                </li>
             </div>
             <div class="information">
-            <h2 class="navdestext">Information section</h2>
-            <li class="nav-item d-flex">
-            <i class="fa-solid fa-circle-question customiconssmall"></i>
-              <a class="nav-link" aria-current="page" href="{{route("about")}}">About</a>
-            </li>
-          <li class="nav-item">
-          <i class="fa-solid fa-blog customiconssmall"></i>
-              <a class="nav-link active" aria-current="page" href="{{route("blog")}}">Blog</a>
-            </li>
-            <li class="nav-item">
-            <i class="fa-solid fa-address-book customiconssmall"></i>
-              <a class="nav-link active" aria-current="page" href="{{route('contact')}}">contact</a>
-            </li>
+                <h2 class="navdestext">Information section</h2>
+                <li class="nav-item d-flex">
+                    <i class="fa-solid fa-circle-question customiconssmall"></i>
+                    <a class="nav-link" aria-current="page" href="{{route("about")}}">About</a>
+                </li>
+                <li class="nav-item">
+                    <i class="fa-solid fa-blog customiconssmall"></i>
+                    <a class="nav-link active" aria-current="page" href="{{route("blog")}}">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <i class="fa-solid fa-address-book customiconssmall"></i>
+                    <a class="nav-link active" aria-current="page" href="{{route('contact')}}">contact</a>
+                </li>
             </div>
             <h2 class="navdestext">follow us</h2>
             <div class="d-flex font-collection py-2">
-            <i class="fa-brands fa-facebook customicons mx-2"></i>
-            <i class="fa-brands fa-linkedin customicons mx-2"></i>
-           <i class="fa-brands fa-youtube customicons mx-2"></i>
-            </div>            
+                <i class="fa-brands fa-facebook customicons mx-2"></i>
+                <i class="fa-brands fa-linkedin customicons mx-2"></i>
+                <i class="fa-brands fa-youtube customicons mx-2"></i>
             </div>
-  </section>
+        </div>
+    </section>
 
     <!-- bannersection -->
 
@@ -103,7 +120,7 @@
                     <div class="row d-flex">
                         <div
                             class="col-md-12 text-center d-flex flex-column justify-content-center align-items-center mb-2 ">
-                            <img src="{{ asset('image/contact.png') }}" alt="" srcset=""
+                            <img src="{{ asset('image/abou1.png') }}" alt="" srcset=""
                                 class="imagecontroller imagecontrollerheight">
                             <div class="flex bannercontentheight">
                                 <div class="bannercontentinnerheight ">
@@ -130,21 +147,38 @@
                         the luxury waterfront markets, Simone serves an extensive and elite worldwide client base. </p>
                 </div>
                 <div class="col-md-12">
-                    <div class="row d-flex justify-content-center align-items-center">
-                        <div class="col-md-6">
-                            <div class="d-flex">
-
-                                <img src="{{asset("image/glass.png")}}" alt="">
-                                <p class="md-text text-center">our growing vision</p>
-                                <i class="fa-solid fa-eye-low-vision customiconslarge"></i>
-
-                            </div>
-
+                    <div class="row d-flex  align-items-center justify-content-center gap-1">
+                        <div class="col-md-5">
+                            <h1 class="md-text text-center">our vision </h1>
+                            <p class=" extra-small-text text-center">Utilizing her exceptional experience and knowledge
+                                of
+                                the luxury waterfront markets, Simone serves an extensive and elite worldwide client
+                                base. </p>
                         </div>
-                        <div class="col-md-6">
-                            <img src="{{asset("image/abb.png")}}" alt="" class="contactbodyimage">
+                        <div class="col-md-5">
+                            <h1 class="md-text text-center">0ur Mission </h1>
+                            <p class=" extra-small-text text-center">Utilizing her exceptional experience and knowledge
+                                of
+                                the luxury waterfront markets, Simone serves an extensive and elite worldwide client
+                                base. </p>
+                        </div>
+                        <div class="col-md-5">
+                            <h1 class="md-text text-center">our Values</h1>
+                            <p class=" extra-small-text text-center">Utilizing her exceptional experience and knowledge
+                                of
+                                the luxury waterfront markets, Simone serves an extensive and elite worldwide client
+                                base. </p>
+                        </div>
+                        <div class="col-md-5">
+                            <h1 class="md-text text-center">our Resource </h1>
+                            <p class=" extra-small-text text-center">Utilizing her exceptional experience and knowledge
+                                of
+                                the luxury waterfront markets, Simone serves an extensive and elite worldwide client
+                                base. </p>
                         </div>
                     </div>
+
+
                 </div>
 
             </div>
@@ -164,7 +198,7 @@
                         the luxury waterfront markets, Simone serves an extensive and elite worldwide client base. </p>
                 </div>
 
-                <div class="col-lg-12">
+                <div class="col-lg-12 extradiv">
                     <div class="row d-flex justify-content-center align-items-center gap-1 teamimagerow">
                         <div class="col-md-3 member-container">
                             <img class="teamimage" data-src="" alt="" src="{{asset('image/member1.png')}}" />
@@ -197,9 +231,7 @@
             </div>
         </div>
     </section>
-    <style>
 
-    </style>
 
 
 
@@ -255,6 +287,9 @@
         </div>
     </section>
 
+
+
+
     <!-- testimonial -->
 
 
@@ -263,14 +298,14 @@
         <div class="container">
             <div class="row d-flex flex-column justify-content-center align-items-center">
                 <div class="col-lg-5">
-                    <h1 class="md-text text-center"> our team member</h1>
+                    <h1 class="md-text text-center"> TESTIMONIALS</h1>
                     <p class=" extra-small-text text-center">Utilizing her exceptional experience and knowledge of
                         the luxury waterfront markets, Simone serves an extensive and elite worldwide client base. </p>
                 </div>
 
-                <div class="col-md-12">
-                    <div class="row d-flex justify-content-center align-items-center py-2">
-                        <div class="d-flex flex-column col-md-4">
+                <div class="col-md-12 ">
+                    <div class="row d-flex justify-content-center align-items-center py-2 gap-2">
+                        <div class="d-flex flex-column col-md-3 customcard card">
                             <strong class="mb-2 text-success">
                                 <img src="{{asset('image/dash.png')}}" alt="">
 
@@ -296,7 +331,7 @@
                             </div>
 
                         </div>
-                        <div class="d-flex flex-column col-md-4">
+                        <div class="d-flex flex-column col-md-3 customcard card">
                             <strong class="mb-2 text-success">
                                 <img src="{{asset('image/dash.png')}}" alt="">
 
@@ -322,7 +357,7 @@
                             </div>
 
                         </div>
-                        <div class="d-flex flex-column col-md-4">
+                        <div class="d-flex flex-column col-md-3 customcard card">
                             <strong class="mb-2 text-success">
                                 <img src="{{asset('image/dash.png')}}" alt="">
 
@@ -618,32 +653,32 @@
 
 
     <script>
-    
-    function changepage(element) {
-        const pageli = document.getElementsByClassName("nextli");
-      for (let i = 0; i < pageli.length; i++) {
-        pageli[i].classList.remove("activeli");
 
-      }
+        function changepage(element) {
+            const pageli = document.getElementsByClassName("nextli");
+            for (let i = 0; i < pageli.length; i++) {
+                pageli[i].classList.remove("activeli");
 
-      element.classList.add("activeli")
-    }
+            }
+
+            element.classList.add("activeli")
+        }
 
 
 
-    function funmenu() {
+        function funmenu() {
             const burmenu = document.getElementById("bur-menu");
-           
+
             if (burmenu.style.display === "block") {
                 burmenu.style.display = "none";
             } else {
                 burmenu.style.display = "block";
-              
+
             }
         }
 
 
-  </script>
+    </script>
 
 
 </body>

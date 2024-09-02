@@ -1,4 +1,6 @@
-  <!DOCTYPE html>
+
+
+<!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
@@ -17,18 +19,29 @@
 </head>
 
 <body>
+    
+      <section class="container-fluid">
+    <div class="container">
+    <div class="button-collection row  gap-sm-5 nav-button-collection py-2">
+          <button class="btn-buttonyellow reg-logbutton reg-logbutton-white mb-1 mx-1 coloryellow">register</button>
+          <button class="btn-buttonyellow reg-logbutton mx-1 ">login</button>
+        </div>
+      
+    </div>
+
+  </section>
 
 <!-- navbar -->
 
 <section class="container-fluid navsection">
     <div class="container">
       <nav class="navbar navbar-expand-lg navbar-light navcustom">
-        <a class="navbar-brand" href="#"> <img src="{{ asset('image/nexonlogoa2.png') }}" alt="Logo" /></a>
+        <a class="navbar-brand" href="#"> <img src="{{ asset('image/logo.png') }}" alt="Logo" /></a>
       
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{{route("index")}}">Introduction</a>
+              <a class="nav-link active" aria-current="page" href="{{route("/")}}">Introduction</a>
             </li>
             <li class="nav-item">
             <a class="nav-link" aria-current="page" href="{{route('properties')}}">Rent</a>
@@ -43,10 +56,10 @@
           </ul> 
         
         </div>
-        <div class="button-collection d-flex">
-          <button class="btn-buttonyellow btn-buttonyellowextrasmall  btn-buttonyellowextrasmallbac mx-1">register</button>
-          <button class="btn-buttonyellow btn-buttonyellowextrasmall ">login</button>
-          </div>
+       <div class="button-collection  flex-column ">
+          <button class="btn-buttonyellow reg-logbutton reg-logbutton-white mb-1">register</button>
+          <button class="btn-buttonyellow reg-logbutton ">login</button>
+        </div>
           <i class="fa-solid fa-bars customicons mx-4 " onclick="funmenu()"></i>
          
         
@@ -102,7 +115,7 @@
         <div class="col-md-8">
             <div class="row d-flex flex- col ">
                 <div class="col-md-12 mb-3">
-                <img src="{{asset('image/bighouse.png')}}" alt="" srcset="" class="imagecontroller">
+                <img src="{{asset('image/house1.png')}}" alt="" srcset="" class="imagecontroller">
           <div class=" d-flex gap-3 py-3">
             <div class="d-flex ">
               <i class="fa-solid fa-person customiconssmall pt-1 mx-1"></i>

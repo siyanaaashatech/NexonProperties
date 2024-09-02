@@ -25,7 +25,33 @@ Auth::routes();
 
 Route::get('/', function () {
     return view('frontend.welcome');
-})->name('index');
+})->name('/');
+
+Route::get("/properties",function(){
+    return view("properties");
+
+})->name("properties");
+Route::get("/blog",function(){
+    return view("blog");
+
+})->name("blog");
+
+
+Route::get("/member",function(){
+    return view("member");
+
+});
+Route::get("/contact",function(){
+    return view("contact");
+})->name("contact");
+
+
+Route::get("/about",function(){
+    return view("about");
+})->name('about');
+
+
+
 
 Route::prefix('/admin')->name('admin.')->middleware(['web', 'auth'])->group(function () {
 
