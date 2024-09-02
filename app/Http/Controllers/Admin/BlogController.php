@@ -3,63 +3,105 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Blog;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Show all blogs
     public function index()
     {
-        //
+        $blogs = Blog::all();
+        return view('admin.blogs.index', compact('blogs'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Show form to create a new blog
     public function create()
     {
-        //
+        return view('admin.blogs.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Store new blog in the database
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'author' => 'nullable|string|max:255',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'status' => 'required|boolean'
+        ]);
+
+        $blog = new Blog();
+        $blog->title = $request->title;
+        $blog->description = $request->description;
+        $blog->author = $request->author;
+        $blog->status = $request->status;
+
+        if ($request->hasFile('image')) {
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('images/blogs'), $imageName);
+            $blog->image = $imageName;
+        }
+
+        $blog->save();
+
+        return redirect()->route('admin.blogs.index')->with('success', 'Blog created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    // Show form to edit the blog
+    public function edit($id)
     {
-        //
+        $blog = Blog::findOrFail($id);
+        return view('admin.blogs.update', compact('blog'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
+    // Update blog in the database
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'author' => 'nullable|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'status' => 'required|boolean'
+        ]);
+
+        $blog = Blog::findOrFail($id);
+        $blog->title = $request->title;
+        $blog->description = $request->description;
+        $blog->author = $request->author;
+        $blog->status = $request->status;
+
+        if ($request->hasFile('image')) {
+            $imageName = time().'.'.$request->image->extension();
+            $request->image->move(public_path('images/blogs'), $imageName);
+            $blog->image = $imageName;
+        }
+
+        $blog->save();
+
+        return redirect()->route('admin.blogs.index')->with('success', 'Blog updated successfully.');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    // Delete a blog from the database
+    public function destroy($id)
     {
-        //
-    }
+        $blog = Blog::findOrFail($id);
+        $blog->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+        return redirect()->route('admin.blogs.index')->with('success', 'Blog deleted successfully.');
+    }
+    public function uploadImage(Request $request)
     {
-        //
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $path = $file->store('public/uploads');
+            $url = asset('storage/uploads/' . basename($path));
+
+            return response()->json(['url' => $url]);
+        }
+
+        return response()->json(['error' => 'No file uploaded'], 400);
     }
 }
