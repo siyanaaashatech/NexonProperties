@@ -375,9 +375,10 @@ a {
 
 
 .reg-logbutton{
-    height:30px;
-    width: 100px;
+    height:24px;
+    width: 70px;
     border-radius:4px;
+    font-size: 14px
 
 
 }
@@ -389,6 +390,14 @@ a {
 
 
  @media (max-width:990px) {
+    .reg-logbutton{
+        height:30px;
+        width: 100px;
+        border-radius:4px;
+        font-size: 18px
+    
+    
+    }
     .button-collection{
          display: none; 
     }
@@ -885,8 +894,16 @@ a {
     left: 6%;
 }
 .teamimagerow > .member-container:nth-child(even) {
-    margin-top: 5rem;
+    margin-top: 10rem;
 }
+@media (max-width:660px) {
+    .teamimagerow > .member-container:nth-child(even) {
+        margin-top:0;
+    }
+    
+}
+
+
 .singlequestion {
     display: flex;
     flex-direction: column;

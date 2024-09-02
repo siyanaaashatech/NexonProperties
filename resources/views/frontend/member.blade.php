@@ -189,32 +189,32 @@
 
 
 
-<!-- footer section  -->
+{{--footer section --}}
+
 <footer class="container-fluid container-fluid-background mt-5">
     <div class="container">
-      <div class="row">
-        <div class="col-md-4 flex-col sm-col-12 py-1">
-          <h1 class="lg-text1">NEXON</h1>
-          <span class="sm-text1">@ copyright Welcome to pagename all right reserved</span>
-
-        </div>
-        <div class="col-md-4 sm-col-12  py-1">
-          <h1 class="md-text1">Quick link</h1>
-          <ul class="d-flex justify-content-around customui">
-            <li><a href="">home</a></li>
-            <li><a href="">home</a></li>
-            <li><a href="">home</a></li>
-            <li><a href="">home</a></li>
-            <li><a href="">home</a></li>
-          </ul>
+      <div class="row  d-flex justify-content-between">
+        <div class="col-md-5 flex-col sm-col-12 py-1">
+          <h1 class="lg-text1 highlight p-0 m-0">NEXON</h1>
           <p class="sm-text1">
             Welcome to pagename where our passion for real estate and dedication to
             client satisfaction converge to create an unparalleled home-buying experience. Founded </p>
 
         </div>
-        <div class="col-md-3 col-sm-12 mx-md-5 py-1">
-          <h1 class="md-text1">Message us</h1>
-          <input type="text" class="input">
+        <div class="col-md-2 sm-col-12  py-1 px-5">
+          <h1 class="md-text1 highlight">Quick link</h1>
+          <ul class="d-flex justify-content-around customui flex-column gap-2">
+            <li><a href=""> <i class="fa-solid fa-truck-moving  customiconssmall"></i>Rent</a></li>
+            <li><a href=""><i class="fa-solid fa-cart-shopping customiconssmall"></i>Buy</a></li>
+            <li><a href=""> <i class="fa-solid fa-address-book customiconssmall"></i>About</a></li>
+            <li><a href=""><i class="fa-solid fa-blog customiconssmall"></i>Blog</a></li>
+          </ul>
+
+
+        </div>
+        <div class="col-md-3 col-sm-12  py-1">
+          <h1 class="md-text1 highlight">Message us</h1>
+          <input type="text" class="input" placeholder="Your email id here">
           <textarea name="" id="" rows="1" cols="" class="textarea my-1"></textarea>
           <button class=" btn-buttonyellow  footer-button">login/register</button>
 
@@ -242,7 +242,6 @@
 
     </div>
   </div>
-
 
 
 

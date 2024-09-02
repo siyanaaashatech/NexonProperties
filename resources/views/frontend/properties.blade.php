@@ -1,109 +1,5 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <title>Laravel</title>
-
-
-  <link rel="stylesheet" href="{{asset('boot/css/bootstrap.css')}}">
-  <script src="{{ asset('boot/js/bootstrap.min.js')}}"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-  <link rel="stylesheet" href="{{asset('css/style.css')}}">
-
-
-
-</head>
-
-<body>
-      
-<section class="container-fluid">
-    <div class="container">
-    <div class="button-collection row  gap-sm-5 nav-button-collection py-2">
-          <button class="btn-buttonyellow reg-logbutton reg-logbutton-white mb-1 mx-1 coloryellow">register</button>
-          <button class="btn-buttonyellow reg-logbutton mx-1 ">login</button>
-        </div>
-      
-    </div>
-
-  </section>
-
-    <!-- navbar -->
-
-    <section class="container-fluid navsection">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light navcustom">
-                <a class="navbar-brand" href="#"> <img src="{{ asset('image/logo.png') }}" alt="Logo" /></a>
-
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{route('/')}}">Introduction</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="{{route('properties')}}">Rent</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" aria-current="page" href="{{route('properties')}}">Buy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{route('about') }}">About</a>
-                        </li>
-
-                    </ul>
-
-                </div>
-               <div class="button-collection  flex-column ">
-          <button class="btn-buttonyellow reg-logbutton reg-logbutton-white mb-1">register</button>
-          <button class="btn-buttonyellow reg-logbutton ">login</button>
-        </div>
-                <i class="fa-solid fa-bars customicons mx-4 " onclick="funmenu()"></i>
-
-
-            </nav>
-        </div>
-        <div class="bur-menu py-3" id="bur-menu">
-            <div class="activites">
-                <h2 class="navdestext pt-3">activities section</h2>
-                <li class="nav-item">
-                    <i class="fa-solid fa-house customiconssmall "></i>
-                    <a class="nav-link " aria-current="page" href="#">Introduction</a>
-                </li>
-                <li class="nav-item">
-
-                    <i class="fa-solid fa-truck-moving  customiconssmall"></i>
-                    <a class="nav-link " aria-current="page" href="{{route('properties')}}">Rent</a>
-                </li>
-                <li class="nav-item">
-                    <i class="fa-solid fa-cart-shopping customiconssmall"></i>
-                    <a class="nav-link" aria-current="page" href="{{route('properties')}}">Buy</a>
-                </li>
-            </div>
-            <div class="information">
-                <h2 class="navdestext">Information section</h2>
-                <li class="nav-item d-flex">
-                    <i class="fa-solid fa-circle-question customiconssmall"></i>
-                    <a class="nav-link" aria-current="page" href="{{route("about")}}">About</a>
-                </li>
-                <li class="nav-item">
-                    <i class="fa-solid fa-blog customiconssmall"></i>
-                    <a class="nav-link active" aria-current="page" href="{{route("blog")}}">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <i class="fa-solid fa-address-book customiconssmall"></i>
-                    <a class="nav-link active" aria-current="page" href="{{route('contact')}}">contact</a>
-                </li>
-            </div>
-            <h2 class="navdestext">follow us</h2>
-            <div class="d-flex font-collection py-2">
-                <i class="fa-brands fa-facebook customicons mx-2"></i>
-                <i class="fa-brands fa-linkedin customicons mx-2"></i>
-                <i class="fa-brands fa-youtube customicons mx-2"></i>
-            </div>
-        </div>
-    </section>
+@extends("frontend.layouts.master")
+    @section("content")
 
     <section class="container-fluid">
         <div class="row">
@@ -437,61 +333,8 @@
 </section>
 
 
-<!-- footer section  -->
-<footer class="container-fluid container-fluid-background mt-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4 flex-col sm-col-12 py-1">
-          <h1 class="lg-text1">NEXON</h1>
-          <span class="sm-text1">@ copyright Welcome to pagename all right reserved</span>
 
-        </div>
-        <div class="col-md-4 sm-col-12  py-1">
-          <h1 class="md-text1">Quick link</h1>
-          <ul class="d-flex justify-content-around customui">
-            <li><a href="">home</a></li>
-            <li><a href="">home</a></li>
-            <li><a href="">home</a></li>
-            <li><a href="">home</a></li>
-            <li><a href="">home</a></li>
-          </ul>
-          <p class="sm-text1">
-            Welcome to pagename where our passion for real estate and dedication to
-            client satisfaction converge to create an unparalleled home-buying experience. Founded </p>
-
-        </div>
-        <div class="col-md-3 col-sm-12 mx-md-5 py-1">
-          <h1 class="md-text1">Message us</h1>
-          <input type="text" class="input">
-          <textarea name="" id="" rows="1" cols="" class="textarea my-1"></textarea>
-          <button class=" btn-buttonyellow  footer-button">login/register</button>
-
-        </div>
-      </div>
-
-    </div>
-  </footer>
-
-  <div class="container-fluid button-footer">
-    <div class="container d-flex align-items-center  justify-content-center flex-column py-2">
-      <div class="d-flex justify-content-around  py-2 ">
-        <i class="fa-brands fa-facebook customicons mx-2"></i>
-        <i class="fa-brands fa-instagram customicons mx-2"></i>
-        <i class="fa-brands fa-linkedin customicons mx-2"></i>
-        <i class="fa-brands fa-youtube customicons mx-2"></i>
-      </div>
-      <ul class="d-flex justify-content-around customui">
-        <li><a href="" class=" mx-1 line">fAQ</a></li>
-        <li><a href="" class=" mx-1 line">Policy</a></li>
-        <li><a href="" class=" mx-2">Term and Condition</a></li>
-
-      </ul>
-
-
-    </div>
-  </div>
-
-
+@endsection
 
 
 
@@ -532,13 +375,6 @@
 
 
   </script>
-
-
-
-
-
-</body>
-</html>
 
 
 

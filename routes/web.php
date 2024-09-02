@@ -52,6 +52,11 @@ Route::get("/about",function(){
 })->name('about');
 
 
+Route::get('/hello', function () {
+    return view('singleproperties');
+})->name('hello');
+
+
 
 
 Route::prefix('/admin')->name('admin.')->middleware(['web', 'auth'])->group(function () {
