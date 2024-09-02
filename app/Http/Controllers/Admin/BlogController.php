@@ -24,30 +24,32 @@ class BlogController extends Controller
     // Store new blog in the database
     public function store(Request $request)
     {
+        // Validate the incoming request data
         $request->validate([
             'title' => 'required|string|max:255',
-            'description' => 'required|string',
+            'description' => 'required|string', // Summernote content
             'author' => 'nullable|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'status' => 'required|boolean'
         ]);
 
+        // Handle the file upload
+        $imagePath = $request->file('image')->store('blog_images', 'public');
+
+        // Store the blog in the database
         $blog = new Blog();
-        $blog->title = $request->title;
-        $blog->description = $request->description;
-        $blog->author = $request->author;
-        $blog->status = $request->status;
-
-        if ($request->hasFile('image')) {
-            $imageName = time().'.'.$request->image->extension();
-            $request->image->move(public_path('images/blogs'), $imageName);
-            $blog->image = $imageName;
-        }
-
+        $blog->title = $request->input('title');
+        $blog->description = $request->input('description'); // Summernote content
+        $blog->author = $request->input('author');
+        $blog->image = $imagePath;
+        $blog->status = $request->input('status');
         $blog->save();
 
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog created successfully.');
+        // Redirect to a desired page with a success message
+        return redirect()->route('admin.blogs.index')->with('success', 'Blog created successfully!');
     }
+
+    
 
     // Show form to edit the blog
     public function edit($id)

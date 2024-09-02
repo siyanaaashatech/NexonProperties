@@ -45,7 +45,17 @@
             <button type="submit" class="btn btn-primary">Create Blog</button>
         </div>
     </form>
-    </div>
+
+    @push('styles')
+    <!-- Include Summernote CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    @endpush
+
+    @push('scripts')
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include Summernote JS -->
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -65,7 +75,7 @@
                 let data = new FormData();
                 data.append("file", file);
                 $.ajax({
-                    url: "{{ route('admin.uploadImage') }}", // Replace with your upload route
+                    url: "{{ route('admin.uploadImage') }}",
                     cache: false,
                     contentType: false,
                     processData: false,
@@ -79,6 +89,7 @@
                     }
                 });
             }
+
             $('#quickForm').validate({
                 rules: {
                     title: {
@@ -122,4 +133,5 @@
             });
         });
     </script>
+    @endpush
 @endsection
