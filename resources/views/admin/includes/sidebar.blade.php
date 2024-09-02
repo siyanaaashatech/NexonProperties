@@ -103,6 +103,16 @@
 {{-- Beginning of Site Settings --}}
 
 
+<li class="nav-item">
+    <!-- Top-level link for Metadata -->
+    <a class="nav-link {{ Request::is('admin/metadata*') ? 'active' : '' }}"
+       href="{{ route('metadata.index') }}">
+        <div class="d-flex align-items-center">
+            <span class="nav-link-icon"><i class="fas fa-tag"></i></span>
+            <span class="nav-link-text ps-1">Metadata</span>
+        </div>
+    </a>
+</li>
 
 
                 <li class="nav-item">

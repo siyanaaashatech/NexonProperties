@@ -34,7 +34,7 @@ class MetadataController extends Controller
 
     public function edit(Metadata $metadata)
     {
-        return view('admin.metadata.edit', compact('metadata'));
+        return view('admin.metadata.update', compact('metadata'));
     }
 
     public function update(Request $request, Metadata $metadata)

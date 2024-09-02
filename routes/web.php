@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\TestimonialController;
+use App\Http\Controllers\MetadataController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\NoTransactionPurposeController;
@@ -97,6 +98,10 @@ Route::prefix('/admin')->name('admin.')->middleware(['web', 'auth'])->group(func
 
    // Testimonial Routes 
    Route::resource('admin/testimonials', TestimonialController::class);
+
+   //MetaData Routes
+   Route::resource('metadata', MetadataController::class);
+
 
 // Routes for History
 // Route::get('/application-history/', [HistoriesController::class, 'application_index'])->name('application-history');
