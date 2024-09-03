@@ -1,108 +1,85 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@extends("frontend.layouts.master")
+    @section("content")
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <section class="container-fluid">
+        <div class="row">
+            <div class="col-md-12 p-0">
+                <div class="carousel-inner mb-3">
+                    <div class="row d-flex">
+                        <div
+                            class="col-md-12 text-center d-flex flex-column justify-content-center align-items-center mb-2 ">
+                            <img src="{{ asset('image/house3.png') }}" alt="" srcset=""
+                                class="imagecontroller imagecontrollerheight">
+                            <div class="flex bannercontentheight">
+                                <div class="bannercontentinnerheight ">
+                                    <h4 class="lg-text1">properties</h4>
+                                    <h5 class="md-text1">home <i class="fa-solid fa-angle-right "></i>
+                                        <span class="highlight">properties</span>
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    </section>
 
-  <title>Laravel</title>
-
-  <link rel="stylesheet" href="{{asset('css/style.css')}}">
-  <link rel="stylesheet" href="{{asset('boot/css/bootstrap.css')}}">
-  <script src="{{ asset('boot/js/bootstrap.min.js')}}"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
 
 
 
-</head>
-
-<body>
-
-<!-- navbar -->
-
-<section class="container-fluid navsection">
+{{-- form --}}
+<section class="container-fluid py-4 propertiesfinder">
     <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-light navcustom">
-        <a class="navbar-brand" href="#"> <img src="{{ asset('image/nexonlogoa2.png') }}" alt="Logo" /></a>
       
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mb-2 mb-lg-0">
-            <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{{route('index')}}">Introduction</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{{route('properties')}}">Rent</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{{route('properties')}}">Buy</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{{route('about') }}">About</a>
-            </li>
-          
-          </ul> 
-        
-        </div>
-        <div class="button-collection d-flex">
-          <button class="btn-buttonyellow btn-buttonyellowextrasmall  btn-buttonyellowextrasmallbac mx-1">register</button>
-          <button class="btn-buttonyellow btn-buttonyellowextrasmall ">login</button>
-          </div>
-          <i class="fa-solid fa-bars customicons mx-4 " onclick="funmenu()"></i>
-         
-        
-      </nav>
+        <h1 class="lg-text1 text-center searchhide" onclick="funsearchingon()">
+            <i class="fa-brands fa-searchengin customicons"></i> Find your properties
+        </h1>
+        <div class="justify-content-center align-items-center gap-1 flex-wrap hiddenform" id="hiddenform">
+            <div class="d-flex flex-column col-md-3">
+                <label for="" class="sm-text1 des-text">Listing type</label>
+                <input type="text" class="input bannerinput">
+            </div>
+            <div class="d-flex flex-column col-md-3">
+                <label for="" class="sm-text1 des-text">Properties type</label>
+                <input type="text" class="input bannerinput">
+            </div>
+            <div class="d-flex flex-column col-md-3">
+                <label for="" class="sm-text1 des-text">Location</label>
+                <input type="text" class="input bannerinput">
+            </div>
+            <div class="d-flex flex-column col-md-3">
+                <label for="" class="sm-text1 des-text">Location</label>
+                <input type="text" class="input bannerinput">
+            </div>
+            <div class="d-flex flex-column col-md-3">
+                <label for="" class="md-text1 des-text">Price</label>
+                <input type="text" class="input bannerinput">
+            </div>
+         <div class="d-flex flex-column col-md-3">
+                <label for="" class="sm-text1 des-text">Search</label>
+                <button class="btn-buttonyellow btn-buttonyellowlg">Find properties</button>
+            </div>
+       
     </div>
-    <div class="bur-menu py-3" id="bur-menu">
-      <div class="activites">
-         <h2 class="navdestext pt-3">activities section</h2>
-          <li class="nav-item">
-          <i class="fa-solid fa-house customiconssmall "></i>
-              <a class="nav-link " aria-current="page" href="#">Introduction</a>
-            </li>
-            <li class="nav-item">
-            
-            <i class="fa-solid fa-truck-moving  customiconssmall"></i>
-              <a class="nav-link " aria-current="page" href="{{route('properties')}}">Rent</a>
-            </li>
-            <li class="nav-item">
-            <i class="fa-solid fa-cart-shopping customiconssmall"></i>
-              <a class="nav-link" aria-current="page" href="{{route('properties')}}">Buy</a>
-            </li>
-            </div>
-            <div class="information">
-            <h2 class="navdestext">Information section</h2>
-            <li class="nav-item d-flex">
-            <i class="fa-solid fa-circle-question customiconssmall"></i>
-              <a class="nav-link" aria-current="page" href="{{route("about")}}">About</a>
-            </li>
-          <li class="nav-item">
-          <i class="fa-solid fa-blog customiconssmall"></i>
-              <a class="nav-link active" aria-current="page" href="{{route("blog")}}">Blog</a>
-            </li>
-            <li class="nav-item">
-            <i class="fa-solid fa-address-book customiconssmall"></i>
-              <a class="nav-link active" aria-current="page" href="{{route('contact')}}">contact</a>
-            </li>
-            </div>
-            <h2 class="navdestext">follow us</h2>
-            <div class="d-flex font-collection py-2">
-            <i class="fa-brands fa-facebook customicons mx-2"></i>
-            <i class="fa-brands fa-linkedin customicons mx-2"></i>
-           <i class="fa-brands fa-youtube customicons mx-2"></i>
-            </div>            
-            </div>
-  </section>
+    </div>
+</section>
 
-  {{-- 
+
+
+
+{{-- 
+
+<!-- project page-->
+<!-- hero section -->
 <section class="container-fluid">
     <div class="row">
       <div class="col-md-12 p-0">
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-inner mb-3">
+            <!-- First Carousel Item -->
             <div class="carousel-item active">
               <div class="row d-flex">
                 <div class="col-md-12 text-center d-flex flex-column justify-content-center align-items-center mb-2 ">
-                  <img src="{{ asset('image/bighouse.png') }}" alt="" srcset="" class="imagecontroller">
+                  <img src="{{ asset('image/house1.png') }}" alt="" srcset="" class="imagecontroller">
                   <div class="flex bannercontent">
                     <div class="bannercontentinner">
                       <p class="sm-text1 mb-3 text-center forhidden">More than <span class="highlight">1000+</span> houses
@@ -136,63 +113,13 @@
       </div>
 
     </div>
-  </section>
-  --}}
-
-
-  <!-- bannersection -->
-
-  <section class="container-fluid">
-        <div class="row">
-            <div class="col-md-12 p-0">
-                <div class="carousel-inner mb-3">
-                    <div class="row d-flex">
-                        <div
-                            class="col-md-12 text-center d-flex flex-column justify-content-center align-items-center mb-2 ">
-                            <img src="{{ asset('image/house1.png') }}" alt="" srcset=""
-                                class="imagecontroller imagecontrollerheight">
-                            <div class="flex bannercontentheight">
-                                <div class="bannercontentinnerheight ">
-                                    <h4 class="lg-text1">Contact</h4>
-                                    <h5 class="md-text1">home <i class="fa-solid fa-angle-right "></i>
-                                        <span class="highlight">contact</span> </h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-    </section>
-
-
-
-<!-- Search section -->
-
-
-   <section class="container-fluid greenbackground ">
-     <div class="container">
-      <div class="row">
-        <div class="d-flex flex-column">
-          <label for="" class="sm-text1">Listing type</label>
-          <input type="text" class="input bannerinput">
-        </div>
-        <div class="d-flex flex-column">
-          <label for="" class="sm-text1">properties type</label>
-          <input type="text" class="input bannerinput">
-        </div>
-        <div class="d-flex flex-column">
-          <label for="" class="sm-text1">Location</label>
-          <input type="text" class="input bannerinput">
-        </div>
-
-      </div>
-     </div>
 
 
   </section>
-
+--}}
 
 <!-- multiple properties section -->
-<section class="container-fluid multipost my-3">
+<section class="container-fluid multipost mb-3 pb-4">
     <div class="container">
         <div class="row ">
             <div class="col-md-12">
@@ -406,66 +333,22 @@
 </section>
 
 
-<!-- footer section  -->
-<footer class="container-fluid container-fluid-background mt-5">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-4 flex-col sm-col-12 py-1">
-          <h1 class="lg-text1">NEXON</h1>
-          <span class="sm-text1">@ copyright Welcome to pagename all right reserved</span>
 
-        </div>
-        <div class="col-md-4 sm-col-12  py-1">
-          <h1 class="md-text1">Quick link</h1>
-          <ul class="d-flex justify-content-around customui">
-            <li><a href="">home</a></li>
-            <li><a href="">home</a></li>
-            <li><a href="">home</a></li>
-            <li><a href="">home</a></li>
-            <li><a href="">home</a></li>
-          </ul>
-          <p class="sm-text1">
-            Welcome to pagename where our passion for real estate and dedication to
-            client satisfaction converge to create an unparalleled home-buying experience. Founded </p>
-
-        </div>
-        <div class="col-md-3 col-sm-12 mx-md-5 py-1">
-          <h1 class="md-text1">Message us</h1>
-          <input type="text" class="input">
-          <textarea name="" id="" rows="1" cols="" class="textarea my-1"></textarea>
-          <button class=" btn-buttonyellow  footer-button">login/register</button>
-
-        </div>
-      </div>
-
-    </div>
-  </footer>
-
-  <div class="container-fluid button-footer">
-    <div class="container d-flex align-items-center  justify-content-center flex-column py-2">
-      <div class="d-flex justify-content-around  py-2 ">
-        <i class="fa-brands fa-facebook customicons mx-2"></i>
-        <i class="fa-brands fa-instagram customicons mx-2"></i>
-        <i class="fa-brands fa-linkedin customicons mx-2"></i>
-        <i class="fa-brands fa-youtube customicons mx-2"></i>
-      </div>
-      <ul class="d-flex justify-content-around customui">
-        <li><a href="" class=" mx-1 line">fAQ</a></li>
-        <li><a href="" class=" mx-1 line">Policy</a></li>
-        <li><a href="" class=" mx-2">Term and Condition</a></li>
-
-      </ul>
-
-
-    </div>
-  </div>
-
-
+@endsection
 
 
 
 
   <script>
+    function funsearchingon(){
+      const hiddenformdata = document.getElementsByClassName("hiddenform")[0];
+      if(hiddenformdata.style.display==="block"){
+        hiddenformdata.style.display="none";
+      }
+      hiddenformdata.style.display="block";
+
+     }
+  
     
     function changepage(element) {
         const pageli = document.getElementsByClassName("nextli");
@@ -497,5 +380,14 @@
 
 
 
-</body>
-</html>
+
+
+
+
+
+
+
+
+
+
+

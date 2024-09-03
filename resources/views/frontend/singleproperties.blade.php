@@ -1,5 +1,5 @@
-<h1 class="container py-4">single project page just for design</h1>
-
+@extends("frontend.layouts.master")
+@section("content")
 <section class="container-fluid singleprojectpage">
     <div class="container">
         <div class="row">
@@ -142,3 +142,5 @@
             </div>
         </div>
 </section>
+
+@endsection
