@@ -19,7 +19,8 @@
 
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea name="description" class="form-control summernote" id="description" required></textarea>
+                <!-- Ensure that the textarea has the class 'summernote' -->
+                <textarea name="description" class="form-control summernote" id="summernote" required></textarea>
             </div>
 
             <div class="form-group">
@@ -45,12 +46,22 @@
             <button type="submit" class="btn btn-primary">Create Blog</button>
         </div>
     </form>
-    </div>
+
+    @push('styles')
+    <!-- Include Summernote CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    @endpush
+
+    @push('scripts')
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include Summernote JS -->
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
     <script>
         $(document).ready(function() {
             // Initialize Summernote
-            $('.summernote').summernote({
+            $('#summernote').summernote({
                 height: 200,
                 callbacks: {
                     onImageUpload: function(files) {
@@ -65,20 +76,21 @@
                 let data = new FormData();
                 data.append("file", file);
                 $.ajax({
-                    url: "{{ route('admin.uploadImage') }}", // Replace with your upload route
+                    url: "{{ route('admin.uploadImage') }}", // Adjust the route to your needs
                     cache: false,
                     contentType: false,
                     processData: false,
                     data: data,
                     type: "POST",
                     success: function(url) {
-                        $('.summernote').summernote('insertImage', url);
+                        $('#summernote').summernote('insertImage', url);
                     },
                     error: function(data) {
                         console.log(data);
                     }
                 });
             }
+
             $('#quickForm').validate({
                 rules: {
                     title: {
@@ -122,4 +134,5 @@
             });
         });
     </script>
+    @endpush
 @endsection

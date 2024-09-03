@@ -10,9 +10,9 @@
         "cyrildewit/eloquent-viewable": "^7.0.3",
         "ernilambar/nepali-date": "^1.0",
         "guzzlehttp/guzzle": "^7.0.1",
-        "intervention/image": "3.8",
         "laravel/framework": "^11.0",
-        "laravel/ui": "^4.5.2"
+        "laravel/ui": "^4.5.2",
+        "league/glide": "^2.3"
     },
     "require-dev": {
         

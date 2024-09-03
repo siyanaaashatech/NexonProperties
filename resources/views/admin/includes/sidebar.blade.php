@@ -114,7 +114,7 @@
     </a>
 </li>
 
-
+ 
                 <li class="nav-item">
                     <!-- label-->
                     <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
@@ -210,21 +210,7 @@
                         </div>
                     </div>
 
-                    @can('hasPermission', 'view_history')
-                        <a class="nav-link" href="{{ route('admin.application-history') }}" role="button">
-                            <div class="d-flex align-items-center"><span class="nav-link-icon">
-                                    <i class="fas fa-sort-alpha-up"></i>
-                                    <!-- <span class="fas fa-comments"></span> Font Awesome fontawesome.com --></span><span
-                                    class="nav-link-text ps-1">Application History</span></div>
-                        </a>
-
-                        <a class="nav-link" href="{{ route('admin.system-history') }}" role="button">
-                            <div class="d-flex align-items-center"><span class="nav-link-icon">
-                                    <i class="fas fa-sort-alpha-up"></i>
-                                    <!-- <span class="fas fa-comments"></span> Font Awesome fontawesome.com --></span><span
-                                    class="nav-link-text ps-1">System History</span></div>
-                        </a>
-                    @endcan
+                   
 
                    
                     {{-- @can('hasPermission', 'view_blogs') --}}
@@ -253,6 +239,18 @@
                         </a>
                     </li>
                     {{-- @endcan --}}
+
+                    <li class="nav-item">
+                        <!-- Top-level link for Services -->
+                        <a class="nav-link {{ Request::is('admin/services*') ? 'active' : '' }}"
+                           href="{{ route('services.index') }}">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon"><i class="fas fa-concierge-bell"></i></span>
+                                <span class="nav-link-text ps-1">Services</span>
+                            </div>
+                        </a>
+                    </li>
+                    
 
                 </li>
             </ul>

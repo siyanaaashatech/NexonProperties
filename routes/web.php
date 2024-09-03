@@ -5,9 +5,10 @@ use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\TestimonialController as AdminTestimonialController;
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\AdminController;
-use App\Http\Controllers\BlogController;
-use App\Http\Controllers\TestimonialController;
-use App\Http\Controllers\MetadataController;
+use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\TestimonialController;
+use App\Http\Controllers\Admin\MetadataController;
+use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\NoTransactionPurposeController;
@@ -107,6 +108,7 @@ Route::prefix('/admin')->name('admin.')->middleware(['web', 'auth'])->group(func
    //MetaData Routes
    Route::resource('metadata', MetadataController::class);
 
+   Route::resource('services', ServiceController::class)->except(['show']);
 
 // Routes for History
 // Route::get('/application-history/', [HistoriesController::class, 'application_index'])->name('application-history');

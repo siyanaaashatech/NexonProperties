@@ -45,6 +45,17 @@
 
         </div>
     </main>
+    @push('styles')
+    <!-- Summernote CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css" rel="stylesheet">
+@endpush
+
+@push('scripts')
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Summernote JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
+@endpush
     <!-- ===============================================-->
     <!--    End of Main Content-->
     <!-- ===============================================-->
