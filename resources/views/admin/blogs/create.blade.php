@@ -19,6 +19,7 @@
 
             <div class="form-group">
                 <label for="description">Description</label>
+                <!-- Ensure that the textarea has the class 'summernote' -->
                 <textarea name="description" class="form-control summernote" id="summernote" required></textarea>
             </div>
 
@@ -75,14 +76,14 @@
                 let data = new FormData();
                 data.append("file", file);
                 $.ajax({
-                    url: "{{ route('admin.uploadImage') }}",
+                    url: "{{ route('admin.uploadImage') }}", // Adjust the route to your needs
                     cache: false,
                     contentType: false,
                     processData: false,
                     data: data,
                     type: "POST",
                     success: function(url) {
-                        $('.summernote').summernote('insertImage', url);
+                        $('#summernote').summernote('insertImage', url);
                     },
                     error: function(data) {
                         console.log(data);
