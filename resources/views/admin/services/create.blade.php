@@ -1,5 +1,16 @@
 @extends('admin.layouts.master')
 
+@section('head')
+    <!-- Summernote CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote.min.css" rel="stylesheet">
+    
+    <!-- jQuery (necessary for Summernote) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Summernote JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote.min.js"></script>
+@endsection
+
 @section('content')
 <div class="container mt-5">
     <div class="row">
@@ -15,7 +26,6 @@
                         </div>
                     @endif
 
-                    <!-- Display validation errors -->
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
@@ -26,7 +36,6 @@
                         </div>
                     @endif
 
-                    <!-- Service creation form -->
                     <form action="{{ route('services.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
@@ -45,7 +54,7 @@
                         <!-- Description -->
                         <div class="form-group mb-3">
                             <label for="description">Description</label>
-                            <textarea name="description" id="description" class="form-control" rows="5" required>{{ old('description') }}</textarea>
+                            <textarea name="description" id="description" class="form-control summernote" rows="5" required>{{ old('description') }}</textarea>
                         </div>
 
                         <!-- Image Upload -->
@@ -87,4 +96,16 @@
         </div>
     </div>
 </div>
+
+<!-- Initialize Summernote -->
+<script>
+    $(document).ready(function() {
+        $('.summernote').summernote({
+            height: 200, // Set editor height
+            minHeight: null, // Set minimum height of editor
+            maxHeight: null, // Set maximum height of editor
+            focus: true // Set focus to editable area after initializing summernote
+        });
+    });
+</script>
 @endsection

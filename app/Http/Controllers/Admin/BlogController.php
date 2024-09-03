@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use App\Models\SummernoteContent; // Import the SummernoteContent model
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -36,10 +37,14 @@ class BlogController extends Controller
         // Handle the file upload
         $imagePath = $request->file('image')->store('blog_images', 'public');
 
+        // Process the Summernote content
+        $summernoteContent = new SummernoteContent();
+        $processedContent = $summernoteContent->processContent($request->input('description'));
+
         // Store the blog in the database
         $blog = new Blog();
         $blog->title = $request->input('title');
-        $blog->description = $request->input('description'); // Summernote content
+        $blog->description = $processedContent; 
         $blog->author = $request->input('author');
         $blog->image = $imagePath;
         $blog->status = $request->input('status');
@@ -48,8 +53,6 @@ class BlogController extends Controller
         // Redirect to a desired page with a success message
         return redirect()->route('admin.blogs.index')->with('success', 'Blog created successfully!');
     }
-
-    
 
     // Show form to edit the blog
     public function edit($id)
@@ -71,9 +74,13 @@ class BlogController extends Controller
 
         $blog = Blog::findOrFail($id);
         $blog->title = $request->title;
-        $blog->description = $request->description;
         $blog->author = $request->author;
         $blog->status = $request->status;
+
+        // Process the Summernote content
+        $summernoteContent = new SummernoteContent();
+        $processedContent = $summernoteContent->processContent($request->input('description'));
+        $blog->description = $processedContent;
 
         if ($request->hasFile('image')) {
             $imageName = time().'.'.$request->image->extension();
@@ -94,6 +101,7 @@ class BlogController extends Controller
 
         return redirect()->route('admin.blogs.index')->with('success', 'Blog deleted successfully.');
     }
+
     public function uploadImage(Request $request)
     {
         if ($request->hasFile('file')) {

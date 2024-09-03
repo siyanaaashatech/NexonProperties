@@ -19,7 +19,7 @@
 
             <div class="form-group">
                 <label for="description">Description</label>
-                <textarea name="description" class="form-control summernote" id="description" required></textarea>
+                <textarea name="description" class="form-control summernote" id="summernote" required></textarea>
             </div>
 
             <div class="form-group">
@@ -60,7 +60,7 @@
     <script>
         $(document).ready(function() {
             // Initialize Summernote
-            $('.summernote').summernote({
+            $('#summernote').summernote({
                 height: 200,
                 callbacks: {
                     onImageUpload: function(files) {
