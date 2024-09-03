@@ -99,6 +99,10 @@
   <section class="singlepage pt-4">
     <div class="container">
       <div class="row">
+        @foreach ($services as $service )
+       {{$service->title}} 
+          
+        @endforeach
         <div class="col-md-8">
             <div class="row d-flex flex- col ">
                 <div class="col-md-12 mb-3">
