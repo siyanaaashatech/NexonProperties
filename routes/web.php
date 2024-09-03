@@ -22,12 +22,14 @@ use App\Models\Blog;
 use App\Models\Testimonial;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FrontViewController;
 
 Auth::routes();
 
-Route::get('/', function () {
-    return view('frontend.welcome');
-})->name('/');
+Route::get('/', [FrontViewController::class, 'index'])->name('welcome');
+
+
+Route::get("services", function () { return view('frontend.include.blog.php');});
 
 Route::get("/properties",function(){
     return view("properties");

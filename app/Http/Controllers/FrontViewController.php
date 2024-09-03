@@ -12,6 +12,7 @@ class FrontViewController extends Controller
       
         $services = Service::latest()->get()->take(6);
 
+
         return view('frontend.welcome', compact([
             'services',
         ]));
