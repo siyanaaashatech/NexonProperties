@@ -30,6 +30,13 @@ Route::get('/', [FrontViewController::class, 'index'])->name('welcome');
 
 
 Route::get("services", function () { return view('frontend.include.blog.php');});
+Route::get("service",function(){ return view("frontend.include.advantage.php");});
+Route::get("service",function(){ return view("frontend.include.indexbanner.php");});
+
+Route::get("service",function(){return view("frontend.include.about.blade.php");});
+
+Route::get("service",function(){return view("frontend.testimonial.blade.php");});
+
 
 Route::get("/properties",function(){
     return view("properties");

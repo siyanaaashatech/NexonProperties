@@ -7,34 +7,19 @@
       </div>
 
       <div class="row gap-5 py-2">
+      @foreach ($services as $service )
         <div class="col-md-2 d-flex flex-column align-items-center justify-content-center">
           <img src="{{asset('image/happy.png')}}" alt="" srcset="">
-          <div class="md-text">trust</div>
-          <div class="sm-text text-center">to pagename where our where our </div>
+          <div class="md-text text-center">{{$service->subtitle}}</div>
+          <div class="sm-text text-center">{{strlen($service->description) >40 ? substr($service->description , 0 ,40) .'...': $service->description }} </div>
 
         </div>
-        <div class="col-md-2 d-flex flex-column align-items-center justify-content-center">
-          <img src="{{asset('image/happy2.png')}}" alt="" srcset="">
-          <div class="md-text">30 years</div>
-          <div class="sm-text text-center">to pagename ss where our where our </div>
+       
 
-        </div>
-        <div class="col-md-2 d-flex flex-column align-items-center justify-content-center">
-          <img src="{{asset('image/happy.png')}}" alt="" srcset="">
-          <div class="md-text">30 years</div>
-          <div class="sm-text text-center">to pagename aaaw where our where our </div>
+        @endforeach
+        
 
-        </div>
-        <div class="col-md-2 d-flex flex-column align-items-center justify-content-center">
-          <img src="{{asset('image/happy2.png')}}" alt="" srcset="">
-          <div class="md-text">location</div>
-          <div class="sm-text text-center">to pagename aaa where our where our </div>
-        </div>
-        <div class="col-md-2 d-flex flex-column align-items-center justify-content-center">
-          <img src="{{asset('image/happy.png')}}" alt="" srcset="">
-          <div class="md-text">happiness</div>
-          <div class="sm-text text-center">to pagename aaa where our where our </div>
-        </div>
+
       </div>
     </div>
 
