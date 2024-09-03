@@ -81,7 +81,7 @@
                             </select>
                         </div>
 
-                        <div class="form-group mb-3">
+                        {{-- <div class="form-group mb-3">
                             <label for="metadata_id">Select Metadata</label>
                             <select name="metadata_id" id="metadata_id" class="form-control" required>
                                 <option value="">Choose Metadata</option>
@@ -91,7 +91,7 @@
                                     </option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> --}}
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Create Service</button>

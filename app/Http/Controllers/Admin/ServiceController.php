@@ -8,7 +8,6 @@ use App\Models\Metadata;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use Storage;
 
 class ServiceController extends Controller
 {
@@ -42,7 +41,6 @@ class ServiceController extends Controller
             'image' => 'required|array',
             'image.*' => 'required|string', // Validate as string since it's base64
             'status' => 'required|boolean',
-            'metadata_id' => 'required|exists:metadata,id',
             'cropData' => 'required|string',
         ]);
 
@@ -50,45 +48,42 @@ class ServiceController extends Controller
         $images = [];
 
         foreach ($request->input('image') as $base64Image) {
-            // Decode base64 image data
             $image = explode(',', $base64Image);
             $decodedImage = base64_decode($image[1]);
-
-            // Create an image resource from the decoded image
             $imageResource = imagecreatefromstring($decodedImage);
 
-            // Check if the image resource was created successfully
             if ($imageResource !== false) {
-                // Generate a unique file name with .webp extension
                 $imageName = time() . '-' . Str::uuid() . '.webp';
                 $destinationPath = storage_path('app/uploads/images/services');
 
-                // Ensure the directory exists
                 if (!File::exists($destinationPath)) {
                     File::makeDirectory($destinationPath, 0755, true, true);
                 }
 
-                // Save the image as .webp format
                 $savedPath = $destinationPath . '/' . $imageName;
-                imagewebp($imageResource, $savedPath); // Save as WebP format
-
-                // Free up memory
+                imagewebp($imageResource, $savedPath);
                 imagedestroy($imageResource);
-
-                // Store the relative path to be saved in the database
                 $relativeImagePath = 'uploads/images/services/' . $imageName;
                 $images[] = $relativeImagePath;
             }
         }
 
-        // Create new service record
+        // Create a new metadata entry
+        $metadata = Metadata::create([
+            'meta_title' => $request->title,
+            'meta_description' => $request->description,
+            'meta_keywords' => '', // Set default or modify as needed
+            'slug' => Str::slug($request->title)
+        ]);
+
+        // Create new service record and associate with metadata
         Service::create([
             'title' => $request->title,
             'subtitle' => $request->subtitle,
             'description' => $request->description,
             'image' => json_encode($images),
             'status' => $request->status,
-            'metadata_id' => $request->metadata_id,
+            'metadata_id' => $metadata->id, // Link newly created metadata
         ]);
 
         session()->flash('success', 'Service created successfully.');
@@ -117,7 +112,6 @@ class ServiceController extends Controller
             'image' => 'sometimes|array',
             'image.*' => 'required|string', // Validate as string since it's base64
             'status' => 'required|boolean',
-            'metadata_id' => 'required|exists:metadata,id',
             'cropData' => 'sometimes|string', // Optional crop data for images
         ]);
 
@@ -127,49 +121,47 @@ class ServiceController extends Controller
         // Handle new images if provided
         if ($request->has('image')) {
             foreach ($request->input('image') as $base64Image) {
-                // Decode base64 image data
                 $image = explode(',', $base64Image);
                 $decodedImage = base64_decode($image[1]);
-
-                // Create an image resource from the decoded image
                 $imageResource = imagecreatefromstring($decodedImage);
 
-                // Check if the image resource was created successfully
                 if ($imageResource !== false) {
-                    // Generate a unique file name with .webp extension
                     $imageName = time() . '-' . Str::uuid() . '.webp';
                     $destinationPath = storage_path('app/uploads/images/services');
 
-                    // Ensure the directory exists
                     if (!File::exists($destinationPath)) {
                         File::makeDirectory($destinationPath, 0755, true, true);
                     }
 
-                    // Save the image as .webp format
                     $savedPath = $destinationPath . '/' . $imageName;
-                    imagewebp($imageResource, $savedPath); // Save as WebP format
-
-                    // Free up memory
+                    imagewebp($imageResource, $savedPath);
                     imagedestroy($imageResource);
-
-                    // Store the relative path to be saved in the database
                     $relativeImagePath = 'uploads/images/services/' . $imageName;
                     $images[] = $relativeImagePath;
                 }
             }
         }
 
-        // Update the service record
+        // Update metadata record
+        $service->metadata()->update([
+            'meta_title' => $request->title,
+            'meta_description' => $request->description,
+            'meta_keywords' => '', // Adjust as necessary
+            'slug' => Str::slug($request->title)
+        ]);
+
+        // Update service record
         $service->update([
             'title' => $request->title,
             'subtitle' => $request->subtitle,
             'description' => $request->description,
             'image' => json_encode($images), // Store updated images as JSON
             'status' => $request->status,
-            'metadata_id' => $request->metadata_id,
         ]);
 
-        return redirect()->route('services.index')->with('success', 'Service updated successfully.');
+        session()->flash('success', 'Service updated successfully.');
+
+        return redirect()->route('services.index');
     }
 
     /**
