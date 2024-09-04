@@ -1,4 +1,8 @@
-  {{-- <!-- about --> --}}
+
+
+
+
+{{-- <!-- about --> --}}
   <section class="container-fluid container-fluid-background about">
     <div class="container d-flex flex-column justify-content-center align-items-center">
       <div class="row">
@@ -16,6 +20,7 @@
             <div class="xs-text dashline">Trusted Real estate Care</div>
             <div class="lg-text1">Dream living Spaces Setting New Build</div>
           </div>
+        
           <p class="sm-text1">Welcome to pagename where our passion for real estate and dedication to client
             satisfaction
             converge to create an unparalleled home-buying experience. Founded Welcome to pagename where our passion for

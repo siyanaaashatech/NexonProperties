@@ -23,17 +23,34 @@ use App\Models\Blog;
 use App\Models\Testimonial;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FrontViewController;
+use App\Http\Controllers\SingleController;
 
 Auth::routes();
 
-Route::get('/', function () {
-    return view('frontend.welcome');
-})->name('/');
+Route::get('/', [FrontViewController::class, 'index'])->name('welcome');
 
-Route::get("/properties",function(){
-    return view("properties");
 
-})->name("properties");
+Route::get("services", function () { return view('frontend.include.blog.php');});
+Route::get("services",function(){ return view("frontend.include.advantage.php");});
+Route::get("services",function(){ return view("frontend.include.indexbanner.php");});
+
+Route::get("services",function(){return view("frontend.include.about.blade.php");});
+
+Route::get("services",function(){return view("frontend.testimonial.blade.php");});
+Route::get("service", function(){ return view ("frontend.include.project.blade.php");});
+
+Route::get("service", function(){ return view ("frontend.include.project.blade.php");});
+
+
+
+
+
+
+// // Route::get("/properties",function(){
+// //     return view("properties");
+
+// })->name("properties");
 Route::get("/blog",function(){
     return view("blog");
 
@@ -124,11 +141,14 @@ Route::prefix('/admin')->name('admin.')->middleware(['web', 'auth'])->group(func
    // Route::get('/system-history/', [HistoriesController::class, 'system_index'])->name('system-history');
 
 // Frontend Routes
-Route::view("/properties", "frontend.properties")->name('properties');
-Route::view("/blog", "frontend.blog")->name('blog');
+// Route::view("/properties", "frontend.properties")->name('properties');
+
+
+Route::get('/services', [SingleController::class, 'render_service'])->name('properties');
 Route::view("/member", "frontend.member")->name('member');
 Route::view("/contact", "frontend.contact")->name('contact');
-Route::view("/about", "frontend.about")->name('about');
+Route::get('/about', [SingleController::class, 'render_about'])->name('about');
+Route::get('/blog', [SingleController::class, 'render_blog'])->name('blog');
 Route::view("/singleproperties", "frontend.singleproperties")->name('singleproperties');
 
 // Profile Routes

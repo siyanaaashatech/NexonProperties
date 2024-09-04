@@ -1,5 +1,8 @@
 @extends("frontend.layouts.master")
 @section("content")
+
+
+
 <!-- bannersection -->
 <section class="container-fluid">
   <div class="row">
