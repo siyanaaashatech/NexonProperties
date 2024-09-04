@@ -56,25 +56,19 @@
                                 required>{{ old('description', $service->description) }}</textarea>
                         </div>
 
+                        <div class="form-group mb-3">
+                            <label for="keywords">Keywords</label>
+                            <textarea name="keywords" id="keywords" class="form-control" rows="5"
+                                required>{{ old('keywords', $service->keywords) }}</textarea>
+                        </div>
+
                         <!-- Image Upload with Cropper.js -->
                         <div class="form-group mb-3">
-                            <label for="image">Upload New Image(s) (Optional)</label>
-                            <input type="file" id="image" class="form-control" multiple>
+                            <label for="image">Upload New Image</label>
+                            <input type="file" id="image" class="form-control" accept="image/*" multiple>
                         </div>
 
-                        <!-- Existing Images Preview -->
-                        <div class="mb-3">
-                            <label>Existing Images:</label>
-                            <div class="row">
-                                @foreach(json_decode($service->image) as $img)
-                                    <div class="col-md-4 mb-3">
-                                        <img src="{{ asset('storage/' . $img) }}" class="img-thumbnail">
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-
-                        <!-- Hidden Inputs for Base64 Image and Crop Data -->
+                        <!-- Hidden Inputs for Base64 Image -->
                         <input type="hidden" name="image[]" id="croppedImage">
                         <input type="hidden" name="cropData" id="cropData">
 
@@ -86,22 +80,16 @@
 
                         <div class="form-group mb-3">
                             <label for="status">Status</label>
-                            <select name="status" id="status" class="form-control" required>
-                                <option value="1" {{ old('status', $service->status) == '1' ? 'selected' : '' }}>Active</option>
-                                <option value="0" {{ old('status', $service->status) == '0' ? 'selected' : '' }}>Inactive</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <label for="metadata_id">Select Metadata</label>
-                            <select name="metadata_id" id="metadata_id" class="form-control" required>
-                                <option value="">Choose Metadata</option>
-                                @foreach($metadata as $meta)
-                                    <option value="{{ $meta->id }}" {{ old('metadata_id', $service->metadata_id) == $meta->id ? 'selected' : '' }}>
-                                        {{ $meta->meta_title }}
-                                    </option>
-                                @endforeach
-                            </select>
+                            <div class="form-check">
+                                <input type="radio" name="status" id="status_active" value="1" class="form-check-input" 
+                                       {{ old('status', $service->status) == '1' ? 'checked' : '' }} required>
+                                <label for="status_active" class="form-check-label">Active</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" name="status" id="status_inactive" value="0" class="form-check-input" 
+                                       {{ old('status', $service->status) == '0' ? 'checked' : '' }} required>
+                                <label for="status_inactive" class="form-check-label">Inactive</label>
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -176,13 +164,12 @@
             y: Math.round(cropData.y)
         });
 
-        cropper.getCroppedCanvas().toDataURL('image/png', (base64) => {
-            document.getElementById('croppedImage').value = base64; // Store the base64 string
-        });
+        const base64Image = cropper.getCroppedCanvas().toDataURL('image/png');
+        document.getElementById('croppedImage').value = base64Image; // Store the base64 string
 
         // Set cropped image preview
         const croppedImagePreview = document.getElementById('cropped-image-preview');
-        croppedImagePreview.src = cropper.getCroppedCanvas().toDataURL();
+        croppedImagePreview.src = base64Image;
         document.getElementById('cropped-preview-container').style.display = 'block';
 
         // Close modal after saving crop

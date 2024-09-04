@@ -107,6 +107,8 @@ Route::prefix('/admin')->name('admin.')->middleware(['web', 'auth'])->group(func
 
    //MetaData Routes
    Route::resource('metadata', MetadataController::class);
+   Route::put('/metadata/{id}', [MetadataController::class, 'update'])->name('metadata.update');
+
 
    Route::resource('services', ServiceController::class)->except(['show']);
 

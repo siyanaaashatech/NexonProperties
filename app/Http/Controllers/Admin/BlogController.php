@@ -4,104 +4,189 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
-use App\Models\SummernoteContent; // Import the SummernoteContent model
+use App\Models\Metadata;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Str;
 
 class BlogController extends Controller
 {
     // Show all blogs
     public function index()
     {
-        $blogs = Blog::all();
+        $blogs = Blog::with('metadata')->latest()->get();
         return view('admin.blogs.index', compact('blogs'));
     }
 
     // Show form to create a new blog
     public function create()
     {
-        return view('admin.blogs.create');
+        $metadata = Metadata::all();
+        return view('admin.blogs.create', compact('metadata'));
     }
 
     // Store new blog in the database
     public function store(Request $request)
     {
-        // Validate the incoming request data
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string', // Summernote content
-            'author' => 'nullable|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'status' => 'required|boolean'
-        ]);
-
-        // Handle the file upload
-        $imagePath = $request->file('image')->store('blog_images', 'public');
-
-        // Process the Summernote content
-        $summernoteContent = new SummernoteContent();
-        $processedContent = $summernoteContent->processContent($request->input('description'));
-
-        // Store the blog in the database
-        $blog = new Blog();
-        $blog->title = $request->input('title');
-        $blog->description = $processedContent; 
-        $blog->author = $request->input('author');
-        $blog->image = $imagePath;
-        $blog->status = $request->input('status');
-        $blog->save();
-
-        // Redirect to a desired page with a success message
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog created successfully!');
-    }
-
-    // Show form to edit the blog
-    public function edit($id)
-    {
-        $blog = Blog::findOrFail($id);
-        return view('admin.blogs.update', compact('blog'));
-    }
-
-    // Update blog in the database
-    public function update(Request $request, $id)
-    {
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'author' => 'nullable|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'status' => 'required|boolean'
+            'keywords' => 'nullable|string',
+            'image' => 'required|array',
+            'image.*' => 'required|string', // Validate as base64 string
+            'status' => 'required|boolean',
+            'cropData' => 'nullable|string',
         ]);
 
-        $blog = Blog::findOrFail($id);
-        $blog->title = $request->title;
-        $blog->author = $request->author;
-        $blog->status = $request->status;
+        $cropData = $request->input('cropData') ? json_decode($request->input('cropData'), true) : null;
+        $images = [];
 
-        // Process the Summernote content
-        $summernoteContent = new SummernoteContent();
-        $processedContent = $summernoteContent->processContent($request->input('description'));
-        $blog->description = $processedContent;
+        foreach ($request->input('image') as $base64Image) {
+            $image = explode(',', $base64Image);
+            $decodedImage = base64_decode($image[1]);
+            $imageResource = imagecreatefromstring($decodedImage);
 
-        if ($request->hasFile('image')) {
-            $imageName = time().'.'.$request->image->extension();
-            $request->image->move(public_path('images/blogs'), $imageName);
-            $blog->image = $imageName;
+            if ($imageResource !== false) {
+                $imageName = time() . '-' . Str::uuid() . '.webp';
+                $destinationPath = storage_path('app/uploads/images/blogs');
+
+                if (!File::exists($destinationPath)) {
+                    File::makeDirectory($destinationPath, 0755, true, true);
+                }
+
+                $savedPath = $destinationPath . '/' . $imageName;
+                imagewebp($imageResource, $savedPath);
+                imagedestroy($imageResource);
+                $relativeImagePath = 'uploads/images/blogs/' . $imageName;
+                $images[] = $relativeImagePath;
+            }
         }
 
-        $blog->save();
+        // Create metadata entry
+        $metadata = Metadata::create([
+            'meta_title' => $request->title,
+            'meta_description' => $request->description,
+            'meta_keywords' => $request->keywords,
+            'slug' => Str::slug($request->title)
+        ]);
 
-        return redirect()->route('admin.blogs.index')->with('success', 'Blog updated successfully.');
+        // Create new blog record and associate with metadata
+        Blog::create([
+            'title' => $request->title,
+            'description' => $request->description,
+            'author' => $request->author,
+            'image' => json_encode($images), // Store images as JSON
+            'status' => $request->status,
+            'metadata_id' => $metadata->id,
+        ]);
+
+        session()->flash('success', 'Blog created successfully.');
+
+        return redirect()->route('admin.blogs.index');
     }
 
-    // Delete a blog from the database
-    public function destroy($id)
+    // Show form to edit the blog
+    public function edit(Blog $blog)
     {
-        $blog = Blog::findOrFail($id);
+        $metadata = Metadata::all();
+        return view('admin.blogs.update', compact('blog', 'metadata'));
+    }
+
+    // Update blog in the database
+   // Update blog in the database
+public function update(Request $request, Blog $blog)
+{
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'required|string',
+        'author' => 'nullable|string|max:255',
+        'image' => 'sometimes|array',
+        'image.*' => 'required|string', // Validate each image as a base64 string
+        'status' => 'required|boolean',
+        'cropData' => 'nullable|string',
+    ]);
+
+    $cropData = $request->input('cropData') ? json_decode($request->input('cropData'), true) : null;
+    $images = !empty($blog->image) ? json_decode($blog->image, true) : [];
+
+    if ($request->has('image')) {
+        foreach ($request->input('image') as $base64Image) {
+            if (preg_match('/^data:image\/(\w+);base64,/', $base64Image, $type)) {
+                $base64Image = substr($base64Image, strpos($base64Image, ',') + 1);
+                $decodedImage = base64_decode($base64Image);
+
+                if ($decodedImage === false) {
+                    continue;
+                }
+
+                $imageType = strtolower($type[1]);
+                if (!in_array($imageType, ['jpg', 'jpeg', 'gif', 'png', 'webp'])) {
+                    continue;
+                }
+
+                $imageResource = imagecreatefromstring($decodedImage);
+                if ($imageResource !== false) {
+                    $imageName = time() . '-' . Str::uuid() . '.webp';
+                    $destinationPath = storage_path('app/uploads/images/blogs');
+
+                    if (!File::exists($destinationPath)) {
+                        File::makeDirectory($destinationPath, 0755, true, true);
+                    }
+
+                    $savedPath = $destinationPath . '/' . $imageName;
+                    imagewebp($imageResource, $savedPath);
+                    imagedestroy($imageResource);
+
+                    $relativeImagePath = 'uploads/images/blogs/' . $imageName;
+                    $images[] = $relativeImagePath;
+                }
+            }
+        }
+    }
+
+    // Update metadata record
+    $blog->metadata()->updateOrCreate([], [
+        'meta_title' => $request->title,
+        'meta_description' => $request->description,
+        'meta_keywords' => $request->keywords,
+        'slug' => Str::slug($request->title)
+    ]);
+
+    // Update blog record
+    $blog->update([
+        'title' => $request->title,
+        'description' => $request->description,
+        'author' => $request->author,
+        'image' => json_encode($images), // Store updated images as JSON
+        'status' => $request->status,
+    ]);
+
+    session()->flash('success', 'Blog updated successfully.');
+
+    return redirect()->route('admin.blogs.index');
+}
+
+
+    // Delete a blog from the database
+    public function destroy(Blog $blog)
+    {
+        $images = json_decode($blog->image, true);
+        if ($images) {
+            foreach ($images as $image) {
+                $filePath = storage_path('app/' . $image);
+                if (file_exists($filePath)) {
+                    unlink($filePath);
+                }
+            }
+        }
+
         $blog->delete();
 
         return redirect()->route('admin.blogs.index')->with('success', 'Blog deleted successfully.');
     }
 
+    // Upload image via AJAX
     public function uploadImage(Request $request)
     {
         if ($request->hasFile('file')) {

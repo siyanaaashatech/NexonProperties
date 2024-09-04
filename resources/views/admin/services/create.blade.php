@@ -1,3 +1,9 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+</head>
+<body>
 @extends('admin.layouts.master')
 
 @section('content')
@@ -55,6 +61,12 @@
                                 required>{{ old('description') }}</textarea>
                         </div>
 
+                        <div class="form-group mb-3">
+                            <label for="keywords">Keywords</label>
+                            <input type="text" name="keywords" id="keywords" class="form-control" value="{{ old('keywords') }}"
+                                >
+                        </div>
+
                         <!-- Image Upload with Cropper.js -->
                         <div class="form-group mb-3">
                             <label for="image">Image</label>
@@ -73,13 +85,18 @@
                             <img id="cropped-image-preview" style="max-width: 150%; max-height: 200%; display: block;">
                         </div>
 
-                        <div class="form-group mb-3">
-                            <label for="status">Status</label>
-                            <select name="status" id="status" class="form-control" required>
-                                <option value="1" {{ old('status') == '1' ? 'selected' : '' }}>Active</option>
-                                <option value="0" {{ old('status') == '0' ? 'selected' : '' }}>Inactive</option>
-                            </select>
-                        </div>
+                       <div class="form-group mb-3">
+    <label for="status">Status</label>
+    <div class="form-check">
+        <input type="radio" name="status" id="status_active" value="1" class="form-check-input" {{ old('status') == '1' ? 'checked' : '' }} required>
+        <label for="status_active" class="form-check-label">Active</label>
+    </div>
+    <div class="form-check">
+        <input type="radio" name="status" id="status_inactive" value="0" class="form-check-input" {{ old('status') == '0' ? 'checked' : '' }} required>
+        <label for="status_inactive" class="form-check-label">Inactive</label>
+    </div>
+</div>
+
 
                         {{-- <div class="form-group mb-3">
                             <label for="metadata_id">Select Metadata</label>

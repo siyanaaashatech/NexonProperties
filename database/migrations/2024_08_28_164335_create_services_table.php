@@ -11,6 +11,7 @@ class CreateServicesTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('subtitle');
+            $table->longText('keywords')->nullable();
             $table->longText('description');
             $table->json('image'); // For multi-image upload
             $table->boolean('status');
