@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\MetadataController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\FaviconController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\NoTransactionPurposeController;
@@ -109,12 +110,18 @@ Route::prefix('/admin')->name('admin.')->middleware(['web', 'auth'])->group(func
    Route::resource('metadata', MetadataController::class);
    Route::put('/metadata/{id}', [MetadataController::class, 'update'])->name('metadata.update');
 
+   //Summernote
+   Route::post('admin/summernote/upload', [BlogController::class, 'uploadImage'])->name('admin.summernote.upload');
 
    Route::resource('services', ServiceController::class)->except(['show']);
+   
+    // Favicon controller
+    Route::resource('favicons', FaviconController::class);
 
-// Routes for History
-// Route::get('/application-history/', [HistoriesController::class, 'application_index'])->name('application-history');
-// Route::get('/system-history/', [HistoriesController::class, 'system_index'])->name('system-history');
+
+    // Routes for History
+    // Route::get('/application-history/', [HistoriesController::class, 'application_index'])->name('application-history');
+   // Route::get('/system-history/', [HistoriesController::class, 'system_index'])->name('system-history');
 
 // Frontend Routes
 Route::view("/properties", "frontend.properties")->name('properties');

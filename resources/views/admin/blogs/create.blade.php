@@ -20,8 +20,9 @@
         <!-- Description -->
         <div class="form-group mb-3">
             <label for="description">Description</label>
-            <textarea name="description" id="description" class="form-control" rows="5" required>{{ old('description') }}</textarea>
+            <textarea class="form-control summernote" id="description" name="description" rows="10" required></textarea>{{ old('description') }}</textarea>
         </div>
+
 
         <!-- Keywords -->
         <div class="form-group mb-3">
@@ -93,6 +94,39 @@
         </div>
     </div>
 
+     <!-- Include Summernote CSS and JS -->
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css" rel="stylesheet">
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
+ 
+     <script>
+        $(document).ready(function() {
+            $('.summernote').summernote();
+        });
+
+        function previewImage(event) {
+            var input = event.target;
+            var preview = document.getElementById('imagePreview');
+
+            while (preview.firstChild) {
+                preview.removeChild(preview.firstChild); // Clear previous preview
+            }
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    var img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.maxWidth = '200px'; // Adjust the maximum width as needed
+                    img.style.maxHeight = '200px'; // Adjust the maximum height as needed
+                    preview.appendChild(img);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+     
     <!-- Include Cropper.js -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>

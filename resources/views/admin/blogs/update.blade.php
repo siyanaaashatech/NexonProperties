@@ -9,7 +9,7 @@
         </div>
 
         <!-- Blog update form -->
-        <form id="quickForm" novalidate="novalidate" method="POST" action="{{ route('admin.blogs.update', ['blog' => $blog->id]) }}" enctype="multipart/form-data">
+        <form id="updateForm" method="POST" action="{{ route('admin.blogs.update', ['blog' => $blog->id]) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
 
@@ -35,119 +35,76 @@
                 <!-- Author -->
                 <div class="form-group mb-3">
                     <label for="author">Author</label>
-                    <input type="text" name="author" class="form-control" id="author" value="{{ old('author', $blog->author) }}" placeholder="Author Name">
+                    <input type="text" name="author" class="form-control" id="author" value="{{ old('author', $blog->author) }}">
                 </div>
 
                 <!-- Image Upload with Cropper.js -->
                 <div class="form-group mb-3">
                     <label for="image">Image</label>
                     <input type="file" id="image" class="form-control">
-                    @if($blog->image)
-                        <p>Current Image: <img src="{{ asset('images/blogs/' . $blog->image) }}" alt="{{ $blog->title }}" style="max-width: 100px;"></p>
-                    @endif
                 </div>
 
                 <!-- Crop Data Hidden Field -->
-                <input type="hidden" name="cropData" id="cropData">
+                <input type="hidden" name="cropData" id="cropData" value="{{ old('cropData') }}">
 
                 <!-- Hidden input to simulate array submission -->
-                <input type="hidden" name="image[]" id="croppedImage">
+                <input type="hidden" name="image[]" id="croppedImage" value="{{ old('image[]') }}">
 
                 <!-- Cropped Image Preview -->
-                <div class="form-group mb-3" id="cropped-preview-container" style="display: none;">
+                <div class="form-group mb-3" id="cropped-preview-container" style="display: {{ old('image[]') ? 'block' : 'none' }};">
                     <label>Cropped Image Preview:</label>
-                    <img id="cropped-image-preview" style="max-width: 100%; max-height: 200%; display: block;">
+                    <img id="cropped-image-preview" src="{{ old('image[]') }}" style="max-width: 100%; max-height: 200%; display: block;">
                 </div>
 
                 <!-- Status -->
                 <div class="form-group mb-3">
                     <label for="status">Status</label>
                     <div class="form-check">
-                        <input type="radio" name="status" id="status_active" value="1" class="form-check-input" 
-                               {{ old('status', $blog->status) == '1' ? 'checked' : '' }} required>
+                        <input type="radio" name="status" id="status_active" value="1" class="form-check-input" {{ old('status', $blog->status) == '1' ? 'checked' : '' }} required>
                         <label for="status_active" class="form-check-label">Active</label>
                     </div>
                     <div class="form-check">
-                        <input type="radio" name="status" id="status_inactive" value="0" class="form-check-input" 
-                               {{ old('status', $blog->status) == '0' ? 'checked' : '' }} required>
+                        <input type="radio" name="status" id="status_inactive" value="0" class="form-check-input" {{ old('status', $blog->status) == '0' ? 'checked' : '' }} required>
                         <label for="status_inactive" class="form-check-label">Inactive</label>
                     </div>
                 </div>
 
-                
-
-            <div class="card-footer">
-                <button type="submit" class="btn btn-primary">Update Blog</button>
-                <a href="{{ route('admin.blogs.index') }}" class="btn btn-secondary">Cancel</a>
+                <!-- Submit Button -->
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Update Blog</button>
+                    <a href="{{ route('admin.blogs.index') }}" class="btn btn-secondary">Cancel</a>
+                </div>
             </div>
         </form>
-    </div>
 
-    <!-- Include Cropper.js -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+        <!-- Modal for Image Cropping -->
+        <div class="modal fade" id="cropModal" tabindex="-1" aria-labelledby="cropModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="cropModalLabel">Crop Image</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img id="image-preview" style="width: 100%; display: none;">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" id="saveCrop" class="btn btn-primary">Save Crop</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <script>
-        $(document).ready(function() {
-            // Initialize Summernote
-            $('.summernote').summernote({
-                height: 200,
-                callbacks: {
-                    onImageUpload: function(files) {
-                        for (let i = 0; i < files.length; i++) {
-                            uploadImage(files[i]);
-                        }
-                    }
-                }
-            });
+        <!-- Include Cropper.js -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
 
-            function uploadImage(file) {
-                let data = new FormData();
-                data.append("file", file);
-                $.ajax({
-                    url: "{{ route('admin.uploadImage') }}", 
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    data: data,
-                    type: "POST",
-                    success: function(response) {
-                        $('.summernote').summernote('insertImage', response.url);
-                    },
-                    error: function(data) {
-                        console.log(data);
-                    }
-                });
-            }
-
-            $('#quickForm').validate({
-                rules: {
-                    title: { required: true },
-                    description: { required: true },
-                    image: { required: false },
-                    status: { required: true }
-                },
-                messages: {
-                    title: { required: "Please provide a blog title" },
-                    description: { required: "Please provide a description" },
-                    status: { required: "Please select a status" }
-                },
-                errorElement: 'span',
-                errorPlacement: function(error, element) {
-                    error.addClass('invalid-feedback');
-                    element.closest('.form-group').append(error);
-                },
-                highlight: function(element, errorClass, validClass) {
-                    $(element).addClass('is-invalid');
-                },
-                unhighlight: function(element, errorClass, validClass) {
-                    $(element).removeClass('is-invalid');
-                }
-            });
-
+        <script>
             let cropper;
             let currentFile;
 
+            // Initialize Cropper.js for new image upload
             document.getElementById('image').addEventListener('change', function (e) {
                 const files = e.target.files;
                 if (files && files.length > 0) {
@@ -157,6 +114,7 @@
                     imagePreview.src = url;
                     imagePreview.style.display = 'block';
 
+                    // Show the crop modal
                     const cropModal = new bootstrap.Modal(document.getElementById('cropModal'));
                     cropModal.show();
 
@@ -170,6 +128,7 @@
                 }
             });
 
+            // Save cropped image data and update hidden input fields
             document.getElementById('saveCrop').addEventListener('click', function () {
                 if (!cropper) return;
 
@@ -178,7 +137,8 @@
                     width: Math.round(cropData.width),
                     height: Math.round(cropData.height),
                     x: Math.round(cropData.x),
-                    y: Math.round(cropData.y)
+                    y: Math.round(cropData.y),
+                    
                 });
 
                 cropper.getCroppedCanvas().toBlob((blob) => {
@@ -187,15 +147,27 @@
                     reader.onloadend = function () {
                         document.getElementById('croppedImage').value = reader.result;
 
+                        // Set cropped image preview
                         const croppedImagePreview = document.getElementById('cropped-image-preview');
                         croppedImagePreview.src = reader.result;
                         document.getElementById('cropped-preview-container').style.display = 'block';
                     };
 
+                    // Close modal after saving crop
                     const cropModal = bootstrap.Modal.getInstance(document.getElementById('cropModal'));
                     cropModal.hide();
                 }, 'image/png');
             });
-        });
-    </script>
+
+            // Initialize preview on page load if image exists
+            window.addEventListener('load', function () {
+                const croppedImage = document.getElementById('croppedImage').value;
+                if (croppedImage) {
+                    const croppedImagePreview = document.getElementById('cropped-image-preview');
+                    croppedImagePreview.src = croppedImage;
+                    document.getElementById('cropped-preview-container').style.display = 'block';
+                }
+            });
+        </script>
+    </div>
 @endsection

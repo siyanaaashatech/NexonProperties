@@ -40,17 +40,18 @@ class MetadataController extends Controller
 
     public function update(Request $request, $id)
 {
+    $metadata = Metadata::findOrFail($id);
+
     $request->validate([
         'meta_title' => 'required|string|max:255',
         'meta_description' => 'required|string',
         'meta_keywords' => 'required|string',
-        'slug' => 'required|string|max:255',
+        'slug' => 'required|string|max:255|unique:metadata,slug,' . $metadata->id, 
     ]);
 
-    $metadata = Metadata::findOrFail($id);
     $metadata->update($request->all());
 
-    return redirect()->back()->with('success', 'Metadata updated successfully!');
+    return redirect()->route('metadata.index')->with('success', 'Metadata updated successfully!');
 }
 
     public function destroy(Metadata $metadata)

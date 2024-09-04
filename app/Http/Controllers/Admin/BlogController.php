@@ -15,6 +15,7 @@ class BlogController extends Controller
     public function index()
     {
         $blogs = Blog::with('metadata')->latest()->get();
+        
         return view('admin.blogs.index', compact('blogs'));
     }
 
@@ -38,6 +39,10 @@ class BlogController extends Controller
             'status' => 'required|boolean',
             'cropData' => 'nullable|string',
         ]);
+
+        // Process the Summernote content
+        $summernoteContent = new \App\Models\SummernoteContent();
+        $processedContent = $summernoteContent->processContent($request->description);
 
         $cropData = $request->input('cropData') ? json_decode($request->input('cropData'), true) : null;
         $images = [];
