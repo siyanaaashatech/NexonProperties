@@ -3,63 +3,60 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Metadata;
 use Illuminate\Http\Request;
 
 class MetadataController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $metadata = Metadata::all();
+        return view('admin.metadata.index', compact('metadata'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('admin.metadata.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'meta_title' => 'required|string|max:255',
+            'meta_description' => 'required|string|max:260',
+            'meta_keywords' => 'required|string',
+            'slug' => 'required|string|max:255|unique:metadata',
+        ]);
+
+        Metadata::create($request->all());
+
+        return redirect()->route('metadata.index')->with('success', 'Metadata created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function edit(Metadata $metadata)
     {
-        //
+        return view('admin.metadata.update', compact('metadata'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
+    public function update(Request $request, $id)
+{
+    $metadata = Metadata::findOrFail($id);
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+    $request->validate([
+        'meta_title' => 'required|string|max:255',
+        'meta_description' => 'required|string',
+        'meta_keywords' => 'required|string',
+        'slug' => 'required|string|max:255|unique:metadata,slug,' . $metadata->id, 
+    ]);
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    $metadata->update($request->all());
+
+    return redirect()->route('metadata.index')->with('success', 'Metadata updated successfully!');
+}
+
+    public function destroy(Metadata $metadata)
     {
-        //
+        $metadata->delete();
+        return redirect()->route('metadata.index')->with('success', 'Metadata deleted successfully.');
     }
 }

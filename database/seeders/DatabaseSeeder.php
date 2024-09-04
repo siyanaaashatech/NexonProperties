@@ -18,6 +18,10 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             Role_PermissionSeeder::class,
             UserSeeder::class,
+            MetadataTableSeeder::class,
+            SocialLinksTableSeeder::class,
+            SiteSettingsTableSeeder::class,
+            FaviconsTableSeeder::class,
         ]);
     }
 }

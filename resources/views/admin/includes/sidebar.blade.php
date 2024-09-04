@@ -100,10 +100,50 @@
                 </li>
  --}}
 
-{{-- Beginning of Site Settings --}}
-
-
-
+                  
+                    <li class="nav-item">
+                        <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+                            <div class="col-auto navbar-vertical-label">Site Settings</div>
+                            <div class="col ps-0">
+                                <hr class="mb-0 navbar-vertical-divider">
+                            </div>
+                        </div>
+                    <li class="nav-item">
+                        <a class="nav-link dropdown-indicator {{ Request::segment(2) == 'site-settings' ? '' : 'collapsed' }}"
+                            href="#dashboard6" role="button" data-bs-toggle="collapse"
+                            aria-expanded="{{ Request::segment(2) == 'site-settings' ? 'true' : 'false' }}"
+                            aria-controls="dashboard6">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon"><i class="fas fa-users"></i></span>
+                                <span class="nav-link-text ps-1">Site Settings</span>
+                            </div>
+                        </a>
+                        <ul class="nav collapse {{ Request::segment(2) == 'site-settings' ? 'show' : '' }}" id="dashboard6">
+                            @can('list_site_settings')
+                                <li class="nav-item">
+                                    <a class="nav-link {{ Request::segment(2) == 'site-settings' ? 'active' : '' }}"
+                                        href="{{ route('admin.site-settings.index') }}">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fa fa-angle-double-right"></i> Site Setting
+                                        </div>
+                                    </a>
+                                </li>
+                            @endcan
+                            {{-- Insert Favicon Menu Item here --}}
+                          
+                                <li class="nav-item">
+                                    <a class="nav-link {{ Request::segment(2) == 'favicons' ? 'active' : '' }}"
+                                        href="{{ route('favicons.index') }}">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fa fa-angle-double-right"></i> Favicon
+                                        </div>
+                                    </a>
+                                </li>
+                          
+                        </ul>
+                    </li>
+                    </li>
+                
 
                 <li class="nav-item">
                     <!-- label-->
@@ -132,14 +172,26 @@
                         {{-- <ul class="nav collapse show" id="dashboard1"> --}}
                             <li class="nav-item"><a class="nav-link active" href="#">
                                     <div class="d-flex align-items-center"><span
-                                            class="nav-link-text ps-1">Index</span>
+                                            class="nav-link-text ps-1">Home</span>
                                     </div>
                                 </a><!-- more inner pages-->
                             </li>
 
                     </ul>
                 </li>
+                <li class="nav-item">
+                    <!-- Top-level link for Metadata -->
+                    <a class="nav-link {{ Request::is('admin/metadata*') ? 'active' : '' }}"
+                       href="{{ route('metadata.index') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"><i class="fas fa-tag"></i></span>
+                            <span class="nav-link-text ps-1">Metadata</span>
+                        </div>
+                    </a>
+                </li>
 
+               
+                
                 </li>
 
                 <li class="nav-item">
@@ -200,21 +252,7 @@
                         </div>
                     </div>
 
-                    @can('hasPermission', 'view_history')
-                        <a class="nav-link" href="{{ route('admin.application-history') }}" role="button">
-                            <div class="d-flex align-items-center"><span class="nav-link-icon">
-                                    <i class="fas fa-sort-alpha-up"></i>
-                                    <!-- <span class="fas fa-comments"></span> Font Awesome fontawesome.com --></span><span
-                                    class="nav-link-text ps-1">Application History</span></div>
-                        </a>
-
-                        <a class="nav-link" href="{{ route('admin.system-history') }}" role="button">
-                            <div class="d-flex align-items-center"><span class="nav-link-icon">
-                                    <i class="fas fa-sort-alpha-up"></i>
-                                    <!-- <span class="fas fa-comments"></span> Font Awesome fontawesome.com --></span><span
-                                    class="nav-link-text ps-1">System History</span></div>
-                        </a>
-                    @endcan
+                   
 
                    
                     {{-- @can('hasPermission', 'view_blogs') --}}
@@ -243,6 +281,17 @@
                         </a>
                     </li>
                     {{-- @endcan --}}
+
+                    <li class="nav-item">
+                        <!-- Top-level link for Services -->
+                        <a class="nav-link {{ Request::is('admin/services*') ? 'active' : '' }}"
+                           href="{{ route('services.index') }}">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon"><i class="fas fa-concierge-bell"></i></span>
+                                <span class="nav-link-text ps-1">Services</span>
+                            </div>
+                        </a>
+                    </li>
 
                 </li>
             </ul>

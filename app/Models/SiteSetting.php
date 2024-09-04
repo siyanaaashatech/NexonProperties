@@ -9,7 +9,7 @@ class SiteSetting extends Model
     use HasFactory;
 
     protected $fillable = [
-        'office_name',
+        'office_title',
         'office_address',
         'office_contact',
         'office_email',

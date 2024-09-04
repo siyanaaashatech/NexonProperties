@@ -1,109 +1,15 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+@extends("frontend.layouts.master")
+@section("content")
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Laravel</title>
-
-
-    <link rel="stylesheet" href="{{asset('boot/css/bootstrap.css')}}">
-    <script src="{{ asset('boot/js/bootstrap.min.js')}}"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
-    <link rel="stylesheet" href="{{asset('css/style.css')}}">
-
-
-
-</head>
-
-<body>
-
-    <!-- navbar -->
-
-    <section class="container-fluid navsection">
-    <div class="container">
-      <nav class="navbar navbar-expand-lg navbar-light navcustom">
-        <a class="navbar-brand" href="#"> <img src="{{ asset('image/nexonlogoa2.png') }}" alt="Logo" /></a>
-      
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{{route('index')}}">Introduction</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{{route('properties')}}">Rent</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="{{route('properties')}}">Buy</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="{{route('about') }}">About</a>
-            </li>
-          
-          </ul> 
-        
-        </div>
-        <div class="button-collection d-flex">
-          <button class="btn-buttonyellow btn-buttonyellowextrasmall  btn-buttonyellowextrasmallbac mx-1">register</button>
-          <button class="btn-buttonyellow btn-buttonyellowextrasmall ">login</button>
-          </div>
-          <i class="fa-solid fa-bars customicons mx-4 " onclick="funmenu()"></i>
-         
-        
-      </nav>
-    </div>
-    <div class="bur-menu py-3" id="bur-menu">
-      <div class="activites">
-         <h2 class="navdestext pt-3">activities section</h2>
-          <li class="nav-item">
-          <i class="fa-solid fa-house customiconssmall "></i>
-              <a class="nav-link " aria-current="page" href="#">Introduction</a>
-            </li>
-            <li class="nav-item">
-            
-            <i class="fa-solid fa-truck-moving  customiconssmall"></i>
-              <a class="nav-link " aria-current="page" href="{{route('properties')}}">Rent</a>
-            </li>
-            <li class="nav-item">
-            <i class="fa-solid fa-cart-shopping customiconssmall"></i>
-              <a class="nav-link" aria-current="page" href="{{route('properties')}}">Buy</a>
-            </li>
-            </div>
-            <div class="information">
-            <h2 class="navdestext">Information section</h2>
-            <li class="nav-item d-flex">
-            <i class="fa-solid fa-circle-question customiconssmall"></i>
-              <a class="nav-link" aria-current="page" href="{{route("about")}}">About</a>
-            </li>
-          <li class="nav-item">
-          <i class="fa-solid fa-blog customiconssmall"></i>
-              <a class="nav-link active" aria-current="page" href="{{route("blog")}}">Blog</a>
-            </li>
-            <li class="nav-item">
-            <i class="fa-solid fa-address-book customiconssmall"></i>
-              <a class="nav-link active" aria-current="page" href="{{route('contact')}}">contact</a>
-            </li>
-            </div>
-            <h2 class="navdestext">follow us</h2>
-            <div class="d-flex font-collection py-2">
-            <i class="fa-brands fa-facebook customicons mx-2"></i>
-            <i class="fa-brands fa-linkedin customicons mx-2"></i>
-           <i class="fa-brands fa-youtube customicons mx-2"></i>
-            </div>            
-            </div>
-  </section>
-
-    <!-- bannersection -->
-
-    <section class="container-fluid">
+  <!-- bannersection -->
+  <section class="container-fluid">
         <div class="row">
             <div class="col-md-12 p-0">
                 <div class="carousel-inner mb-3">
                     <div class="row d-flex">
                         <div
                             class="col-md-12 text-center d-flex flex-column justify-content-center align-items-center mb-2 ">
-                            <img src="{{ asset('image/contact.png') }}" alt="" srcset=""
+                            <img src="{{ asset('image/abou1.png') }}" alt="" srcset=""
                                 class="imagecontroller imagecontrollerheight">
                             <div class="flex bannercontentheight">
                                 <div class="bannercontentinnerheight ">
@@ -119,7 +25,7 @@
     </section>
 
 
-
+<!-- companydescription -->
 
     <section class="container-fluid companydescription">
         <div class="container">
@@ -130,21 +36,38 @@
                         the luxury waterfront markets, Simone serves an extensive and elite worldwide client base. </p>
                 </div>
                 <div class="col-md-12">
-                    <div class="row d-flex justify-content-center align-items-center">
-                        <div class="col-md-6">
-                            <div class="d-flex">
-
-                                <img src="{{asset("image/glass.png")}}" alt="">
-                                <p class="md-text text-center">our growing vision</p>
-                                <i class="fa-solid fa-eye-low-vision customiconslarge"></i>
-
-                            </div>
-
+                    <div class="row d-flex  align-items-center justify-content-center gap-1">
+                        <div class="col-md-5">
+                            <h1 class="md-text text-center">our vision </h1>
+                            <p class=" extra-small-text text-center">Utilizing her exceptional experience and knowledge
+                                of
+                                the luxury waterfront markets, Simone serves an extensive and elite worldwide client
+                                base. </p>
                         </div>
-                        <div class="col-md-6">
-                            <img src="{{asset("image/abb.png")}}" alt="" class="contactbodyimage">
+                        <div class="col-md-5">
+                            <h1 class="md-text text-center">0ur Mission </h1>
+                            <p class=" extra-small-text text-center">Utilizing her exceptional experience and knowledge
+                                of
+                                the luxury waterfront markets, Simone serves an extensive and elite worldwide client
+                                base. </p>
+                        </div>
+                        <div class="col-md-5">
+                            <h1 class="md-text text-center">our Values</h1>
+                            <p class=" extra-small-text text-center">Utilizing her exceptional experience and knowledge
+                                of
+                                the luxury waterfront markets, Simone serves an extensive and elite worldwide client
+                                base. </p>
+                        </div>
+                        <div class="col-md-5">
+                            <h1 class="md-text text-center">our Resource </h1>
+                            <p class=" extra-small-text text-center">Utilizing her exceptional experience and knowledge
+                                of
+                                the luxury waterfront markets, Simone serves an extensive and elite worldwide client
+                                base. </p>
                         </div>
                     </div>
+
+
                 </div>
 
             </div>
@@ -164,7 +87,7 @@
                         the luxury waterfront markets, Simone serves an extensive and elite worldwide client base. </p>
                 </div>
 
-                <div class="col-lg-12">
+                <div class="col-lg-12 extradiv">
                     <div class="row d-flex justify-content-center align-items-center gap-1 teamimagerow">
                         <div class="col-md-3 member-container">
                             <img class="teamimage" data-src="" alt="" src="{{asset('image/member1.png')}}" />
@@ -197,9 +120,7 @@
             </div>
         </div>
     </section>
-    <style>
 
-    </style>
 
 
 
@@ -254,23 +175,20 @@
             </div>
         </div>
     </section>
-
     <!-- testimonial -->
-
-
 
     <section class="container-fluid  py-5 mb-4 teammember ">
         <div class="container">
             <div class="row d-flex flex-column justify-content-center align-items-center">
                 <div class="col-lg-5">
-                    <h1 class="md-text text-center"> our team member</h1>
+                    <h1 class="md-text text-center"> TESTIMONIALS</h1>
                     <p class=" extra-small-text text-center">Utilizing her exceptional experience and knowledge of
                         the luxury waterfront markets, Simone serves an extensive and elite worldwide client base. </p>
                 </div>
 
-                <div class="col-md-12">
-                    <div class="row d-flex justify-content-center align-items-center py-2">
-                        <div class="d-flex flex-column col-md-4">
+                <div class="col-md-12 ">
+                    <div class="row d-flex justify-content-center align-items-center py-2 gap-2">
+                        <div class="d-flex flex-column col-md-3 customcard card">
                             <strong class="mb-2 text-success">
                                 <img src="{{asset('image/dash.png')}}" alt="">
 
@@ -296,7 +214,7 @@
                             </div>
 
                         </div>
-                        <div class="d-flex flex-column col-md-4">
+                        <div class="d-flex flex-column col-md-3 customcard card">
                             <strong class="mb-2 text-success">
                                 <img src="{{asset('image/dash.png')}}" alt="">
 
@@ -322,7 +240,7 @@
                             </div>
 
                         </div>
-                        <div class="d-flex flex-column col-md-4">
+                        <div class="d-flex flex-column col-md-3 customcard card">
                             <strong class="mb-2 text-success">
                                 <img src="{{asset('image/dash.png')}}" alt="">
 
@@ -359,11 +277,6 @@
 
         </div>
     </section>
-
-
-
-
-
 
     <section class="container-fluid py-5 ">
         <div class="container d-flex flex-column justify-content-center align-items-center">
@@ -543,109 +456,36 @@
         </div>
     </section>
 
-    <!-- Bootstrap JS and Popper.js CDN -->
 
+@endsection
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- footer section  -->
-    <footer class="container-fluid container-fluid-background mt-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-4 flex-col sm-col-12 py-1">
-                    <h1 class="lg-text1">NEXON</h1>
-                    <span class="sm-text1">@ copyright Welcome to pagename all right reserved</span>
-
-                </div>
-                <div class="col-md-4 sm-col-12  py-1">
-                    <h1 class="md-text1">Quick link</h1>
-                    <ul class="d-flex justify-content-around customui">
-                        <li><a href="">home</a></li>
-                        <li><a href="">home</a></li>
-                        <li><a href="">home</a></li>
-                        <li><a href="">home</a></li>
-                        <li><a href="">home</a></li>
-                    </ul>
-                    <p class="sm-text1">
-                        Welcome to pagename where our passion for real estate and dedication to
-                        client satisfaction converge to create an unparalleled home-buying experience. Founded </p>
-
-                </div>
-                <div class="col-md-3 col-sm-12 mx-md-5 py-1">
-                    <h1 class="md-text1">Message us</h1>
-                    <input type="text" class="input">
-                    <textarea name="" id="" rows="1" cols="" class="textarea my-1"></textarea>
-                    <button class=" btn-buttonyellow  footer-button">login/register</button>
-
-                </div>
-            </div>
-
-        </div>
-    </footer>
-
-    <div class="container-fluid button-footer">
-        <div class="container d-flex align-items-center  justify-content-center flex-column py-2">
-            <div class="d-flex justify-content-around  py-2 ">
-                <i class="fa-brands fa-facebook customicons mx-2"></i>
-                <i class="fa-brands fa-instagram customicons mx-2"></i>
-                <i class="fa-brands fa-linkedin customicons mx-2"></i>
-                <i class="fa-brands fa-youtube customicons mx-2"></i>
-            </div>
-            <ul class="d-flex justify-content-around customui">
-                <li><a href="" class=" mx-1 line">fAQ</a></li>
-                <li><a href="" class=" mx-1 line">Policy</a></li>
-                <li><a href="" class=" mx-2">Term and Condition</a></li>
-
-            </ul>
-
-
-        </div>
-    </div>
-
-
+  
 
     <script>
-    
-    function changepage(element) {
-        const pageli = document.getElementsByClassName("nextli");
-      for (let i = 0; i < pageli.length; i++) {
-        pageli[i].classList.remove("activeli");
 
-      }
+        function changepage(element) {
+            const pageli = document.getElementsByClassName("nextli");
+            for (let i = 0; i < pageli.length; i++) {
+                pageli[i].classList.remove("activeli");
 
-      element.classList.add("activeli")
-    }
+            }
+
+            element.classList.add("activeli")
+        }
 
 
 
-    function funmenu() {
+        function funmenu() {
             const burmenu = document.getElementById("bur-menu");
-           
+
             if (burmenu.style.display === "block") {
                 burmenu.style.display = "none";
             } else {
                 burmenu.style.display = "block";
-              
+
             }
         }
 
 
-  </script>
+    </script>
 
-
-</body>
-
-</html>

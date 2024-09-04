@@ -103,7 +103,7 @@
   
      <li class="nav-item d-none d-sm-block">
         <a class="nav-link px-0" href="#">
-          {{ $user = Auth::user()->name; }}
+          {{ $user = Auth::user()->name}}
         </a>
       </li> 
     
