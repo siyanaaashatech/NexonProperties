@@ -1,16 +1,16 @@
-<section class="container-fluid container-fluid-background">
-    <div class="container d-flex flex-column justify-content-center align-items-center">
-      <div class="title py-2">
+<section class="container-fluid container-fluid-background gapbetweensection ">
+    <div class="container  d-flex flex-column justify-content-center align-items-center">
+      <div class="title">
         <div class="xs-text dashline">Trusted Real estate Care</div>
         <div class="lg-text1">Testimonials we give</div>
       </div>
       <div class="content-body d-md-flex justify-content-center align-items-center pt-3">
         <div class="col-md-8">
           @foreach ($services as $service )
-          <div class="card flex-md-row box-shadow px-1 py-4 testimonialcard" id="grabcard">
-            <div class="row">
+          <div class="card flex-md-row box-shadow  py-4 testimonialcard" id="grabcard">
+            <div class="row px-4 rounded">
             <div class="img-container col-md-5">
-              <img class="img-fluid" data-src="holder.js/200x250?theme=thumb" alt=""
+              <img  data-src="holder.js/200x250?theme=thumb" alt=""
                 src="{{asset('image/bighouse.png')}}" />
             </div>
             <div class="card-body d-flex flex-column col-md-6">

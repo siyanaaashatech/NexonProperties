@@ -8,65 +8,30 @@
     <div class="row">
       <div class="col-md-8">
         <div class="row d-flex flex- col ">
-          <div class="col-md-12 mb-3">
-            <img src="{{asset('image/house1.png')}}" alt="" srcset="" class="imagecontroller imagecontrollermd">
-            <div class=" d-flex gap-3 py-3">
-              <div class="d-flex ">
-                <i class="fa-solid fa-person customiconssmall pt-1 mx-1"></i>
-                <h2 class="sm-text">Real</h2>
-              </div>
-              <div class="d-flex ">
-                <i class="fa-solid fa-calendar-days customiconssmall pt-1 mx-1"></i>
-                <h2 class="sm-text text-center">june 8,2024</h2>
-              </div>
-              <div class="d-flex">
-                <i class="fa-solid fa-building customiconssmall pt-1 mx-1"></i>
-                <h2 class="sm-text">type</h2>
-              </div>
-
-            </div>
-            <h5 class="md-text">How does this position align with your career goals?</h5>
-            <p class="sm-text py-1">Pará is a state of Brazil, located in northern Brazil and traversed by the lower
-              Amazon River. It borders
-              the Pará is a state of Brazil, located in northern Brazil and traversed by the lower Amazon River. It
-              borders thePará is a state of Brazil, located in northern Brazil and traversed by the lower Amazon River.
-              It
-              borders thePará is a state of Brazil, located in northern Brazil and traversed by the lower Amazon River.
-              It
-              borders the Brazil, located in northern Brazil and traversed by the lower Amazon River. It
-            </p>
-            <button class="btn-buttonyellow">Read more</button>
+          @foreach ($services as $service)
+        <div class="col-md-12 mb-3">
+        <img src="{{asset('image/house1.png')}}" alt="" srcset="" class="imagecontroller imagecontrollermd">
+        <div class=" d-flex gap-3 py-3">
+          <div class="d-flex ">
+          <i class="fa-solid fa-person customiconssmall pt-1 mx-1"></i>
+          <h2 class="sm-text">Real</h2>
           </div>
-          <div class="col-md-12">
-            <img src="{{asset('image/bighouse.png')}}" alt="" srcset="" class="imagecontroller">
-            <div class=" d-flex gap-3 py-3">
-              <div class="d-flex ">
-                <i class="fa-solid fa-person customiconssmall pt-1 mx-1"></i>
-                <h2 class="sm-text">Real</h2>
-              </div>
-              <div class="d-flex ">
-                <i class="fa-solid fa-calendar-days customiconssmall pt-1 mx-1"></i>
-                <h2 class="sm-text text-center">june 8,2024</h2>
-              </div>
-              <div class="d-flex">
-                <i class="fa-solid fa-building customiconssmall pt-1 mx-1"></i>
-                <h2 class="sm-text">type</h2>
-              </div>
-
-            </div>
-            <h5 class="md-text">How does this position align with your career goals?</h5>
-            <p class="sm-text py-1">Pará is a state of Brazil, located in northern Brazil and traversed by the lower
-              Amazon River. It borders
-              the Pará is a state of Brazil, located in northern Brazil and traversed by the lower Amazon River. It
-              borders thePará is a state of Brazil, located in northern Brazil and traversed by the lower Amazon River.
-              It
-              borders thePará is a state of Brazil, located in northern Brazil and traversed by the lower Amazon River.
-              It
-              borders the Brazil, located in northern Brazil and traversed by the lower Amazon River. It
-            </p>
-            <button class="btn-buttonyellow">Read more</button>
+          <div class="d-flex ">
+          <i class="fa-solid fa-calendar-days customiconssmall pt-1 mx-1"></i>
+          <h2 class="sm-text text-center">june 8,2024</h2>
+          </div>
+          <div class="d-flex">
+          <i class="fa-solid fa-building customiconssmall pt-1 mx-1"></i>
+          <h2 class="sm-text">type</h2>
           </div>
 
+        </div>
+        <h5 class="md-text">{{$service -> title}}</h5>
+        <p class="sm-text py-1">{{$service -> description}}
+        </p>
+        <button class="btn-buttonyellow">Read more</button>
+        </div>
+      @endforeach
         </div>
 
 

@@ -8,7 +8,7 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Introduction</a>
+            <a class="nav-link active" aria-current="page" href="/">Introduction</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" aria-current="page" href="{{route('properties')}}">Rent</a>
@@ -37,7 +37,7 @@
       <h2 class="navdestext pt-3">activities section</h2>
       <li class="nav-item">
         <i class="fa-solid fa-house customiconssmall "></i>
-        <a class="nav-link " aria-current="page" href="#">Introduction</a>
+        <a class="nav-link " aria-current="page" href="/">Introduction</a>
       </li>
       <li class="nav-item">
 

@@ -1,4 +1,8 @@
-  {{-- <!-- about --> --}}
+
+
+
+
+{{-- <!-- about --> --}}
   <section class="container-fluid container-fluid-background about">
     <div class="container d-flex flex-column justify-content-center align-items-center">
       <div class="row">

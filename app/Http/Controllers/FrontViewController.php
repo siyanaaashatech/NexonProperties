@@ -10,10 +10,10 @@ class FrontViewController extends Controller
     public function index()
     {
       
-        $services = Service::latest()->get()->take(5);
+        $services = Service::latest()->get()->take(4);
 
 
-        return view('frontend.welcome', compact([
+        return view('frontend.welcome',  compact([
             'services',
         ]));
     }

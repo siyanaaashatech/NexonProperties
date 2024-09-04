@@ -45,7 +45,7 @@
     <div class="row">
       <div class="col-md-12 p-0 ">
         @foreach ($services as  $service )
-        <div class="property-container mx-2 subbanner-hidden">
+        <div class="property-container mx-2 subbanner-hidden " >
           <img src="{{asset('image/bighouse.png')}}" alt="Property Image" class="property-image">
           <div class="property-details">
             <div class="md-text1">{{$service->title}}</div>
@@ -122,53 +122,52 @@
   </section>
 
 
- <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const items = document.querySelectorAll('.subbanner-hidden');
-    const itemsToShowInitially = 2;
-    const delayBetweenShows = 20000; // Delay in milliseconds
+  <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const items = document.querySelectorAll('.subbanner-hidden');
+            const animationDuration =3000;
+            const initialDisplayDuration =3000; 
 
-    function showItems(startIndex, endIndex) {
-        for (let i = startIndex; i < endIndex; i++) {
-            if (items[i]) {
-                items[i].classList.add('visible-item');
+            let currentIndex = 0;
+
+            function showNextItems() {
+                // Hide all items
+                items.forEach(item => {
+                    item.classList.remove('visible-item');
+                    item.classList.add('subbanner-hidden');
+                });
+
+                // Show the next two items
+                items.forEach((item, index) => {
+                    if (index === currentIndex || index === (currentIndex + 1) % items.length) {
+                        item.classList.remove('subbanner-hidden');
+                        item.classList.add('visible-item');
+                    }
+                });
+
+                // Update the current index for the next set of items
+                currentIndex = (currentIndex + 1) % items.length;
             }
-        }
-    }
 
-    function hideItems(startIndex, endIndex) {
-        for (let i = startIndex; i < endIndex; i++) {
-            if (items[i]) {
-                items[i].classList.remove('visible-item');
+            function showInitialItems() {
+                // Initially show the first two items
+                if (items.length > 0) {
+                    items[0].classList.remove('subbanner-hidden');
+                    items[0].classList.add('visible-item');
+                }
+                if (items.length > 1) {
+                    items[1].classList.remove('subbanner-hidden');
+                    items[1].classList.add('visible-item');
+                }
+
+                // Set a timeout to start the animation loop after the initial display duration
+                setTimeout(() => {
+                    // Start showing items in the loop
+                    setInterval(showNextItems, animationDuration);
+                }, initialDisplayDuration);
             }
-        }
-    }
 
-    function updateCarousel() {
-        // Hide all items
-        hideItems(0, items.length);
-
-        // Calculate the indices to show
-        const endIndex = (currentIndex + itemsToShowInitially) % items.length;
-        
-        // Show the items based on the current index
-        if (currentIndex < endIndex) {
-            showItems(currentIndex, endIndex);
-        } else {
-            // Wrap around case: show items from currentIndex to end and from start to endIndex
-            showItems(currentIndex, items.length);
-            showItems(0, endIndex);
-        }
-
-        // Update the current index for the next set of items
-        currentIndex = (currentIndex + itemsToShowInitially) % items.length;
-    }
-
-    // Initially show the first set of items
-    let currentIndex = 0;
-    updateCarousel();
-
-    // Rotate items at the specified interval
-    setInterval(updateCarousel, delayBetweenShows);
-});
-</script>
+            // Start the process
+            showInitialItems();
+        });
+    </script>
