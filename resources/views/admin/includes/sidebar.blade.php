@@ -282,8 +282,8 @@
                     </li>
                     {{-- @endcan --}}
 
-                    <li class="nav-item">
-                        <!-- Top-level link for Services -->
+                    {{-- <li class="nav-item">
+                       
                         <a class="nav-link {{ Request::is('admin/services*') ? 'active' : '' }}"
                            href="{{ route('services.index') }}">
                             <div class="d-flex align-items-center">
@@ -291,7 +291,7 @@
                                 <span class="nav-link-text ps-1">Services</span>
                             </div>
                         </a>
-                    </li>
+                    </li> --}}
 
                 </li>
             </ul>
