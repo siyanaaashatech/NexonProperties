@@ -40,10 +40,7 @@ class BlogController extends Controller
             'cropData' => 'nullable|string',
         ]);
 
-        // Process the Summernote content
-        $summernoteContent = new \App\Models\SummernoteContent();
-        $processedContent = $summernoteContent->processContent($request->description);
-
+       
         $cropData = $request->input('cropData') ? json_decode($request->input('cropData'), true) : null;
         $images = [];
 

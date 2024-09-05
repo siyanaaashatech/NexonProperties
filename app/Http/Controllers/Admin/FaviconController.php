@@ -31,7 +31,7 @@ class FaviconController extends Controller
                 'favicon_thirtytwo' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
                 'favicon_sixteen' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
                 'favicon_ico' => 'nullable|file|mimes:ico|max:2048',
-                'appletouch_icon' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+                'appletouch_icon' => 'nullable|image|mimes:jpg,png,jpeg,gif,svg|max:2048 ',
                 'site_manifest' => 'nullable|file|max:4000',
                 'cropData' => 'sometimes|string'
             ]);

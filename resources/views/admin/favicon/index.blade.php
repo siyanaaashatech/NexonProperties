@@ -55,12 +55,32 @@
                     </td>
                     <td><img src="{{ asset('uploads/favicon/' . $icon->favicon_sixteen) }}"
                             style="width: 150px; height:150px"></td>
-                    <td><img src="{{ asset('uploads/favicon/' . $icon->favicon_thirtyTwo) }}"
-                            style="width: 150px; height:150px"></td>
-                    <td>
-                        <iframe src="{{ asset('uploads/favicon/file/' . $icon->site_manifest) }}" title=""
-                            style="width: 100px; height:100px;"></iframe>
-                    </td>
+                            <td>
+                                @if ($icon->favicon_thirtyTwo)
+                                    <img src="{{ asset('uploads/favicon/' . $icon->favicon_thirtytwo) }}" style="width: 150px; height:150px">
+                                @else
+                                    <span>No Favicon 32x32 Found</span>
+                                @endif
+                            </td>
+                            <td>
+                                @if ($icon->site_manifest)
+                                    <!-- Fetch and display the content of the manifest file -->
+                                    @php
+                                        // Read the manifest file's content
+                                        $manifestContent = file_get_contents(public_path('uploads/favicon/file/' . $icon->site_manifest));
+                                    @endphp
+                            
+                                    <!-- Display the manifest content in a <pre> tag -->
+                                    <pre style="width: 300px; height: 300px; overflow: auto; border: 1px solid #ccc; padding: 10px; white-space: pre-wrap;">{{ $manifestContent }}</pre>
+                                    
+                                    <!-- Button to download the site manifest -->
+                                    <a href="{{ asset('uploads/favicon/file/' . $icon->site_manifest) }}" download class="btn btn-primary btn-sm mt-2">Download Site Manifest</a>
+                                @else
+                                    <span>No Site Manifest Found</span>
+                                @endif
+                            </td>
+                            
+                            
                     {{-- <td>
                         <button type="button" class="btn-warning button-size" data-bs-toggle="modal"
                             data-bs-target="#edit{{ $icon->id }}">Update</button>

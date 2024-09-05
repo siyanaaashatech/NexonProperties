@@ -10,6 +10,9 @@ use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\MetadataController;
 use App\Http\Controllers\Admin\ServiceController;
 use App\Http\Controllers\Admin\FaviconController;
+use App\Http\Controllers\Admin\AboutUsController;
+use App\Http\Controllers\Admin\SiteSettingController;
+use App\Http\Controllers\Admin\SocialLinkController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\NoTransactionPurposeController;
@@ -113,11 +116,20 @@ Route::prefix('/admin')->name('admin.')->middleware(['web', 'auth'])->group(func
    //Summernote
    Route::post('admin/summernote/upload', [BlogController::class, 'uploadImage'])->name('admin.summernote.upload');
 
+   //Services
    Route::resource('services', ServiceController::class)->except(['show']);
    
-    // Favicon controller
+    // Favicon route
     Route::resource('favicons', FaviconController::class);
 
+    //AboutUs route
+    Route::resource('aboutus', AboutUsController::class);
+
+    //Sitesetting route
+    Route::resource('sitesettings', SiteSettingController::class);
+
+    //Sociallinks route
+    Route::resource('social-links', SocialLinkController::class);
 
     // Routes for History
     // Route::get('/application-history/', [HistoriesController::class, 'application_index'])->name('application-history');

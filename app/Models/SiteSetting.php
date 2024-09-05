@@ -35,7 +35,7 @@ class SiteSetting extends Model
         return $this->belongsTo(Metadata::class);
     }
 
-    public function socialLink()
+    public function socialLinks()
     {
         return $this->belongsTo(SocialLink::class, 'social_links_id');
     }
