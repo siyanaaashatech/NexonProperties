@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use Illuminate\Http\Request;
 use App\Models\Service;
+use App\Models\Testimonial;
 
 class FrontViewController extends Controller
 {
@@ -11,10 +13,13 @@ class FrontViewController extends Controller
     {
       
         $services = Service::latest()->get()->take(6);
+        $testimonials = Testimonial::latest()->get()->take(3);
+        $blogs = Blog::latest()->get()->take(6);
 
         return view('frontend.welcome', compact([
-            'services',
+            'services','testimonials','blogs'
         ]));
+
     }
     // public function singlePost($slug)
     // {
