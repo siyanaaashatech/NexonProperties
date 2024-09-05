@@ -162,6 +162,9 @@
                                                             class="btn btn-primary d-block w-100 mt-3" type="submit"
                                                             name="submit">Log in</button></div>
                                                 </form>
+                                                <div class="text-center mt-3">
+                                            <a href="{{ route('register') }}">Register as the user...</a>
+                                        </div>
                                                 {{-- <div class="position-relative mt-4">
                     <hr>
                     <div class="divider-content-center">or log in with</div>

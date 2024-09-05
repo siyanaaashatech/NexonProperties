@@ -28,6 +28,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SingleController;
 use App\Http\Controllers\Admin\FaviconController;
+use App\Http\Controllers\Auth\VerificationController;
 
 Auth::routes();
 
@@ -69,6 +70,18 @@ Route::get('/hello', function () {
 Route::get('/', [FrontViewController::class, 'index'])->name('index');
 
 
+Auth::routes(['verify' => true]);
+
+Route::get('/email/verify', 'Auth\VerificationController@show')
+     ->name('verification.notice');
+Route::post('/email/resend', 'Auth\VerificationController@resend')
+     ->name('verification.resend');
+
+     Route::get('/email/verify/{id}/{hash}', [VerificationController::class, 'verify'])
+     ->middleware(['auth', 'signed'])
+     ->name('verification.verify');
+ 
+
 
 
 Route::prefix('/admin')->name('admin.')->middleware(['web', 'auth'])->group(function () {
@@ -76,6 +89,8 @@ Route::prefix('/admin')->name('admin.')->middleware(['web', 'auth'])->group(func
     Route::get('/', [AdminController::class, 'index'])->name('index');
     Route::resource('services', ServiceController::class);
     Route::resource('favicon', FaviconController::class);
+    Route::get('/dashboard', [AdminController::class, 'index'])->middleware('verified');
+
 
     // User Routes
     Route::prefix('users')->name('users.')->group(function () {
@@ -143,10 +158,6 @@ Route::get('/services', [SingleController::class, 'render_service'])->name('prop
 
 
 
-// Profile Routes
-Route::middleware(['auth', 'verified.customer'])->group(function () {
-    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
-});
 
 
 

@@ -23,14 +23,14 @@
                                     <th>S.N</th>
                                     <th>Title</th>
                                     <th>Category</th>
-                                    <th>Metadata</th>
+                                    <th>Meta Title</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($subCategories as $index => $subCategory)
+                                @foreach($subCategories as $subCategory)
                                     <tr>
-                                        <td>{{ $index + 1 }}</td> <!-- Display sequential number -->
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $subCategory->title }}</td>
                                         <td>{{ $subCategory->category->title }}</td>
                                         <td>{{ $subCategory->metadata ? $subCategory->metadata->meta_title : 'No Metadata' }}</td>
@@ -48,7 +48,7 @@
                                                     M
                                                 </button>
 
-                                                <!-- Metadata Modal with Edit Form -->
+                                                <!-- Metadata Modal -->
                                                 <div class="modal fade" id="metadataModal{{ $subCategory->id }}" tabindex="-1" aria-labelledby="metadataModalLabel{{ $subCategory->id }}" aria-hidden="true">
                                                     <div class="modal-dialog modal-lg">
                                                         <div class="modal-content">

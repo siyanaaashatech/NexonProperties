@@ -10,7 +10,9 @@
 </div>
     @include('frontend.include.topnav')
     @include('frontend.include.navbar')
+    <main>
     @yield('content')
+    </main>
     @include('frontend.include.footer')
     @include('frontend.include.script')
 </body>

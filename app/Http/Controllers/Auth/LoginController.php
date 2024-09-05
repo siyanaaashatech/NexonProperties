@@ -2,60 +2,45 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\History;
 use App\Http\Controllers\Controller;
+use App\Models\History;
+use App\Models\CustomerUser;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\UtilityFunctions;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
     use AuthenticatesUsers;
 
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
     protected $redirectTo = RouteServiceProvider::HOME;
 
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     *
-     */
-
-    protected function authenticated($user)
+    public function __construct()
     {
-        if ($user instanceof CustomerUser && !$user->isVerified()) {
-            Auth::logout();
-            return redirect()->route('login')->with('error', 'Please verify your email address to access your account.');
+        $this->middleware('guest')->except('logout');
+    }
+
+    protected function authenticated(Request $request, $user)
+    {
+        // Check if the email is not verified
+        if ($user instanceof CustomerUser && !$user->hasVerifiedEmail()) {
+            auth()->logout();
+
+            return redirect()->route('verification.notice')
+                             ->with('message', 'Please verify your email to access the dashboard.');
         }
-        if (Auth::check()) {
-            History::create([
-                'description' => 'Logged in',
-                'user_id' => Auth::user()->id,
-                'type' => 0,
-                'ip_address' => UtilityFunctions::getuserIP()
-            ]);
-            return redirect('/admin');
-        } else {
-            return redirect('/login');
-        }
+
+        // Log login activity
+        History::create([
+            'description' => 'Logged in',
+            'user_id' => Auth::user()->id,
+            'type' => 0,
+            'ip_address' => UtilityFunctions::getuserIP()
+        ]);
+
+        return redirect('/admin')->with('success', 'You are logged in!');
     }
 
     public function logout()
@@ -66,12 +51,9 @@ class LoginController extends Controller
             'type' => 0,
             'ip_address' => UtilityFunctions::getuserIP()
         ]);
-        Auth::logout();
-        return redirect('/login');
-    }
 
-    public function __construct()
-    {
-        $this->middleware('guest')->except('logout');
+        Auth::logout();
+
+        return redirect('/login');
     }
 }

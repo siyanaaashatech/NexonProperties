@@ -37,18 +37,20 @@ class SubCategoryController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
-            'meta_title' => 'required|string|max:255',
-            'meta_description' => 'nullable|string',
-            'meta_keywords' => 'nullable|string',
-            'slug' => 'nullable|string',
         ]);
+
+        // Automatically set Meta Description, Meta Keywords, and Slug based on the Meta Title
+        $metaTitle = $request->title;
+        $metaDescription = $metaTitle;
+        $metaKeywords = $metaTitle;
+        $slug = Str::slug($metaTitle);
 
         // Create a new metadata entry
         $metadata = Metadata::create([
-            'meta_title' => $request->input('meta_title'),
-            'meta_description' => $request->input('meta_description'),
-            'meta_keywords' => $request->input('meta_keywords'),
-            'slug' => $request->input('slug') ?: Str::slug($request->input('meta_title')),
+            'meta_title' => $metaTitle,
+            'meta_description' => $metaDescription,
+            'meta_keywords' => $metaKeywords,
+            'slug' => $slug,
         ]);
 
         // Create a new subcategory and associate with metadata
@@ -81,18 +83,20 @@ class SubCategoryController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
-            'meta_title' => 'required|string|max:255',
-            'meta_description' => 'nullable|string',
-            'meta_keywords' => 'nullable|string',
-            'slug' => 'nullable|string',
         ]);
+
+        // Automatically set Meta Description, Meta Keywords, and Slug based on the Meta Title
+        $metaTitle = $request->title;
+        $metaDescription = $metaTitle;
+        $metaKeywords = $metaTitle;
+        $slug = Str::slug($metaTitle);
 
         // Update metadata record or create if not existing
         $subCategory->metadata()->updateOrCreate([], [
-            'meta_title' => $request->input('meta_title'),
-            'meta_description' => $request->input('meta_description'),
-            'meta_keywords' => $request->input('meta_keywords'),
-            'slug' => $request->input('slug') ?: Str::slug($request->input('meta_title')),
+            'meta_title' => $metaTitle,
+            'meta_description' => $metaDescription,
+            'meta_keywords' => $metaKeywords,
+            'slug' => $slug,
         ]);
 
         // Update subcategory record

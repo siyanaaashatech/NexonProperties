@@ -22,14 +22,14 @@
                                 <tr>
                                     <th>S.N</th>
                                     <th>Title</th>
-                                    <th>Metadata</th>
+                                    <th>Meta Title</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach($categories as $category)
                                     <tr>
-                                        <td>{{ $category->id }}</td>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $category->title }}</td>
                                         <td>{{ $category->metadata ? $category->metadata->meta_title : 'No Metadata' }}</td>
                                         <td>
@@ -46,7 +46,7 @@
                                                     M
                                                 </button>
 
-                                                <!-- Metadata Modal with Edit Form -->
+                                                <!-- Metadata Modal -->
                                                 <div class="modal fade" id="metadataModal{{ $category->id }}" tabindex="-1" aria-labelledby="metadataModalLabel{{ $category->id }}" aria-hidden="true">
                                                     <div class="modal-dialog modal-lg">
                                                         <div class="modal-content">

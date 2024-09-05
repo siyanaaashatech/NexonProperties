@@ -34,23 +34,25 @@ class CategoryController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'meta_title' => 'required|string|max:255',
-            'meta_description' => 'nullable|string',
-            'meta_keywords' => 'nullable|string',
-            'slug' => 'nullable|string',
         ]);
 
-        // Create a new metadata entry
+        // Automatically set Meta Description, Meta Keywords, and Slug based on the Title
+        $metaTitle = $request->title;
+        $metaDescription = $metaTitle;
+        $metaKeywords = $metaTitle;
+        $slug = Str::slug($metaTitle);
+
+        // Create metadata record
         $metadata = Metadata::create([
-            'meta_title' => $request->input('meta_title'),
-            'meta_description' => $request->input('meta_description'),
-            'meta_keywords' => $request->input('meta_keywords'),
-            'slug' => $request->input('slug') ?: Str::slug($request->input('meta_title')),
+            'meta_title' => $metaTitle,
+            'meta_description' => $metaDescription,
+            'meta_keywords' => $metaKeywords,
+            'slug' => $slug,
         ]);
 
-        // Create a new category and associate with metadata
+        // Create category and associate metadata
         Category::create([
-            'title' => $request->input('title'),
+            'title' => $request->title,
             'metadata_id' => $metadata->id,
         ]);
 
@@ -75,23 +77,25 @@ class CategoryController extends Controller
 
         $request->validate([
             'title' => 'required|string|max:255',
-            'meta_title' => 'required|string|max:255',
-            'meta_description' => 'nullable|string',
-            'meta_keywords' => 'nullable|string',
-            'slug' => 'nullable|string',
         ]);
+
+        // Automatically set Meta Description, Meta Keywords, and Slug based on the Title
+        $metaTitle = $request->title;
+        $metaDescription = $metaTitle;
+        $metaKeywords = $metaTitle;
+        $slug = Str::slug($metaTitle);
 
         // Update metadata record or create if not existing
         $category->metadata()->updateOrCreate([], [
-            'meta_title' => $request->input('meta_title'),
-            'meta_description' => $request->input('meta_description'),
-            'meta_keywords' => $request->input('meta_keywords'),
-            'slug' => $request->input('slug') ?: Str::slug($request->input('meta_title')),
+            'meta_title' => $metaTitle,
+            'meta_description' => $metaDescription,
+            'meta_keywords' => $metaKeywords,
+            'slug' => $slug,
         ]);
 
         // Update category record
         $category->update([
-            'title' => $request->input('title'),
+            'title' => $request->title,
         ]);
 
         return redirect()->route('categories.index')->with('success', 'Category updated successfully.');
