@@ -123,51 +123,56 @@
 
 
   <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const items = document.querySelectorAll('.subbanner-hidden');
-            const animationDuration =3000;
-            const initialDisplayDuration =3000; 
+ document.addEventListener('DOMContentLoaded', function() {
+    const items = document.querySelectorAll('.subbanner-hidden');
+    const animationDuration =4000; // Duration of the entire animation cycle
+    const initialDisplayDuration =2000; // Duration to show initial items
 
-            let currentIndex = 0;
+    let currentIndex = 0;
 
-            function showNextItems() {
-                // Hide all items
-                items.forEach(item => {
-                    item.classList.remove('visible-item');
-                    item.classList.add('subbanner-hidden');
-                });
-
-                // Show the next two items
-                items.forEach((item, index) => {
-                    if (index === currentIndex || index === (currentIndex + 1) % items.length) {
-                        item.classList.remove('subbanner-hidden');
-                        item.classList.add('visible-item');
-                    }
-                });
-
-                // Update the current index for the next set of items
-                currentIndex = (currentIndex + 1) % items.length;
-            }
-
-            function showInitialItems() {
-                // Initially show the first two items
-                if (items.length > 0) {
-                    items[0].classList.remove('subbanner-hidden');
-                    items[0].classList.add('visible-item');
-                }
-                if (items.length > 1) {
-                    items[1].classList.remove('subbanner-hidden');
-                    items[1].classList.add('visible-item');
-                }
-
-                // Set a timeout to start the animation loop after the initial display duration
-                setTimeout(() => {
-                    // Start showing items in the loop
-                    setInterval(showNextItems, animationDuration);
-                }, initialDisplayDuration);
-            }
-
-            // Start the process
-            showInitialItems();
+    function showNextItems() {
+        // Hide all items
+        items.forEach(item => {
+            item.classList.remove('visible-item');
+            item.classList.add('subbanner-hidden');
         });
+
+        // Calculate the indices for the next two items
+        const nextIndex1 = currentIndex;
+        const nextIndex2 = (currentIndex + 1) % items.length;
+
+        // Show the next two items
+        items[nextIndex1].classList.remove('subbanner-hidden');
+        items[nextIndex1].classList.add('visible-item');
+
+        items[nextIndex2].classList.remove('subbanner-hidden');
+        items[nextIndex2].classList.add('visible-item');
+
+        // Update the current index for the next set of items
+        currentIndex = (currentIndex + 2) % items.length;
+    }
+
+    function showInitialItems() {
+        // Initially show the first two items
+        if (items.length > 0) {
+            items[0].classList.remove('subbanner-hidden');
+            items[0].classList.add('visible-item');
+        }
+        if (items.length > 1) {
+            items[1].classList.remove('subbanner-hidden');
+            items[1].classList.add('visible-item');
+        }
+
+        // Set a timeout to start the animation loop after the initial display duration
+        setTimeout(() => {
+            // Start showing items in the loop
+            setInterval(showNextItems, animationDuration);
+        }, initialDisplayDuration);
+    }
+
+    // Start the process
+    showInitialItems();
+});
+
+
     </script>

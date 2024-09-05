@@ -46,14 +46,7 @@ Route::get("service", function(){ return view ("frontend.include.project.blade.p
 
 
 
-// // Route::get("/properties",function(){
-// //     return view("properties");
 
-// })->name("properties");
-Route::get("/blog",function(){
-    return view("blog");
-
-})->name("blog");
 
 
 Route::get("/member",function(){
@@ -140,6 +133,7 @@ Route::view("/member", "frontend.member")->name('member');
 Route::view("/contact", "frontend.contact")->name('contact');
 Route::get('/about', [SingleController::class, 'render_about'])->name('about');
 Route::get('/blog', [SingleController::class, 'render_blog'])->name('blog');
+Route::get('/singleblogpost', [SingleController::class, 'render_singleblogpost'])->name('singleblogpost');
 Route::view("/singleproperties", "frontend.singleproperties")->name('singleproperties');
 
 // Profile Routes

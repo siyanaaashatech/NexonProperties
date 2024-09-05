@@ -20,4 +20,11 @@ class SingleController extends Controller
         $services = Service::latest()->get();
         return view('frontend.blog', compact( 'services'));
     }
+
+
+    public function render_singleblogpost()
+    {
+        $services = Service::latest()->get();
+        return view('frontend.singleblogpost', compact('services'));
+    }
 }

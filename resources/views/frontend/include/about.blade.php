@@ -7,10 +7,10 @@
     <div class="container d-flex flex-column justify-content-center align-items-center">
       <div class="row">
         <div class="col-md-6 d-flex ">
-          <div class="image col-md-6">
+          <div class="image col-md-6 first">
             <img class="" data-src="" alt="" src="{{asset('image/bighouse.png')}}" />
           </div>
-          <div class="image col-md-6  mt-5 mx-1">
+          <div class="image col-md-6 my-2 mx-1 second">
             <img class="" data-src="" alt="" src="{{asset('image/bighouse.png')}}" />
           </div>
 

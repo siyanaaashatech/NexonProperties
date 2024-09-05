@@ -35,8 +35,8 @@
           @foreach ($services as $index => $service)
             <div class="item {{ $index === 0 ? 'active' : '' }}" style="background-image: url(https://www.yudiz.com/codepen/expandable-animated-card-slider/dota-2.jpg);">
               <div class="item-desc">
-                <h3>{{$service->title}}</h3>
-                <p>Dota 2 is a multiplayer online battle arena by Valve. The game is a sequel to Defense of the Ancients, which was a community-created mod for Blizzard Entertainment's Warcraft III.</p>
+                <h3 class="md-text1 mb-2">{{$service->title}}</h3>
+                <p class="extra-small-text1">Dota 2 is a multiplayer online battle arena by Valve. The game is a sequel to Defense of the Ancients, which was a community-created mod for Blizzard Entertainment's Warcraft III.</p>
               </div>
             </div>
           @endforeach
@@ -45,6 +45,11 @@
     </div>
   </div>
 </section>
+
+
+
+
+
 
 
   <!-- jQuery -->
