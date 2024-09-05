@@ -32,7 +32,7 @@
                         <label for="favicon_thirtytwo">Favicon 32x32</label><span style="color:red; font-size:large">*</span>
                         <input type="file" name="favicon_thirtytwo" class="form-control" id="favicon_thirtytwo" onchange="previewAndCropImage(event, 'favicon_thirtytwo')">
                         @if ($favicon->favicon_thirtytwo)
-                            <img src="{{ asset('uploads/favicon/' . $favicon->favicon_thirtytwo) }}" id="favicon_thirtytwo_preview" style="max-width: 500px; max-height:500px" />
+                            <img src="{{ asset('storage/' . $favicon->favicon_thirtytwo) }}" id="favicon_thirtytwo_preview" style="max-width: 500px; max-height:500px" />
                         @endif
                         <span>{{ $favicon->favicon_thirtytwo ?? old('favicon_thirtytwo') }}</span>
                     </div>
@@ -42,7 +42,7 @@
                         <label for="favicon_sixteen">Favicon 16x16</label><span style="color:red; font-size:large">*</span>
                         <input type="file" name="favicon_sixteen" class="form-control" id="favicon_sixteen" onchange="previewAndCropImage(event, 'favicon_sixteen')">
                         @if ($favicon->favicon_sixteen)
-                            <img src="{{ asset('uploads/favicon/' . $favicon->favicon_sixteen) }}" id="favicon_sixteen_preview" style="max-width: 500px; max-height:500px" />
+                            <img src="{{ asset('storage/' . $favicon->favicon_sixteen) }}" id="favicon_sixteen_preview" style="max-width: 500px; max-height:500px" />
                         @endif
                         <span>{{ $favicon->favicon_sixteen ?? old('favicon_sixteen') }}</span>
                     </div>
@@ -52,7 +52,7 @@
                         <label for="favicon_ico">Favicon ICO</label><span style="color:red; font-size:large">*</span>
                         <input type="file" name="favicon_ico" class="form-control" id="favicon_ico" onchange="previewAndCropImage(event, 'favicon_ico')">
                         @if ($favicon->favicon_ico)
-                            <img src="{{ asset('uploads/favicon/' . $favicon->favicon_ico) }}" id="favicon_ico_preview" style="max-width: 500px; max-height:500px" />
+                            <img src="{{ asset('storage/' . $favicon->favicon_ico) }}" id="favicon_ico_preview" style="max-width: 500px; max-height:500px" />
                         @endif
                         <span>{{ $favicon->favicon_ico ?? old('favicon_ico') }}</span>
                     </div>
@@ -62,7 +62,7 @@
                         <label for="appletouch_icon">Apple Touch Icon</label><span style="color:red; font-size:large">*</span>
                         <input type="file" name="appletouch_icon" class="form-control" id="appletouch_icon" onchange="previewAndCropImage(event, 'appletouch_icon')">
                         @if ($favicon->appletouch_icon)
-                            <img src="{{ asset('uploads/favicon/' . $favicon->appletouch_icon) }}" id="appletouch_icon_preview" style="max-width: 500px; max-height:500px" />
+                            <img src="{{ asset('storage/' . $favicon->appletouch_icon) }}" id="appletouch_icon_preview" style="max-width: 500px; max-height:500px" />
                         @endif
                         <span>{{ $favicon->appletouch_icon ?? old('appletouch_icon') }}</span>
                     </div>
@@ -72,7 +72,7 @@
                         <label for="site_manifest">Site Manifest</label><span style="color:red; font-size:large">*</span>
                         <input type="file" name="site_manifest" class="form-control" id="site_manifest">
                         @if ($favicon->site_manifest)
-                            <img src="{{ asset('uploads/favicon/' . $favicon->site_manifest) }}" id="site_manifest_preview" style="max-width: 500px; max-height:500px" />
+                            <img src="{{ asset('storage/' . $favicon->site_manifest) }}" id="site_manifest_preview" style="max-width: 500px; max-height:500px" />
                         @endif
                         <span>{{ $favicon->site_manifest ?? old('site_manifest') }}</span>
                     </div>
