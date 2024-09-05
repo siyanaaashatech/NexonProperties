@@ -42,38 +42,41 @@
         </thead>
         <tbody>
             @foreach ($icons as $icon)
-                <tr>
-                    <td><img src="{{ Storage::url('uploads/favicon/' . $icon->appletouch_icon) }}" style="width: 150px; height:150px"></td>
-                    <td><img src="{{ Storage::url('uploads/favicon/' . $icon->favicon_ico) }}" style="width: 150px; height:150px"></td>
-                    <td><img src="{{ Storage::url('uploads/favicon/' . $icon->favicon_sixteen) }}" style="width: 150px; height:150px"></td>
-                    <td>
-                        @if ($icon->favicon_thirtyTwo)
-                            <img src="{{ Storage::url('uploads/favicon/' . $icon->favicon_thirtytwo) }}" style="width: 150px; height:150px">
-                        @else
-                            <span>No Favicon 32x32 Found</span>
-                        @endif
-                    </td>
-                    <td>
-                        @if ($icon->site_manifest)
-                            @php
-                                $filePath = storage_path('app/public/uploads/favicon/file/' . $icon->site_manifest);
-                                $manifestContent = file_exists($filePath) ? file_get_contents($filePath) : 'File not found.';
-                            @endphp
-
-                            <pre style="width: 300px; height: 300px; overflow: auto; border: 1px solid #ccc; padding: 10px; white-space: pre-wrap;">{{ $manifestContent }}</pre>
-                            
-                            <a href="{{ Storage::url('uploads/favicon/file/' . $icon->site_manifest) }}" download class="btn btn-primary btn-sm mt-2">Download Site Manifest</a>
-                        @else
-                            <span>No Site Manifest Found</span>
-                        @endif
-                    </td>
-                    <td>
-                        <div style="display: flex; flex-direction:row;">
-                            <a href="{{ route('favicons.edit', $icon->id) }}" class="btn btn-warning btn-sm" style="margin-right: 5px;"><i class="fas fa-edit"></i> Edit</a>
-                        </div>
-                    </td>
-                </tr>
-            @endforeach
+            <tr>
+                <td>
+                    <img src="{{ asset('storage/' . $icon->appletouch_icon) }}" style="width: 150px; height: 150px;">
+                </td>
+                <td>
+                    <img src="{{ asset('storage/' . $icon->favicon_ico) }}" style="width: 150px; height: 150px;">
+                </td>
+                <td>
+                    <img src="{{ asset('storage/' . $icon->favicon_sixteen) }}" style="width: 150px; height: 150px;">
+                </td>
+                <td>
+                    @if ($icon->favicon_thirtytwo)
+                        <img src="{{ asset('storage/' . $icon->favicon_thirtytwo) }}" style="width: 150px; height: 150px;">
+                    @else
+                        <span>No Favicon 32x32 Found</span>
+                    @endif
+                </td>
+                <td>
+                    @if ($icon->site_manifest)
+                        @php
+                            $filePath = storage_path('app/public/' . $icon->site_manifest);
+                            $manifestContent = file_exists($filePath) ? file_get_contents($filePath) : 'File not found.';
+                        @endphp
+                        <pre style="width: 300px; height: 300px; overflow: auto; border: 1px solid #ccc; padding: 10px; white-space: pre-wrap;">{{ $manifestContent }}</pre>
+                        <a href="{{ asset('storage/' . $icon->site_manifest) }}" download class="btn btn-primary btn-sm mt-2">Download Site Manifest</a>
+                    @else
+                        <span>No Site Manifest Found</span>
+                    @endif
+                </td>
+                <td>
+                    <a href="{{ route('favicons.edit', $icon->id) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Edit</a>
+                </td>
+            </tr>
+        @endforeach
+        
         </tbody>
     </table>
 
