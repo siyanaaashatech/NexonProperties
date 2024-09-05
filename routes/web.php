@@ -36,31 +36,35 @@ Route::get('/', function () {
 })->name('/');
 
 Route::get("/properties",function(){
-    return view("properties");
+    return view("frontend.properties");
 
 })->name("properties");
 Route::get("/blog",function(){
-    return view("blog");
+    return view("frontend.blog");
 
 })->name("blog");
 
 
 Route::get("/member",function(){
-    return view("member");
+    return view("frontend.member");
 
 });
 Route::get("/contact",function(){
-    return view("contact");
+    return view("frontend.contact");
 })->name("contact");
 
 
 Route::get("/about",function(){
-    return view("about");
+    return view("frontend.about");
 })->name('about');
+
+Route::get("/service", function(){
+    return view("service");
+});
 
 
 Route::get('/hello', function () {
-    return view('singleproperties');
+    return view('frontend.singleproperties');
 })->name('hello');
 Route::get('/', [FrontViewController::class, 'index'])->name('index');
 
