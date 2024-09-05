@@ -36,7 +36,7 @@
                 <th>Favicon ICO</th>
                 <th>Favicon 16x16</th>
                 <th>Favicon 32x32</th>
-                <th>Site Manifest</th>
+                
                 <th>Action</th>
             </tr>
         </thead>
@@ -59,7 +59,7 @@
                         <span>No Favicon 32x32 Found</span>
                     @endif
                 </td>
-                <td>
+                {{-- <td>
                     @if ($icon->site_manifest)
                         @php
                             $filePath = storage_path('app/public/' . $icon->site_manifest);
@@ -70,7 +70,7 @@
                     @else
                         <span>No Site Manifest Found</span>
                     @endif
-                </td>
+                </td> --}}
                 <td>
                     <a href="{{ route('favicons.edit', $icon->id) }}" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Edit</a>
                 </td>
