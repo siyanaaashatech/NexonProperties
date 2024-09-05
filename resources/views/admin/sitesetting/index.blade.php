@@ -4,11 +4,13 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-12">
+            <h3>SiteSettings</h3>
+            <br>
             <div class="card">
-                <div class="card-header">
+                {{-- <div class="card-header">
                     <h4>Site Settings List</h4>
                     <a href="{{ route('sitesettings.create') }}" class="btn btn-primary float-end">Add New Setting</a>
-                </div>
+                </div> --}}
                 <div class="card-body">
                     <!-- Display success message -->
                     @if(session('success'))
@@ -16,6 +18,7 @@
                             {{ session('success') }}
                         </div>
                     @endif
+                    
 
                     <!-- Check if there are any site settings -->
                     @if($siteSettings->count() > 0)
