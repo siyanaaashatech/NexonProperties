@@ -3,7 +3,7 @@
 
 
 {{-- <!-- about --> --}}
-  <section class="container-fluid container-fluid-background about">
+  <section class="container-fluid container-fluid-background about gapbetweensection">
     <div class="container d-flex flex-column justify-content-center align-items-center">
       <div class="row">
         <div class="col-md-6 d-flex ">
@@ -16,7 +16,7 @@
 
         </div>
         <div class="col-md-5 mx-md-4">
-          <div class="title py-2">
+          <div class="title">
             <div class="xs-text dashline">Trusted Real estate Care</div>
             <div class="lg-text1">Dream living Spaces Setting New Build</div>
           </div>

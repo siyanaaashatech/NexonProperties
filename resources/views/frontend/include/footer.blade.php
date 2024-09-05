@@ -1,4 +1,4 @@
-<footer class="container-fluid container-fluid-background mt-5">
+<footer class="container-fluid container-fluid-background">
     <div class="container">
       <div class="row  d-flex justify-content-between">
         <div class="col-md-5 flex-col sm-col-12 py-1">

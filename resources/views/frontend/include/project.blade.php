@@ -50,15 +50,7 @@
 
       <div class="col-md-6 sub-image-content">
         <div class="row">
-
-
-
           @foreach ($services as $service)
-
-
-
-
-
         <div class="col-md-6 pb-1">
         <div class="property-container">
           <img src="{{asset('image/bighouse.png')}}" alt="Property Image" class="property-image">
@@ -87,15 +79,10 @@
         </div>
 
       @endforeach
-
-
-
-
-
         </div>
       </div>
     </div>
-    <div class="property-container d-flex justify-content-center align-self-center gap-3 flex-wrap">
+    <div class="property-container d-flex justify-content-center align-self-center gap-3 flex-wrap pt-4">
       <div class="btn-buttongreen"> <i class="fa-solid fa-house customicons customiconssmall"></i> sale</div>
       <div class="btn-buttongreen"> <i class="fa-solid fa-house customicons customiconssmall"></i> Condos</div>
       <div class="btn-buttongreen "> <i class="fa-solid fa-house customicons customiconssmall"></i> sale</div>

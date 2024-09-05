@@ -2,7 +2,7 @@
     <div class="row">
       <div class="col-md-9 p-0 m-0">
         <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner mb-3">
+        <div class="carousel-inner mb-2">
     <!-- Carousel Items -->
     @foreach ($services as $index => $service)
         <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">

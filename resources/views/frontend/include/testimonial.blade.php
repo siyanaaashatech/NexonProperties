@@ -1,4 +1,4 @@
-<section class="container-fluid container-fluid-background gapbetweensection ">
+<section class="container-fluid container-fluid-background gapbetweensection">
     <div class="container  d-flex flex-column justify-content-center align-items-center">
       <div class="title">
         <div class="xs-text dashline">Trusted Real estate Care</div>
