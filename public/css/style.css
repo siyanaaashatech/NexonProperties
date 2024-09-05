@@ -155,6 +155,9 @@ a {
 .btn-buttonxsgreen {
     background: var(--offgreen);
 }
+.minuspadding{
+    margin-left: -1rem;
+}
 
 /*  title to control the text  */
 
@@ -273,6 +276,9 @@ a {
     font-size: 16px;
 }
 
+.title{
+    padding: 0.3rem 0;
+}
 /* for input */
 
 .input,
@@ -363,7 +369,7 @@ a {
     background: var(--green) !important;
 }
 
-.navsection img {
+.logoimg {
     width: auto;
     height: 60px;
     object-fit: cover;
@@ -558,14 +564,13 @@ a {
 
 .propertype-subimage {
     position: relative;
-    margin-left: 6px;
 }
 
 .propertype-subimage img {
     width: 100%;
-    height: 38.5vh;
+    height:36.5vh;
     object-fit: cover;
-}
+} 
 
 .property-subname-more {
     position: absolute;
@@ -596,11 +601,22 @@ a {
 }
 
 /* Keyframes for fade-in animation */
+/* Keyframes for fade-in animation */
 @keyframes fadein {
     0% {
+       
         opacity: 0;
     }
-    100% {
+    25% {
+        opacity: 0.2;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    75% {
+        opacity: 0.8;
+    }
+    100%{
         opacity: 1;
     }
 }
@@ -610,8 +626,16 @@ a {
     0% {
         opacity: 1;
     }
-
-    100% {
+    25% {
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    75% {
+        opacity: 0.2;
+    }
+    100%{
         opacity: 0;
     }
 }
@@ -619,29 +643,25 @@ a {
 /* Hidden state with animation */
 .subbanner-hidden {
     height: 0;
-    box-sizing: border-box;
     margin: 0;
     opacity: 0;
     position: absolute;
-    animation: fadeout 10s ease-out;
-    width: 97%;
-
+    overflow: hidden; 
+    width: 97%; 
+    /* animation: fadeout 10s ease-out;  */
+    animation-fill-mode: both; 
 }
 
 /* Visible state with animation */
 .visible-item {
     position: relative;
-    height: 38.5vh;
+    height: auto;
     overflow: hidden;
-    padding: 0 !important;
-    margin: 0 0 0.5rem 0.5rem !important;
-    box-sizing: border-box;
-    animation: fadein 1s ease-in;
-    width: 97%;
-    
+    margin: 0 0 0.5rem 0;
+    width: 97%; 
+    /* animation: fadein 3s ease-in;  */
+    animation-fill-mode: both; 
 }
-
-
 
 .property-image {
     width: 100%;
@@ -775,6 +795,7 @@ a {
     background: var(--green);
     padding: 1rem 1.5rem;
     margin-top: 1rem;
+    border-radius: var(--border-radius);
 }
 
 .nobackground {
@@ -809,6 +830,7 @@ a {
 
 .card {
     position: relative;
+    cursor:pointer;
 }
 
 .sell_rent_button {
@@ -940,11 +962,64 @@ a {
     width: 100%;
     position: relative;
 }
-
 .image img {
     width: 100%;
     height: 50vh;
+    border-radius: var(--border-radius);
 }
+
+
+
+.first img{
+    transition: transform 0.5s ease; 
+    animation: first 24s ease-in-out infinite; 
+
+}
+.second img{
+    transition: transform 0.5s ease; 
+    animation:  second 24s ease-in-out infinite; 
+
+}
+@media(max-width:660px)
+{
+    .first img{
+        transition:none; 
+        animation:none; 
+    
+    }
+    .second img{
+        transition:none; 
+        animation:  none; 
+    
+    }
+
+}
+
+@keyframes first {
+    0% {
+        transform: translateY(50px); 
+    }
+    50% {
+        transform: translateY(70px); 
+    }
+    100% {
+        transform: translateY(70px);
+    }
+}
+
+@keyframes second {
+    0% {
+        transform: translateY(80px); 
+    }
+    50% {
+        transform: translateY(20px); 
+    }
+    100% {
+        transform: translateY(80px);
+    }
+}
+
+
 
 @media (max-width: 600px) {
     .image img {
@@ -1084,15 +1159,15 @@ a {
     width: 20%;
 }
 
-.bur-menu .font-collection .customicons {
+ .font-collection .customicons {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     padding: 0.6rem;
     border-radius: var(--border-radius);
 }
-
-.bur-menu .font-collection :hover {
+ .font-collection :hover {
     box-shadow: 0px 4px 8px var(--off-white);
     border-radius: var(--border-radius);
+    z-index: 1;
 }
 
 .bur-menu li:hover {
@@ -1187,6 +1262,7 @@ a {
     border-right: 1px solid var(--off-white);
     background: var(--freegreen);
     min-height:480px;
+ cursor:pointer
 
 
 }
@@ -1228,22 +1304,9 @@ a {
    .swiper-button-prev {
      display: none;
    }
+  
 
-
-
-   /* Responsive Design */
-   @media (max-width: 768px) {
-     .swiper-slide {
-       flex: 1 0 50%;
-     }
-   }
-
-   @media (max-width: 1024px) {
-     .swiper-slide {
-       flex: 1 0 33.33%;
-     }
-   }
-
+  
 
    .swiper-slide:nth-child(odd) .customcard {
     background: var(--off-yellow) !important; 
@@ -1253,6 +1316,165 @@ a {
 
 
 .gapbetweensection{
-     margin:40px auto;
+     margin:60px auto;
      padding:40px auto;
 }
+
+
+
+.clear {
+    clear: both;
+  }
+ 
+  .line-title {
+    position: relative;
+    width: 400px;
+  }
+  .line-title::before,
+  .line-title::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    border-radius: 2px;
+  }
+  .line-title::before {
+    width: 100%;
+    background: #f2f2f2;
+  }
+  .line-title::after {
+    width: 32px;
+    background: #e73700;
+  }
+  /* Middle section CSS */
+  .cardslider1 .owl-stage {
+
+    display: flex;
+    display: -webkit-flex;
+  }
+  .cardslider1 .item {
+    margin: 0 15px 60px;
+    width: 300px;
+    height: 300px;
+    display: flex;
+    display: -webkit-flex;
+    align-items: flex-end;
+    -webkit-align-items: flex-end;
+    background: #343434 no-repeat center center / cover;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+    cursor: pointer;
+  }
+  .cardslider1 .item.active {
+    width: 350px;
+  }
+  .cardslider1 .item:after {
+    content: "";
+    display: block;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 1));
+  }
+  .cardslider1 .item-desc {
+    padding: 0 24px 12px;
+    color: #fff;
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    transform: translateY(calc(100% - 54px));
+    -webkit-transform: translateY(calc(100% - 54px));
+    transition: all 0.4s ease-in-out;
+    -webkit-transition: all 0.4s ease-in-out;
+  }
+  .cardslider1 .item.active .item-desc {
+    transform: none;
+    -webkit-transform: none;
+  }
+  .cardslider1 .item-desc p {
+    opacity: 0;
+    -webkit-transform: translateY(32px);
+    transform: translateY(32px);
+    transition: all 0.4s ease-in-out 0.2s;
+    -webkit-transition: all 0.4s ease-in-out 0.2s;
+  }
+  .cardslider1 .item.active .item-desc p {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+  }
+  .cardslider1 .owl-theme.custom-carousel .owl-dots {
+    margin-top: -20px;
+    position: relative;
+    z-index: 5;
+  }
+  /* Responsive Design */
+  @media (min-width: 992px) and (max-width: 1199px) {
+    .cardslider1.item {
+      margin: 0 12px 60px;
+      width: 260px;
+      height: 360px;
+    }
+    .cardslider1 .item.active {
+      width: 400px;
+    }
+    .cardslider1 .item-desc {
+      transform: translateY(calc(100% - 46px));
+      -webkit-transform: translateY(calc(100% - 46px));
+    }
+  }
+  @media (min-width: 768px) and (max-width: 991px) {
+    h2 {
+      margin-bottom: 32px;
+    }
+    h3 {
+      margin: 0 0 8px;
+      font-size: 24px;
+      line-height: 32px;
+    }
+    .line-title {
+      width: 330px;
+    }
+    .cardslider1 {
+      padding: 0px 30px 40px;
+    }
+    .cardslider1 .item {
+      margin: 0 12px 60px;
+      width: 240px;
+      height: 330px;
+    }
+    .cardslider1 .item.active {
+      width: 360px;
+    }
+    .cardslider1 .item-desc {
+      transform: translateY(calc(100% - 42px));
+      -webkit-transform: translateY(calc(100% - 42px));
+    }
+  }
+  @media (max-width:767px) {
+
+    .cardslider1{
+      padding: 30px 15px 20px;
+    }
+    .cardslider1 .item {
+      margin: 0 10px 40px;
+      width: 200px;
+      height: 280px;
+    }
+    .cardslider1 .item.active {
+      width: 270px;
+      box-shadow: 6px 10px 10px rgba(0, 0, 0, 0.25);
+      -webkit-box-shadow: 6px 10px 10px rgba(0, 0, 0, 0.25);
+    }
+    .cardslider1 .item-desc {
+      padding: 0 14px 5px;
+      transform: translateY(calc(100% - 42px));
+      -webkit-transform: translateY(calc(100% - 42px));
+    }
+  }

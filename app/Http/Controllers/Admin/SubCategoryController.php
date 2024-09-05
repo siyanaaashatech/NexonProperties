@@ -7,7 +7,6 @@ use App\Models\SubCategory;
 use App\Models\Category;
 use App\Models\Metadata;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class SubCategoryController extends Controller
 {
@@ -26,7 +25,8 @@ class SubCategoryController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.subcategories.create', compact('categories'));
+        $metadata = Metadata::all();
+        return view('admin.subcategories.create', compact('categories', 'metadata'));
     }
 
     /**
@@ -37,30 +37,25 @@ class SubCategoryController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
+            'metadata_id' => 'required|exists:metadata,id',
         ]);
 
-        // Automatically set Meta Description, Meta Keywords, and Slug based on the Meta Title
-        $metaTitle = $request->title;
-        $metaDescription = $metaTitle;
-        $metaKeywords = $metaTitle;
-        $slug = Str::slug($metaTitle);
-
-        // Create a new metadata entry
-        $metadata = Metadata::create([
-            'meta_title' => $metaTitle,
-            'meta_description' => $metaDescription,
-            'meta_keywords' => $metaKeywords,
-            'slug' => $slug,
-        ]);
-
-        // Create a new subcategory and associate with metadata
         SubCategory::create([
-            'title' => $request->input('title'),
-            'category_id' => $request->input('category_id'),
-            'metadata_id' => $metadata->id,
+            'title' => $request->title,
+            'category_id' => $request->category_id,
+            'metadata_id' => $request->metadata_id,
         ]);
 
-        return redirect()->route('subcategories.index')->with('success', 'SubCategory created successfully.');
+        return redirect()->route('admin.subcategories.index')->with('success', 'SubCategory created successfully.');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $subCategory = SubCategory::with(['category', 'metadata'])->findOrFail($id);
+        return view('admin.subcategories.show', compact('subCategory'));
     }
 
     /**
@@ -68,9 +63,10 @@ class SubCategoryController extends Controller
      */
     public function edit(string $id)
     {
-        $subCategory = SubCategory::with('metadata')->findOrFail($id);
+        $subCategory = SubCategory::findOrFail($id);
         $categories = Category::all();
-        return view('admin.subcategories.edit', compact('subCategory', 'categories'));
+        $metadata = Metadata::all();
+        return view('admin.subcategories.edit', compact('subCategory', 'categories', 'metadata'));
     }
 
     /**
@@ -83,29 +79,16 @@ class SubCategoryController extends Controller
         $request->validate([
             'title' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
+            'metadata_id' => 'required|exists:metadata,id',
         ]);
 
-        // Automatically set Meta Description, Meta Keywords, and Slug based on the Meta Title
-        $metaTitle = $request->title;
-        $metaDescription = $metaTitle;
-        $metaKeywords = $metaTitle;
-        $slug = Str::slug($metaTitle);
-
-        // Update metadata record or create if not existing
-        $subCategory->metadata()->updateOrCreate([], [
-            'meta_title' => $metaTitle,
-            'meta_description' => $metaDescription,
-            'meta_keywords' => $metaKeywords,
-            'slug' => $slug,
-        ]);
-
-        // Update subcategory record
         $subCategory->update([
-            'title' => $request->input('title'),
-            'category_id' => $request->input('category_id'),
+            'title' => $request->title,
+            'category_id' => $request->category_id,
+            'metadata_id' => $request->metadata_id,
         ]);
 
-        return redirect()->route('subcategories.index')->with('success', 'SubCategory updated successfully.');
+        return redirect()->route('admin.subcategories.index')->with('success', 'SubCategory updated successfully.');
     }
 
     /**
@@ -116,6 +99,6 @@ class SubCategoryController extends Controller
         $subCategory = SubCategory::findOrFail($id);
         $subCategory->delete();
 
-        return redirect()->route('subcategories.index')->with('success', 'SubCategory deleted successfully.');
+        return redirect()->route('admin.subcategories.index')->with('success', 'SubCategory deleted successfully.');
     }
 }

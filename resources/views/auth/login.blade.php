@@ -13,14 +13,14 @@
     <!--    assets from dashboard-->
     <!-- ===============================================-->
     <link rel="apple-touch-icon" sizes="180x180"
-        href="{{ asset('adminassets/assets/img/favicons/apple-touch-icon.png') }}">
+        href="{{ asset('image/logo.png') }}">
     <link rel="icon" type="image/png" sizes="32x32"
-        href="{{ asset('adminassets/assets/img/favicons/favicon-32x32.png') }}">
+        href="{{ asset('image/logo.png') }}">
     <link rel="icon" type="image/png" sizes="16x16"
-        href="{{ asset('adminassets/assets/img/favicons/favicon-32x32.png') }}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('adminassets/assets/img/favicons/favicon.ico') }}">
+        href="{{ asset('image/logo.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('image/logo.png') }}">
     <link rel="manifest" href="{{ asset('adminassets/assets/img/favicons/manifest.json') }}">
-    <meta name="msapplication-TileImage" content="{{ asset('adminassets/assets/img/favicons/mstile-150x150.png') }}">
+    <meta name="msapplication-TileImage" content="{{ asset('image/logo.png') }}">
     <meta name="theme-color" content="#ffffff">
     <script src="{{ asset('adminassets/assets/js/config.js') }}"></script>
     <script src="{{ asset('adminassets/vendors/overlayscrollbars/OverlayScrollbars.min.js') }}"></script>
@@ -105,9 +105,9 @@
                                                 <!--/.bg-holder-->
                                                 <div class="z-index-1 position-relative"><a
                                                         class="link-light mb-4 font-sans-serif fs-4 d-inline-block fw-bolder"
-                                                        href="#">Test</a>
+                                                        href="#">Welcome to Nexon</a>
                                                     <img height="200" width="200"
-                                                        src="#">
+                                                        src="{{ asset('image/logo.png') }}">
                                                     {{-- <p class="opacity-75 text-white">With the power of Falcon, you can now focus only on functionaries for your digital products, while leaving the UI design on us!</p> --}}
                                                 </div>
                                             </div>

@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Metadata;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -24,7 +23,8 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.categories.create');
+        $metadata = Metadata::all();
+        return view('admin.categories.create', compact('metadata'));
     }
 
     /**
@@ -34,29 +34,24 @@ class CategoryController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
+            'metadata_id' => 'required|exists:metadata,id',
         ]);
 
-        // Automatically set Meta Description, Meta Keywords, and Slug based on the Title
-        $metaTitle = $request->title;
-        $metaDescription = $metaTitle;
-        $metaKeywords = $metaTitle;
-        $slug = Str::slug($metaTitle);
-
-        // Create metadata record
-        $metadata = Metadata::create([
-            'meta_title' => $metaTitle,
-            'meta_description' => $metaDescription,
-            'meta_keywords' => $metaKeywords,
-            'slug' => $slug,
-        ]);
-
-        // Create category and associate metadata
         Category::create([
             'title' => $request->title,
-            'metadata_id' => $metadata->id,
+            'metadata_id' => $request->metadata_id,
         ]);
 
-        return redirect()->route('categories.index')->with('success', 'Category created successfully.');
+        return redirect()->route('admin.categories.index')->with('success', 'Category created successfully.');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $category = Category::with('metadata')->findOrFail($id);
+        return view('admin.categories.show', compact('category'));
     }
 
     /**
@@ -64,8 +59,9 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        $category = Category::with('metadata')->findOrFail($id);
-        return view('admin.categories.edit', compact('category'));
+        $category = Category::findOrFail($id);
+        $metadata = Metadata::all();
+        return view('admin.categories.edit', compact('category', 'metadata'));
     }
 
     /**
@@ -77,28 +73,15 @@ class CategoryController extends Controller
 
         $request->validate([
             'title' => 'required|string|max:255',
+            'metadata_id' => 'required|exists:metadata,id',
         ]);
 
-        // Automatically set Meta Description, Meta Keywords, and Slug based on the Title
-        $metaTitle = $request->title;
-        $metaDescription = $metaTitle;
-        $metaKeywords = $metaTitle;
-        $slug = Str::slug($metaTitle);
-
-        // Update metadata record or create if not existing
-        $category->metadata()->updateOrCreate([], [
-            'meta_title' => $metaTitle,
-            'meta_description' => $metaDescription,
-            'meta_keywords' => $metaKeywords,
-            'slug' => $slug,
-        ]);
-
-        // Update category record
         $category->update([
             'title' => $request->title,
+            'metadata_id' => $request->metadata_id,
         ]);
 
-        return redirect()->route('categories.index')->with('success', 'Category updated successfully.');
+        return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully.');
     }
 
     /**
@@ -109,6 +92,6 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->delete();
 
-        return redirect()->route('categories.index')->with('success', 'Category deleted successfully.');
+        return redirect()->route('admin.categories.index')->with('success', 'Category deleted successfully.');
     }
 }

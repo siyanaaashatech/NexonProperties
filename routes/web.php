@@ -28,6 +28,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SingleController;
 use App\Http\Controllers\Admin\FaviconController;
+use App\Http\Controllers\Admin\SiteSettingController;
+use App\Http\Controllers\Admin\SocialLinkController;
+use App\Http\Controllers\Admin\AboutUsController;
 use App\Http\Controllers\Auth\VerificationController;
 
 Auth::routes();
@@ -62,6 +65,16 @@ Route::get("/about",function(){
 Route::get("/service", function(){
     return view("service");
 });
+Route::get("services", function () { return view('frontend.include.blog.php');});
+Route::get("services",function(){ return view("frontend.include.advantage.php");});
+Route::get("services",function(){ return view("frontend.include.indexbanner.php");});
+
+Route::get("services",function(){return view("frontend.include.about.blade.php");});
+
+Route::get("services",function(){return view("frontend.testimonial.blade.php");});
+Route::get("service", function(){ return view ("frontend.include.project.blade.php");});
+
+Route::get("service", function(){ return view ("frontend.include.project.blade.php");});
 
 
 Route::get('/hello', function () {
@@ -141,7 +154,26 @@ Route::prefix('/admin')->name('admin.')->middleware(['web', 'auth'])->group(func
 
    Route::resource('services', ServiceController::class);
 
+   Route::resource('favicons', FaviconController::class);
+
+   //AboutUs route
+   Route::resource('aboutus', AboutUsController::class);
+
+   //Sitesetting route
+   Route::resource('sitesettings', SiteSettingController::class);
+
+   //Sociallinks route
+   Route::resource('social-links', SocialLinkController::class);
+
    
+Route::get('/services', [SingleController::class, 'render_service'])->name('properties');
+Route::view("/member", "frontend.member")->name('member');
+Route::view("/contact", "frontend.contact")->name('contact');
+Route::get('/about', [SingleController::class, 'render_about'])->name('about');
+Route::get('/blog', [SingleController::class, 'render_blog'])->name('blog');
+Route::get('/singleblogpost', [SingleController::class, 'render_singleblogpost'])->name('singleblogpost');
+Route::view("/singleproperties", "frontend.singleproperties")->name('singleproperties');
+
 
 // Routes for History
 // Route::get('/application-history/', [HistoriesController::class, 'application_index'])->name('application-history');

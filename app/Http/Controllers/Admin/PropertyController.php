@@ -4,13 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Property;
+use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\SubCategory;
 use App\Models\Metadata;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
+use Storage;
 
 class PropertyController extends Controller
 {
@@ -59,10 +57,10 @@ class PropertyController extends Controller
             'availability_status' => 'required|in:available,sold,rental',
             'rental_period' => 'nullable|string',
             'other_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'cropData' => 'required|string',
+            'metadata_id' => 'required|exists:metadata,id',
         ]);
 
-        // Handle the main image upload
+        // Handle main image upload
         $mainImagePath = $request->file('main_image')->store('uploads/images/property/main', 'local');
 
         // Handle other images upload
@@ -74,15 +72,6 @@ class PropertyController extends Controller
             }
         }
 
-        // Create a new metadata entry
-        $metadata = Metadata::create([
-            'meta_title' => $request->title,
-            'meta_description' => $request->description,
-            'meta_keywords' => $request->keywords,
-            'slug' => Str::slug($request->title)
-        ]);
-
-        // Create new property record and associate with metadata
         Property::create([
             'title' => $request->title,
             'description' => $request->description,
@@ -103,10 +92,19 @@ class PropertyController extends Controller
             'availability_status' => $request->availability_status,
             'rental_period' => $request->rental_period,
             'other_images' => json_encode($otherImages),
-            'metadata_id' => $metadata->id, // Link newly created metadata
+            'metadata_id' => $request->metadata_id,
         ]);
 
-        return redirect()->route('property.index')->with('success', 'Property created successfully.');
+        return redirect()->route('admin.property.index')->with('success', 'Property created successfully.');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        $property = Property::findOrFail($id);
+        return view('admin.property.show', compact('property'));
     }
 
     /**
@@ -148,7 +146,7 @@ class PropertyController extends Controller
             'availability_status' => 'required|in:available,sold,rental',
             'rental_period' => 'nullable|string',
             'other_images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'cropData' => 'sometimes|string',
+            'metadata_id' => 'required|exists:metadata,id',
         ]);
 
         // Handle main image update
@@ -172,18 +170,9 @@ class PropertyController extends Controller
             $property->other_images = json_encode($otherImages);
         }
 
-        // Update metadata record
-        $property->metadata()->updateOrCreate([], [
-            'meta_title' => $request->title,
-            'meta_description' => $request->description,
-            'meta_keywords' => $request->keywords,
-            'slug' => Str::slug($request->title)
-        ]);
-
-        // Update property record
         $property->update($request->all());
 
-        return redirect()->route('property.index')->with('success', 'Property updated successfully.');
+        return redirect()->route('admin.property.index')->with('success', 'Property updated successfully.');
     }
 
     /**
@@ -210,4 +199,5 @@ class PropertyController extends Controller
     
         return redirect()->route('admin.property.index')->with('success', 'Property deleted successfully.');
     }
+    
 }

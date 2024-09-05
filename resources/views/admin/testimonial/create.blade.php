@@ -31,13 +31,17 @@
                     <input type="number" name="rating" class="form-control" id="rating" min="1" max="5" placeholder="Rating (1-5)" required>
                 </div>
 
-                <div class="form-group">
-                    <label for="status">Status</label>
-                    <select name="status" id="status" class="form-control" required>
-                        <option value="1">Active</option>
-                        <option value="0">Inactive</option>
-                    </select>
-                </div>
+               <div class="form-group mb-3">
+                            <label for="status">Status</label>
+                                <div class="form-check">
+                                            <input type="radio" name="status" id="status_active" value="1" class="form-check-input" {{ old('status') == '1' ? 'checked' : '' }} required>
+                                            <label for="status_active" class="form-check-label">Active</label>
+    </div>
+    <div class="form-check">
+        <input type="radio" name="status" id="status_inactive" value="0" class="form-check-input" {{ old('status') == '0' ? 'checked' : '' }} required>
+        <label for="status_inactive" class="form-check-label">Inactive</label>
+    </div>
+</div>
             </div>
             <!-- /.card-body -->
 

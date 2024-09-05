@@ -1,7 +1,9 @@
+
 <!DOCTYPE html>
 <html>
 <head>
     <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
 </head>
 <body>
 @extends('admin.layouts.master')
@@ -12,7 +14,7 @@
         <div class="col-md-8 offset-md-2">
             <div class="card">
                 <div class="card-header">
-                    <h4>Create New Service</h4>
+                    <h4>Create New About Us Entry</h4>
                 </div>
                 <div class="card-body">
                     @if(session('success'))
@@ -38,36 +40,30 @@
                         </div>
                     @endif
 
-                    <!-- Service creation form -->
-                    <form action="{{ route('services.store') }}" method="POST" enctype="multipart/form-data"
-                        id="serviceForm">
+                    <!-- About Us creation form -->
+                    <form action="{{ route('aboutus.store') }}" method="POST" enctype="multipart/form-data" id="aboutUsForm">
                         @csrf
 
                         <div class="form-group mb-3">
                             <label for="title">Title</label>
-                            <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}"
-                                required>
+                            <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}" required>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="subtitle">Subtitle</label>
-                            <input type="text" name="subtitle" id="subtitle" class="form-control"
-                                value="{{ old('subtitle') }}" required>
+                            <input type="text" name="subtitle" id="subtitle" class="form-control" value="{{ old('subtitle') }}" required>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="description">Description</label>
-                            <textarea name="description" id="description" class="form-control" rows="5"
-                                required>{{ old('description') }}</textarea>
+                            <textarea name="description" id="description" class="form-control summernote" rows="5" required>{{ old('description') }}</textarea>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="keywords">Keywords</label>
-                            <input type="text" name="keywords" id="keywords" class="form-control" value="{{ old('keywords') }}"
-                                >
+                            <textarea name="keywords" id="keywords" class="form-control" rows="5" required>{{ old('keywords') }}</textarea>
                         </div>
 
-                        <!-- Image Upload with Cropper.js -->
                         <div class="form-group mb-3">
                             <label for="image">Image</label>
                             <input type="file" id="image" class="form-control" required>
@@ -85,34 +81,22 @@
                             <img id="cropped-image-preview" style="max-width: 150%; max-height: 200%; display: block;">
                         </div>
 
-                       <div class="form-group mb-3">
+                        <div class="form-group mb-3">
                             <label for="status">Status</label>
-                                <div class="form-check">
-                                            <input type="radio" name="status" id="status_active" value="1" class="form-check-input" {{ old('status') == '1' ? 'checked' : '' }} required>
-                                            <label for="status_active" class="form-check-label">Active</label>
-    </div>
-    <div class="form-check">
-        <input type="radio" name="status" id="status_inactive" value="0" class="form-check-input" {{ old('status') == '0' ? 'checked' : '' }} required>
-        <label for="status_inactive" class="form-check-label">Inactive</label>
-    </div>
-</div>
+                            <div class="form-check">
+                                <input type="radio" name="status" id="status_active" value="1" class="form-check-input" {{ old('status') == '1' ? 'checked' : '' }} required>
+                                <label for="status_active" class="form-check-label">Active</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" name="status" id="status_inactive" value="0" class="form-check-input" {{ old('status') == '0' ? 'checked' : '' }} required>
+                                <label for="status_inactive" class="form-check-label">Inactive</label>
+                            </div>
+                        </div>
 
-
-                        {{-- <div class="form-group mb-3">
-                            <label for="metadata_id">Select Metadata</label>
-                            <select name="metadata_id" id="metadata_id" class="form-control" required>
-                                <option value="">Choose Metadata</option>
-                                @foreach($metadata as $meta)
-                                    <option value="{{ $meta->id }}" {{ old('metadata_id') == $meta->id ? 'selected' : '' }}>
-                                        {{ $meta->meta_title }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div> --}}
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Create Service</button>
-                            <a href="{{ route('admin.services.index') }}" class="btn btn-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary">Create About Us</button>
+                            <a href="{{ route('aboutus.index') }}" class="btn btn-secondary">Cancel</a>
                         </div>
                     </form>
                 </div>
@@ -130,7 +114,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <img id="image-preview" style="width: 10%; height: 10%; display: none;">
+                <img id="image-preview" style="width: 100%; display: none;">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -141,8 +125,8 @@
 </div>
 
 <!-- Include Cropper.js -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 
 <script>
     let cropper;
@@ -202,6 +186,16 @@
         }, 'image/png');
     });
 
+    // Initialize Summernote
+    $(document).ready(function() {
+        $('.summernote').summernote({
+            height: 300,
+            minHeight: null,
+            maxHeight: null,
+            focus: true
+        });
+    });
+
     // Show toast message after form submission
     document.addEventListener('DOMContentLoaded', function () {
         if (document.querySelector('.toast')) {
@@ -211,3 +205,5 @@
     });
 </script>
 @endsection
+</body>
+</html>

@@ -9,6 +9,7 @@ class CreateSiteSettingsTable extends Migration
     {
         Schema::create('site_settings', function (Blueprint $table) {
             $table->id();
+
             $table->string('office_title');
             $table->json('office_address');
             $table->json('office_contact');

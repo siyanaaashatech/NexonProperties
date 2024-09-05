@@ -12,6 +12,7 @@ class CreateAboutUsTable extends Migration
             $table->string('title');
             $table->string('subtitle');
             $table->longText('description');
+            $table->longText('keywords');
             $table->json('image'); // For multi-image upload
             $table->boolean('status');
             $table->foreignId('metadata_id')->constrained('metadata')->onDelete('cascade');

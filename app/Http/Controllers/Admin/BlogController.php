@@ -15,6 +15,7 @@ class BlogController extends Controller
     public function index()
     {
         $blogs = Blog::with('metadata')->latest()->get();
+        
         return view('admin.blogs.index', compact('blogs'));
     }
 
@@ -39,6 +40,7 @@ class BlogController extends Controller
             'cropData' => 'nullable|string',
         ]);
 
+       
         $cropData = $request->input('cropData') ? json_decode($request->input('cropData'), true) : null;
         $images = [];
 

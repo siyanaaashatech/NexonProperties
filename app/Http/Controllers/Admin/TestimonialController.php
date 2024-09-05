@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
 use App\Models\Testimonial;
+
 
 class TestimonialController extends Controller
 {
@@ -104,5 +106,7 @@ class TestimonialController extends Controller
 
         return redirect()->route('testimonials.index')
                          ->with('success', 'Testimonial deleted successfully.');
-    }
+
+    
+}
 }

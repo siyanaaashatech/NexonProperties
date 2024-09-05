@@ -102,16 +102,17 @@
 
   
      <li class="nav-item d-none d-sm-block">
-        <a class="nav-link px-0" href="#">
+        <a class="nav-link text-blue px-0" id="a" href="#">
           {{ $user = Auth::user()->name}}
         </a>
       </li> 
+      
     
      
 
 
 
-      <li class="nav-item dropdown"><a class="nav-link pe-0 ps-2" id="navbarDropdownUser" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+      <li class="nav-item dropdown"><a class="nav-link pe-0 ps-2" id="navbarDropdownUser" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
           <div class="avatar avatar-xl">
             <img class="rounded-circle" src="{{ asset('adminassets/assets/img/team/3-thumb.png') }}" alt="">
           </div>
@@ -127,9 +128,9 @@
 
 
             {{-- <a class="dropdown-item" href="pages/user/settings.html">Settings</a> --}}
-            <a class="dropdown-item" href="">Change Password</a>
+            <a class="dropdown-item text-black" href="">Change Password</a>
 
-            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            <a class="dropdown-item text-black" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
             </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -140,4 +141,12 @@
         </div>
       </li>
     </ul>
+
 </nav>
+<script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</script>

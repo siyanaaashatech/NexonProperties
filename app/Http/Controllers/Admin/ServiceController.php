@@ -185,7 +185,7 @@ class ServiceController extends Controller
         // Flash success message and redirect
         session()->flash('success', 'Service updated successfully.');
     
-        return redirect()->route('admin.services.index');
+        return redirect()->route('services.index');
     }
     
 
@@ -206,6 +206,6 @@ class ServiceController extends Controller
 
         $service->delete();
 
-        return redirect()->route('admin.services.index')->with('success', 'Service deleted successfully.');
+        return redirect()->route('services.index')->with('success', 'Service deleted successfully.');
     }
 }

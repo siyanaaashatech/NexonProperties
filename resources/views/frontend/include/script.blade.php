@@ -1,4 +1,33 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+
+
+<!-- for advantage  -->
+<script>
+   $(document).ready(function () {
+      // Initialize Owl Carousel
+      $(".custom-carousel").owlCarousel({
+        autoWidth: true,
+        loop: true,
+        margin:3, // Adjust margin if needed
+      });
+
+      // Toggle active class on click
+      $(".custom-carousel .item").click(function () {
+        $(".custom-carousel .item").not($(this)).removeClass("active");
+        $(this).toggleClass("active");
+      });
+    });
+</script>
+
+
+
+
+
+
+
+
+
   <script>
     const swiper = new Swiper('.swiper', {
       direction: 'horizontal',

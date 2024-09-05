@@ -58,4 +58,12 @@ class MetadataController extends Controller
         $metadata->delete();
         return redirect()->route('metadata.index')->with('success', 'Metadata deleted successfully.');
     }
+    public function show($id)
+    {
+        // Fetch the metadata item by ID
+        $metadata = Metadata::findOrFail($id);
+
+        // Return a view with the metadata details (create a show.blade.php if necessary)
+        return view('admin.metadata.index', compact('metadata'));
+    }
 }

@@ -1,8 +1,8 @@
-{{-- <!-- project --> --}}
-
-
-
-<div class="container gapbetweensection">
+  
+  
+  
+  <section class="container-fluid">
+  <div class="container gapbetweensection">
     <div class="d-flex justify-content-between">
       <div class="title">
         <div class="xs-text1 dashline">Trusted Real Estate Care</div>
@@ -39,26 +39,9 @@
         </div>
       </div>
 
-
-
-
-
-
-
-
-
-
       <div class="col-md-6 sub-image-content">
         <div class="row">
-
-
-
           @foreach ($services as $service)
-
-
-
-
-
         <div class="col-md-6 pb-1">
         <div class="property-container">
           <img src="{{asset('image/bighouse.png')}}" alt="Property Image" class="property-image">
@@ -87,15 +70,19 @@
         </div>
 
       @endforeach
-
-
-
-
-
         </div>
       </div>
     </div>
-    <div class="property-container d-flex justify-content-center align-self-center gap-3 flex-wrap">
+   
+
+  </div>
+</section>
+
+ <!-- sub button -->
+
+
+<section class="container">
+<div class="property-container d-flex justify-content-center align-self-center gap-3 flex-wrap">
       <div class="btn-buttongreen"> <i class="fa-solid fa-house customicons customiconssmall"></i> sale</div>
       <div class="btn-buttongreen"> <i class="fa-solid fa-house customicons customiconssmall"></i> Condos</div>
       <div class="btn-buttongreen "> <i class="fa-solid fa-house customicons customiconssmall"></i> sale</div>
@@ -104,5 +91,4 @@
 
     </div>
 
-  </div>
 </section>

@@ -13,6 +13,7 @@ class AboutUs extends Model
         'title',
         'subtitle',
         'description',
+        'keywords',
         'image',
         'status',
         'metadata_id'
@@ -26,5 +27,18 @@ class AboutUs extends Model
     public function metadata()
     {
         return $this->belongsTo(Metadata::class);
+    }
+    /**
+     * Return the sluggable configuration array for this model.
+     *
+     * @return array
+     */
+    public function sluggable(): array
+    {
+        return [
+            'slug' => [
+                'source' => 'title',
+            ],
+        ];
     }
 }

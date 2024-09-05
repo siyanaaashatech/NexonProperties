@@ -1,9 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
-</head>
-<body>
 @extends('admin.layouts.master')
 
 @section('content')
@@ -12,7 +6,7 @@
         <div class="col-md-8 offset-md-2">
             <div class="card">
                 <div class="card-header">
-                    <h4>Create New Service</h4>
+                    <h4>Edit About Us Entry</h4>
                 </div>
                 <div class="card-body">
                     @if(session('success'))
@@ -38,46 +32,40 @@
                         </div>
                     @endif
 
-                    <!-- Service creation form -->
-                    <form action="{{ route('services.store') }}" method="POST" enctype="multipart/form-data"
-                        id="serviceForm">
+                    <!-- About Us update form -->
+                    <form action="{{ route('aboutus.update', $aboutUs->id) }}" method="POST" enctype="multipart/form-data" id="aboutUsForm">
                         @csrf
+                        @method('PUT')
 
                         <div class="form-group mb-3">
                             <label for="title">Title</label>
-                            <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}"
-                                required>
+                            <input type="text" name="title" id="title" class="form-control" value="{{ old('title', $aboutUs->title) }}" required>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="subtitle">Subtitle</label>
-                            <input type="text" name="subtitle" id="subtitle" class="form-control"
-                                value="{{ old('subtitle') }}" required>
+                            <input type="text" name="subtitle" id="subtitle" class="form-control" value="{{ old('subtitle', $aboutUs->subtitle) }}" required>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="description">Description</label>
-                            <textarea name="description" id="description" class="form-control" rows="5"
-                                required>{{ old('description') }}</textarea>
+                            <textarea name="description" id="description" class="form-control" rows="5" required>{{ old('description', $aboutUs->description) }}</textarea>
                         </div>
 
                         <div class="form-group mb-3">
                             <label for="keywords">Keywords</label>
-                            <input type="text" name="keywords" id="keywords" class="form-control" value="{{ old('keywords') }}"
-                                >
+                            <textarea name="keywords" id="keywords" class="form-control" rows="5" required>{{ old('keywords', $aboutUs->keywords) }}</textarea>
                         </div>
 
                         <!-- Image Upload with Cropper.js -->
                         <div class="form-group mb-3">
-                            <label for="image">Image</label>
-                            <input type="file" id="image" class="form-control" required>
+                            <label for="image">Upload New Image</label>
+                            <input type="file" id="image" class="form-control" accept="image/*">
                         </div>
 
-                        <!-- Crop Data Hidden Field -->
+                        <!-- Hidden Inputs for Base64 Image -->
+                        <input type="hidden" name="image[]" id="croppedImage">
                         <input type="hidden" name="cropData" id="cropData">
-                        
-                        <!-- Hidden input to simulate array submission -->
-                        <input type="hidden" name="image[]" id="croppedImage"> 
 
                         <!-- Cropped Image Preview -->
                         <div class="form-group mb-3" id="cropped-preview-container" style="display: none;">
@@ -85,34 +73,21 @@
                             <img id="cropped-image-preview" style="max-width: 150%; max-height: 200%; display: block;">
                         </div>
 
-                       <div class="form-group mb-3">
+                        <div class="form-group mb-3">
                             <label for="status">Status</label>
-                                <div class="form-check">
-                                            <input type="radio" name="status" id="status_active" value="1" class="form-check-input" {{ old('status') == '1' ? 'checked' : '' }} required>
-                                            <label for="status_active" class="form-check-label">Active</label>
-    </div>
-    <div class="form-check">
-        <input type="radio" name="status" id="status_inactive" value="0" class="form-check-input" {{ old('status') == '0' ? 'checked' : '' }} required>
-        <label for="status_inactive" class="form-check-label">Inactive</label>
-    </div>
-</div>
-
-
-                        {{-- <div class="form-group mb-3">
-                            <label for="metadata_id">Select Metadata</label>
-                            <select name="metadata_id" id="metadata_id" class="form-control" required>
-                                <option value="">Choose Metadata</option>
-                                @foreach($metadata as $meta)
-                                    <option value="{{ $meta->id }}" {{ old('metadata_id') == $meta->id ? 'selected' : '' }}>
-                                        {{ $meta->meta_title }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div> --}}
+                            <div class="form-check">
+                                <input type="radio" name="status" id="status_active" value="1" class="form-check-input" {{ old('status', $aboutUs->status) == '1' ? 'checked' : '' }} required>
+                                <label for="status_active" class="form-check-label">Active</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" name="status" id="status_inactive" value="0" class="form-check-input" {{ old('status', $aboutUs->status) == '0' ? 'checked' : '' }} required>
+                                <label for="status_inactive" class="form-check-label">Inactive</label>
+                            </div>
+                        </div>
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Create Service</button>
-                            <a href="{{ route('admin.services.index') }}" class="btn btn-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary">Update About Us</button>
+                            <a href="{{ route('aboutus.index') }}" class="btn btn-secondary">Cancel</a>
                         </div>
                     </form>
                 </div>
@@ -130,7 +105,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <img id="image-preview" style="width: 10%; height: 10%; display: none;">
+                <img id="image-preview" style="max-width: 150%; max-height: 150%; display: none;">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -174,8 +149,6 @@
 
     // Save cropped image data and update hidden input fields
     document.getElementById('saveCrop').addEventListener('click', function () {
-        if (!cropper) return;
-
         const cropData = cropper.getData();
         document.getElementById('cropData').value = JSON.stringify({
             width: Math.round(cropData.width),
@@ -184,22 +157,17 @@
             y: Math.round(cropData.y)
         });
 
-        cropper.getCroppedCanvas().toBlob((blob) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(blob);
-            reader.onloadend = function () {
-                document.getElementById('croppedImage').value = reader.result;
+        const base64Image = cropper.getCroppedCanvas().toDataURL('image/png');
+        document.getElementById('croppedImage').value = base64Image; // Store the base64 string
 
-                // Set cropped image preview
-                const croppedImagePreview = document.getElementById('cropped-image-preview');
-                croppedImagePreview.src = reader.result;
-                document.getElementById('cropped-preview-container').style.display = 'block';
-            };
+        // Set cropped image preview
+        const croppedImagePreview = document.getElementById('cropped-image-preview');
+        croppedImagePreview.src = base64Image;
+        document.getElementById('cropped-preview-container').style.display = 'block';
 
-            // Close modal after saving crop
-            const cropModal = bootstrap.Modal.getInstance(document.getElementById('cropModal'));
-            cropModal.hide();
-        }, 'image/png');
+        // Close modal after saving crop
+        const cropModal = bootstrap.Modal.getInstance(document.getElementById('cropModal'));
+        cropModal.hide();
     });
 
     // Show toast message after form submission

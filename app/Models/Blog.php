@@ -14,16 +14,6 @@ class Blog extends Model
         'description',
         'author',
         'image',
-        'status',
-        'metadata_id'
+        'status'
     ];
-    protected $casts = [
-        'image' => 'array', // Handle multi-image upload as an array
-    ];
-
-    // Relationships
-    public function metadata()
-    { 
-        return $this->belongsTo(Metadata::class);
-    }
 }

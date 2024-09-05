@@ -35,9 +35,4 @@ class Metadata extends Model
     {
         return $this->hasMany(Category::class);
     }
-
-    public function blog()
-    {
-        return $this->hasMany(Blog::class);
-    }
 }
