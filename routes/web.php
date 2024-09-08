@@ -9,6 +9,10 @@ use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\Admin\MetadataController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\FaviconController;
+use App\Http\Controllers\Admin\AboutUsController;
+use App\Http\Controllers\Admin\SiteSettingController;
+use App\Http\Controllers\Admin\SocialLinkController;
 use App\Http\Controllers\RegistrationController;
 use App\Http\Controllers\ApplicantController;
 use App\Http\Controllers\NoTransactionPurposeController;
@@ -48,7 +52,6 @@ Route::get("service", function(){ return view ("frontend.include.project.blade.p
 
 
 
-
 Route::get("/member",function(){
     return view("member");
 
@@ -57,18 +60,13 @@ Route::get("/contact",function(){
     return view("contact");
 })->name("contact");
 
-
 Route::get("/about",function(){
     return view("about");
 })->name('about');
 
-
 Route::get('/hello', function () {
     return view('singleproperties');
 })->name('hello');
-
-
-
 
 Route::prefix('/admin')->name('admin.')->middleware(['web', 'auth'])->group(function () {
 
@@ -112,18 +110,23 @@ Route::prefix('/admin')->name('admin.')->middleware(['web', 'auth'])->group(func
     Route::post('/upload-image', [BlogController::class, 'uploadImage'])->name('uploadImage');
 });
 
-   // Testimonial Routes 
-   Route::resource('admin/testimonials', TestimonialController::class);
+    // Testimonial Routes 
+    Route::resource('admin/testimonials', TestimonialController::class);
 
-   //MetaData Routes
-   Route::resource('metadata', MetadataController::class);
+    //MetaData Routes
+    Route::resource('metadata', MetadataController::class);
+    Route::put('/metadata/{id}', [MetadataController::class, 'update'])->name('metadata.update');
 
-   Route::resource('services', ServiceController::class)->except(['show']);
+    //Summernote
+    Route::post('admin/summernote/upload', [BlogController::class, 'uploadImage'])->name('admin.summernote.upload');
 
-// Routes for History
-// Route::get('/application-history/', [HistoriesController::class, 'application_index'])->name('application-history');
-// Route::get('/system-history/', [HistoriesController::class, 'system_index'])->name('system-history');
+    //Services
+    Route::resource('services', ServiceController::class)->except(['show']);
+   
+    // Favicon route
+    Route::resource('favicons', FaviconController::class);
 
+<<<<<<< HEAD
 // Frontend Routes
 // Route::view("/properties", "frontend.properties")->name('properties');
 
@@ -135,9 +138,32 @@ Route::get('/about', [SingleController::class, 'render_about'])->name('about');
 Route::get('/blog', [SingleController::class, 'render_blog'])->name('blog');
 Route::get('/singleblogpost', [SingleController::class, 'render_singleblogpost'])->name('singleblogpost');
 Route::view("/singleproperties", "frontend.singleproperties")->name('singleproperties');
+=======
+    //AboutUs route
+    Route::resource('aboutus', AboutUsController::class);
+>>>>>>> 94f27eb57ea6c5ee246d6f9b224541aa4554c74d
 
-// Profile Routes
-Route::prefix('/profile')->name('profile.')->middleware(['web', 'auth'])->group(function () {
+    //Sitesetting route
+    Route::resource('sitesettings', SiteSettingController::class);
+
+    //Sociallinks route
+    Route::resource('social-links', SocialLinkController::class);
+
+    // Routes for History
+   // Route::get('/application-history/', [HistoriesController::class, 'application_index'])->name('application-history');
+  // Route::get('/system-history/', [HistoriesController::class, 'system_index'])->name('system-history');
+
+  // Frontend Routes
+
+  Route::view("/properties", "frontend.properties")->name('properties');
+  Route::view("/blog", "frontend.blog")->name('blog');
+  Route::view("/member", "frontend.member")->name('member');
+  Route::view("/contact", "frontend.contact")->name('contact');
+  Route::view("/about", "frontend.about")->name('about');
+  Route::view("/singleproperties", "frontend.singleproperties")->name('singleproperties');
+
+  // Profile Routes
+  Route::prefix('/profile')->name('profile.')->middleware(['web', 'auth'])->group(function () {
     Route::get('/', [App\Http\Controllers\ProfilesController::class, 'index'])->name('index');
     Route::post('/update/info', [App\Http\Controllers\ProfilesController::class, 'updateInfo'])->name('update.info');
     Route::post('/update/password', [App\Http\Controllers\ProfilesController::class, 'updatePassword'])->name('update.password');

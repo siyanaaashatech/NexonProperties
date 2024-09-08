@@ -2,26 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use Illuminate\Http\Request;
 use App\Models\Service;
+use App\Models\Testimonial;
 
 class FrontViewController extends Controller
 {
     public function index()
     {
-        $bannerproject = Service::latest()->get()->take(4);
-        $services = Service::latest()->get()->take(4);
-        $blog=blog::latest()->get();
-        $testimonial=testimonial::latest()->get();
-        $advantage=advantage::latest()->get();
-        $about=about::latesh()->get()->take(1);
+      
+        $services = Service::latest()->get()->take(6);
 
-
-
-
-        return view('frontend.welcome',  compact([
-            'services','blog','testimonial','advantage','about'
+        return view('frontend.welcome', compact([
+            'services',
         ]));
+
     }
     // public function singlePost($slug)
     // {

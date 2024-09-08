@@ -6,8 +6,8 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h4>Services List</h4>
-                    <a href="{{ route('services.create') }}" class="btn btn-primary float-end">Add New Service</a>
+                    <h4>About Us List</h4>
+                    <a href="{{ route('aboutus.create') }}" class="btn btn-primary float-end">Add About Us</a>
                 </div>
                 <div class="card-body">
                     <!-- Display success message -->
@@ -17,12 +17,12 @@
                         </div>
                     @endif
 
-                    <!-- Check if there are any services -->
-                    @if($services->count() > 0)
+                    <!-- Check if there are any About Us entries -->
+                    @if($aboutUs->count() > 0)
                         <table class="table table-bordered table-striped">
                             <thead>
                                 <tr>
-                                    <th>S.N</th> 
+                                    <th>S.N</th>
                                     <th>Title</th>
                                     <th>Subtitle</th>
                                     <th>Status</th>
@@ -30,67 +30,67 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($services as $service)
+                                @foreach($aboutUs as $about)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $service->title }}</td>
-                                        <td>{{ $service->subtitle }}</td>
+                                        <td>{{ $about->title }}</td>
+                                        <td>{{ $about->subtitle }}</td>
                                         <td>
-                                            @if($service->status)
+                                            @if($about->status)
                                                 <span class="badge bg-success">Active</span>
                                             @else
                                                 <span class="badge bg-danger">Inactive</span>
                                             @endif
                                         </td>
-                                        <td> 
-                                            <a href="{{ route('services.edit', $service->id) }}" class="btn btn-outline-primary btn-sm">
+                                        <td>
+                                            <a href="{{ route('aboutus.edit', $about->id) }}" class="btn btn-outline-primary btn-sm">
                                                 <i class="fas fa-edit"></i>
                                             </a>
-                                            <form action="{{ route('services.destroy', $service->id) }}" method="POST" style="display:inline;">
+                                            <form action="{{ route('aboutus.destroy', $about->id) }}" method="POST" style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete this service?')">
+                                                <button type="submit" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete this?')">
                                                     <i class="far fa-trash-alt"></i>
                                                 </button>
                                             </form>
 
                                             <!-- Button to trigger Metadata Modal -->
-                                            @if($service->metadata)
-                                                <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#metadataModal{{ $service->id }}">
+                                            @if($about->metadata)
+                                                <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#metadataModal{{ $about->id }}">
                                                     M
                                                 </button>
 
                                                 <!-- Metadata Modal with Edit Form -->
-                                                <div class="modal fade" id="metadataModal{{ $service->id }}" tabindex="-1" aria-labelledby="metadataModalLabel{{ $service->id }}" aria-hidden="true">
+                                                <div class="modal fade" id="metadataModal{{ $about->id }}" tabindex="-1" aria-labelledby="metadataModalLabel{{ $about->id }}" aria-hidden="true">
                                                     <div class="modal-dialog modal-lg">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="metadataModalLabel{{ $service->id }}">Edit Metadata Details</h5>
+                                                                <h5 class="modal-title" id="metadataModalLabel{{ $about->id }}">Edit Metadata Details</h5>
                                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                             </div>
                                                             <div class="modal-body">
-                                                                <form action="{{ route('metadata.update', $service->metadata->id) }}" method="POST">
+                                                                <form action="{{ route('metadata.update', $about->metadata->id) }}" method="POST">
                                                                     @csrf
                                                                     @method('PUT')
 
                                                                     <div class="form-group mb-3">
                                                                         <label for="meta_title">Meta Title</label>
-                                                                        <input type="text" name="meta_title" id="meta_title" class="form-control" value="{{ old('meta_title', $service->metadata->meta_title) }}" required>
+                                                                        <input type="text" name="meta_title" id="meta_title" class="form-control" value="{{ old('meta_title', $about->metadata->meta_title) }}" required>
                                                                     </div>
 
                                                                     <div class="form-group mb-3">
                                                                         <label for="meta_description">Meta Description</label>
-                                                                        <textarea name="meta_description" id="meta_description" class="form-control" rows="3" required>{{ old('meta_description', $service->metadata->meta_description) }}</textarea>
+                                                                        <textarea name="meta_description" id="meta_description" class="form-control" rows="3" required>{{ old('meta_description', $about->metadata->meta_description) }}</textarea>
                                                                     </div>
 
                                                                     <div class="form-group mb-3">
                                                                         <label for="meta_keywords">Meta Keywords</label>
-                                                                        <textarea name="meta_keywords" id="meta_keywords" class="form-control" rows="3" required>{{ old('meta_keywords', $service->metadata->meta_keywords) }}</textarea>
+                                                                        <textarea name="meta_keywords" id="meta_keywords" class="form-control" rows="3" required>{{ old('meta_keywords', $about->metadata->meta_keywords) }}</textarea>
                                                                     </div>
 
                                                                     <div class="form-group mb-3">
                                                                         <label for="slug">Slug</label>
-                                                                        <input type="text" name="slug" id="slug" class="form-control" value="{{ old('slug', $service->metadata->slug) }}" required>
+                                                                        <input type="text" name="slug" id="slug" class="form-control" value="{{ old('slug', $about->metadata->slug) }}" required>
                                                                     </div>
 
                                                                     <div class="form-group">
@@ -110,7 +110,7 @@
                         </table>
                     @else
                         <div class="alert alert-info">
-                            No services available. <a href="{{ route('services.create') }}">Create a new service</a>.
+                            No About Us entries available. <a href="{{ route('aboutus.create') }}">Create an About Us entry</a>.
                         </div>
                     @endif
                 </div>

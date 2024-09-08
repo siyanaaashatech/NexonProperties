@@ -100,21 +100,55 @@
                 </li>
  --}}
 
-{{-- Beginning of Site Settings --}}
-
-
-<li class="nav-item">
-    <!-- Top-level link for Metadata -->
-    <a class="nav-link {{ Request::is('admin/metadata*') ? 'active' : '' }}"
-       href="{{ route('metadata.index') }}">
-        <div class="d-flex align-items-center">
-            <span class="nav-link-icon"><i class="fas fa-tag"></i></span>
-            <span class="nav-link-text ps-1">Metadata</span>
+                  
+               <li class="nav-item">
+             <!-- Top-level link for Site Settings -->
+              <a class="nav-link {{ Request::is('admin/sitesettings*') ? 'active' : '' }}"
+               href="{{ route('sitesettings.index') }}">
+              <div class="d-flex align-items-center">
+             <span class="nav-link-icon"><i class="fas fa-cogs"></i></span>
+            <span class="nav-link-text ps-1">Site Settings</span>
         </div>
     </a>
-</li>
 
- 
+
+                          
+                            {{-- Insert Favicon Menu Item here --}}
+                          
+                                <li class="nav-item">
+                                    <a class="nav-link {{ Request::segment(2) == 'favicons' ? 'active' : '' }}"
+                                        href="{{ route('favicons.index') }}">
+                                        <div class="d-flex align-items-center">
+                                            <i class="fa fa-angle-double-right"></i> Favicon
+                                        </div>
+                                    </a>
+                                </li>
+                          
+                        </ul>
+                   
+
+                    <li class="nav-item">
+                        <a class="nav-link {{ Request::segment(2) == 'social-links' ? 'active' : '' }}"
+                            href="{{ route('social-links.index') }}">
+                            <div class="d-flex align-items-center">
+                                <i class="fa fa-angle-double-right"></i> Social Links
+                            </div>
+                        </a>
+                    </li>
+                    
+
+                    <li class="nav-item">
+                        <!-- Top-level link for AboutUs -->
+                        <a class="nav-link {{ Request::is('admin/aboutus*') ? 'active' : '' }}"
+                           href="{{ route('aboutus.index') }}">
+                            <div class="d-flex align-items-center">
+                                <span class="nav-link-icon"><i class="fas fa-info-circle"></i></span>
+                                <span class="nav-link-text ps-1">About Us</span>
+                            </div>
+                        </a>
+                    </li>
+                
+
                 <li class="nav-item">
                     <!-- label-->
                     <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
@@ -142,14 +176,26 @@
                         {{-- <ul class="nav collapse show" id="dashboard1"> --}}
                             <li class="nav-item"><a class="nav-link active" href="#">
                                     <div class="d-flex align-items-center"><span
-                                            class="nav-link-text ps-1">Index</span>
+                                            class="nav-link-text ps-1">Home</span>
                                     </div>
                                 </a><!-- more inner pages-->
                             </li>
 
                     </ul>
                 </li>
+                <li class="nav-item">
+                    <!-- Top-level link for Metadata -->
+                    <a class="nav-link {{ Request::is('admin/metadata*') ? 'active' : '' }}"
+                       href="{{ route('metadata.index') }}">
+                        <div class="d-flex align-items-center">
+                            <span class="nav-link-icon"><i class="fas fa-tag"></i></span>
+                            <span class="nav-link-text ps-1">Metadata</span>
+                        </div>
+                    </a>
+                </li>
 
+               
+                
                 </li>
 
                 <li class="nav-item">
@@ -250,6 +296,8 @@
                             </div>
                         </a>
                     </li>
+
+                    
                     
 
                 </li>

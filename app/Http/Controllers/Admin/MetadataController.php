@@ -38,19 +38,21 @@ class MetadataController extends Controller
         return view('admin.metadata.update', compact('metadata'));
     }
 
-    public function update(Request $request, Metadata $metadata)
-    {
-        $request->validate([
-            'meta_title' => 'required|string|max:255',
-            'meta_description' => 'required|string',
-            'meta_keywords' => 'required|string',
-            'slug' => 'required|string|max:255|unique:metadata,slug,' . $metadata->id,
-        ]);
+    public function update(Request $request, $id)
+{
+    $metadata = Metadata::findOrFail($id);
 
-        $metadata->update($request->all());
+    $request->validate([
+        'meta_title' => 'required|string|max:255',
+        'meta_description' => 'required|string',
+        'meta_keywords' => 'required|string',
+        'slug' => 'required|string|max:255|unique:metadata,slug,' . $metadata->id, 
+    ]);
 
-        return redirect()->route('metadata.index')->with('success', 'Metadata updated successfully.');
-    }
+    $metadata->update($request->all());
+
+    return redirect()->route('metadata.index')->with('success', 'Metadata updated successfully!');
+}
 
     public function destroy(Metadata $metadata)
     {

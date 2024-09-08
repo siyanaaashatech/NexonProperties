@@ -47,7 +47,7 @@
                                     <th>Title</th>
                                     <th>Author</th>
                                     <th>Status</th>
-                                    <th>Action</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
 
@@ -72,59 +72,61 @@
                                                         <i class="far fa-trash-alt"></i>
                                                     </button>
                                                 </form>
+
+                                                <!-- Metadata Edit Button -->
+                                                @if($blog->metadata)
+                                                    <button type="button" class="btn btn-outline-info btn-sm" data-bs-toggle="modal" data-bs-target="#metadataModal{{ $blog->id }}">
+                                                        M
+                                                    </button>
+
+                                                    <!-- Metadata Modal with Edit Form -->
+                                                    <div class="modal fade" id="metadataModal{{ $blog->id }}" tabindex="-1" aria-labelledby="metadataModalLabel{{ $blog->id }}" aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="metadataModalLabel{{ $blog->id }}">Edit Metadata Details for {{ $blog->title }}</h5>
+                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <form action="{{ route('metadata.update', $blog->metadata->id) }}" method="POST">
+                                                                        @csrf
+                                                                        @method('PUT')
+
+                                                                        <div class="form-group mb-3">
+                                                                            <label for="meta_title">Meta Title</label>
+                                                                            <input type="text" name="meta_title" id="meta_title" class="form-control" value="{{ old('meta_title', $blog->metadata->meta_title) }}" required>
+                                                                        </div>
+
+                                                                        <div class="form-group mb-3">
+                                                                            <label for="meta_description">Meta Description</label>
+                                                                            <textarea name="meta_description" id="meta_description" class="form-control" rows="3" required>{{ old('meta_description', $blog->metadata->meta_description) }}</textarea>
+                                                                        </div>
+
+                                                                        <div class="form-group mb-3">
+                                                                            <label for="meta_keywords">Meta Keywords</label>
+                                                                            <textarea name="meta_keywords" id="meta_keywords" class="form-control" rows="3" required>{{ old('meta_keywords', $blog->metadata->meta_keywords) }}</textarea>
+                                                                        </div>
+
+                                                                        <div class="form-group mb-3">
+                                                                            <label for="slug">Slug</label>
+                                                                            <input type="text" name="slug" id="slug" class="form-control" value="{{ old('slug', $blog->metadata->slug) }}" required>
+                                                                        </div>
+
+                                                                        <div class="form-group">
+                                                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endif
                                             </div>
                                         </td>
                                     </tr>
                                 @endforeach
                             </tbody>
-
-                            {{-- =====================================
-                                MODAL - EDIT
-                            ==================================== --}}
-                            @foreach ($blogs as $blog)
-                                <div class="modal fade" id="edit{{ $blog->id }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="editModalLabel">Edit Blog - {{ $blog->title }}</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <form action="{{ route('admin.blogs.update', $blog->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <!-- Include form fields for editing -->
-                                                    <button type="submit" class="btn btn-primary">Update</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-
-                            {{-- =====================================
-                                MODAL - DELETE
-                            ==================================== --}}
-                            @foreach ($blogs as $blog)
-                                <div class="modal fade" id="delete{{ $blog->id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="deleteModalLabel">Delete Blog</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">No</button>
-                                                <form action="{{ route('admin.blogs.destroy', $blog->id) }}" method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger">Yes</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
                         </table>
                     </div>
                 </div>

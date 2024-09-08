@@ -11,9 +11,11 @@ class CreateBlogsTable extends Migration
             $table->id();
             $table->string('title');
             $table->longText('description');
+            $table->longText('keywords')->nullable();
             $table->string('author')->nullable();
             $table->string('image');
             $table->boolean('status');
+            $table->foreignId('metadata_id')->constrained('metadata')->onDelete('cascade');
             $table->timestamps();
         });
     }
