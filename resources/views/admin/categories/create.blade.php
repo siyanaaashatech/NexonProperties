@@ -28,12 +28,11 @@
                             <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}" required>
                         </div>
 
-                        {{-- Hidden Input for Metadata ID --}}
-                        <input type="hidden" name="metadata_id" value="{{ old('metadata_id', $metadata->first()->id ?? '') }}">
-
-                        {{-- Hidden Input for any other fields if needed --}}
-                        <input type="hidden" name="other_field_1" value="value1">
-                        <input type="hidden" name="other_field_2" value="value2">
+                        {{-- Keywords Input --}}
+                        <div class="form-group mb-3" style="display:hidden">
+                            <label for="meta_keywords">Keywords</label>
+                            <input type="text" name="meta_keywords" id="meta_keywords" class="form-control" value="{{ old('meta_keywords') }}" required>
+                        </div>
 
                         {{-- Submit and Cancel Buttons --}}
                         <div class="form-group">
