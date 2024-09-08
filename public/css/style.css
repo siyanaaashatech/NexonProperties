@@ -496,7 +496,7 @@ a {
 
 .carousel-item {
     position: relative;
-    height: 86vh;
+    height: 86.2vh;
     /* Adjust based on desired height */
 }
 
@@ -778,7 +778,7 @@ a {
 }
 
 .imagecontroller {
-    height:86vh;
+    height:86.2vh;
     width: 100%;
     object-fit: cover;
 }
@@ -1316,9 +1316,6 @@ a {
    .swiper-button-prev {
      display: none;
    }
-  
-
-  
 
    .swiper-slide:nth-child(odd) .customcard {
     background: var(--off-yellow) !important; 
