@@ -67,7 +67,7 @@ class BlogController extends Controller
 
         // Create metadata entry
         $metadata = Metadata::create([
-            'meta_title' => $request->title,
+            'meta_title' => $request->title,    
             'meta_description' => $request->description,
             'meta_keywords' => $request->keywords,
             'slug' => Str::slug($request->title)

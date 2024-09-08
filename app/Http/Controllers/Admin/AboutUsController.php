@@ -133,7 +133,7 @@ class AboutUsController extends Controller
                 if (preg_match('/^data:image\/(\w+);base64,/', $base64Image, $type)) {
                     $base64Image = substr($base64Image, strpos($base64Image, ',') + 1);
                     $decodedImage = base64_decode($base64Image);
-    
+     
                     if ($decodedImage === false) {
                         continue; // Skip invalid base64 string
                     }

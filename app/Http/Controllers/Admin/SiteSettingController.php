@@ -101,7 +101,7 @@ class SiteSettingController extends Controller
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
         ]);
-    
+        
         // Validate Social Links
         $socialLinksData = $request->validate([
             'google_map' => 'nullable|url',
@@ -157,7 +157,6 @@ class SiteSettingController extends Controller
             }
         }
     }
-
         $siteSetting->update([
             'office_title' => $validatedData['office_title'],
             'office_address' => $validatedData['office_address'],
@@ -191,7 +190,6 @@ class SiteSettingController extends Controller
         return redirect()->route('sitesettings.index');
     }
     
-
     public function destroy(SiteSetting $siteSetting)
     {
         $images = json_decode($siteSetting->image, true);
@@ -209,5 +207,4 @@ class SiteSettingController extends Controller
         return redirect()->route('sitesettings.index')->with('success', 'Site setting deleted successfully.');
     }
 
-   
 }

@@ -53,15 +53,15 @@ class UsersController extends Controller
 
             $role = Role::whereNotIn('id', [1])->get();
 
-            // Getting the 'All districts' district using the name
-            $allDistrict = District::where('name', 'All districts')->first();
+            // // Getting the 'All districts' district using the name
+            // $allDistrict = District::where('name', 'All districts')->first();
 
-            // Getting all districts except 'All districts'
-            $districts = District::where('id', '!=', $allDistrict->id)->get();
+            // // Getting all districts except 'All districts'
+            // $districts = District::where('id', '!=', $allDistrict->id)->get();
 
             return view('admin.user.create', [
                 'role'      => $role,
-                'districts' => $districts
+                // 'districts' => $districts
             ]);
         } else {
 
@@ -145,15 +145,15 @@ class UsersController extends Controller
         $user = User::with('roles')->whereIn('id', [$id])->first();
 
         // Getting the 'All districts' district using the name
-        $allDistrict = District::where('name', 'All districts')->first();
+        // $allDistrict = District::where('name', 'All districts')->first();
 
-        // Getting all districts except 'All districts'
-        $districts = District::where('id', '!=', $allDistrict->id)->get();
+        // // Getting all districts except 'All districts'
+        // $districts = District::where('id', '!=', $allDistrict->id)->get();
 
         return view('admin.user.update', [
             'role' => $role,
             'user' => $user,
-            'districts' => $districts
+            // 'districts' => $districts
 
         ]);
     }

@@ -130,7 +130,6 @@
                             <img id="cropped-image-preview" style="max-width: 100%; max-height: 200px; display: block;">
                         </div>
 
-
                         <div class="form-group mb-3">
                             <label for="status">Status</label>
                             <div class="form-check">
