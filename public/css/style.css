@@ -453,6 +453,13 @@ a {
     text-transform: capitalize;
 }
 
+.customui li a:hover{
+    text-decoration: none;
+    color:var(--yellow);
+    font-size: 18px;
+    text-transform: capitalize;
+}
+
 .footer-button {
     width: 100%;
     padding: 10px;
@@ -489,7 +496,7 @@ a {
 
 .carousel-item {
     position: relative;
-    height: 78vh;
+    height: 86vh;
     /* Adjust based on desired height */
 }
 
@@ -671,6 +678,10 @@ a {
     object-fit: cover;
 
 }
+.property-imageheight{
+    height: 28vh;
+
+}
 
 .property-details {
     position: absolute;
@@ -767,13 +778,13 @@ a {
 }
 
 .imagecontroller {
-    height: 78vh;
+    height:86vh;
     width: 100%;
     object-fit: cover;
 }
 
 .imagecontrollerheight {
-    height: 60vh;
+    height: 78vh;
 }
 
 @media (max-width: 600px) {
@@ -990,6 +1001,7 @@ a {
     .second img{
         transition:none; 
         animation:  none; 
+        margin-top: 1rem;
     
     }
 
@@ -1112,11 +1124,11 @@ a {
     display: none;
     z-index: 1000;
     background: var(--offgreen);
-    height: 82vh;
+    height: 84vh;
     width: 25vw;
     position: absolute;
-    top: 7.9rem;
-    right: 0;
+    top: 6rem;
+    right: 0.1rem;
     color: white;
     flex-direction: column;
     align-items: center;
@@ -1317,7 +1329,7 @@ a {
 
 .gapbetweensection{
      margin:60px auto;
-     padding:40px auto;
+     padding:20px auto;
 }
 
 

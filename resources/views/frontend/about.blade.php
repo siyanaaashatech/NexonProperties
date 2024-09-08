@@ -199,7 +199,6 @@
                                 <h3 class="mb-0 md-text">
                                 {{ $service->title}}
                             </h3>
-
                             <p class="sm-text mb-auto ">
                                 {{ strlen($service->description) >400 ? substr($service->description, 0, 400) . "..." : $service->description}}
                             </p>

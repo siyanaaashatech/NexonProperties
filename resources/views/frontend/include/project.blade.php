@@ -13,7 +13,7 @@
     <div class="row py-1 property-body">
       <div class="col-md-6 pb-1">
         <div class="property-container">
-          <img src="{{asset('image/bighouse.png')}}" alt="Property Image" class="imagecontroller imagecontrollermd">
+          <img src="{{asset('image/bighouse.png')}}" alt="Property Image" class="imagecontroller imagecontrollerheight imagecontrollermd ">
           <div class="property-details">
             <div class="md-text1 p-0 m-0">Hello</div>
             <div class="md-text highlight text-center p-0 m-0">North road 435673Kth street</div>

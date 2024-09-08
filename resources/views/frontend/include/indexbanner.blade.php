@@ -46,7 +46,7 @@
       <div class="col-md-12 p-0 ">
         @foreach ($services as  $service )
         <div class="property-container mx-2 subbanner-hidden " >
-          <img src="{{asset('image/bighouse.png')}}" alt="Property Image" class="property-image">
+          <img src="{{asset('image/bighouse.png')}}" alt="Property Image" class="property-image  property-imageheight">
           <div class="property-details">
             <div class="md-text1">{{$service->title}}</div>
             <div class="sm-text highlight text-center p-0 m-0">{{$service->subtitle}}</div>
@@ -123,10 +123,10 @@
 
 
   <script>
- document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     const items = document.querySelectorAll('.subbanner-hidden');
-    const animationDuration =4000; // Duration of the entire animation cycle
-    const initialDisplayDuration =2000; // Duration to show initial items
+    const animationDuration = 4000; // Duration of the entire animation cycle
+    const initialDisplayDuration = 1000; // Duration to show initial items
 
     let currentIndex = 0;
 
@@ -137,23 +137,27 @@
             item.classList.add('subbanner-hidden');
         });
 
-        // Calculate the indices for the next two items
+        // Calculate the indices for the next three items
         const nextIndex1 = currentIndex;
         const nextIndex2 = (currentIndex + 1) % items.length;
+        const nextIndex3 = (currentIndex + 2) % items.length;
 
-        // Show the next two items
+        // Show the next three items
         items[nextIndex1].classList.remove('subbanner-hidden');
         items[nextIndex1].classList.add('visible-item');
 
         items[nextIndex2].classList.remove('subbanner-hidden');
         items[nextIndex2].classList.add('visible-item');
 
+        items[nextIndex3].classList.remove('subbanner-hidden');
+        items[nextIndex3].classList.add('visible-item');
+
         // Update the current index for the next set of items
-        currentIndex = (currentIndex + 2) % items.length;
+        currentIndex = (currentIndex + 3) % items.length;
     }
 
     function showInitialItems() {
-        // Initially show the first two items
+        // Initially show the first three items
         if (items.length > 0) {
             items[0].classList.remove('subbanner-hidden');
             items[0].classList.add('visible-item');
@@ -161,6 +165,10 @@
         if (items.length > 1) {
             items[1].classList.remove('subbanner-hidden');
             items[1].classList.add('visible-item');
+        }
+        if (items.length > 2) {
+            items[2].classList.remove('subbanner-hidden');
+            items[2].classList.add('visible-item');
         }
 
         // Set a timeout to start the animation loop after the initial display duration
@@ -173,6 +181,5 @@
     // Start the process
     showInitialItems();
 });
+</script>
 
-
-    </script>
