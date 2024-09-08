@@ -17,12 +17,11 @@
             <input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}" required>
         </div>
 
-        <!-- Description -->
+       <!-- Description -->
         <div class="form-group mb-3">
             <label for="description">Description</label>
-            <textarea class="form-control summernote" id="description" name="description" rows="10" required></textarea>{{ old('description') }}</textarea>
+            <textarea class="form-control summernote" id="description" name="description" rows="10" required>{{ old('description') }}</textarea>
         </div>
-
 
         <!-- Keywords -->
         <div class="form-group mb-3">
@@ -67,7 +66,6 @@
             </div>
         </div>
 
-       
         <!-- Submit Button -->
         <div class="form-group">
             <button type="submit" class="btn btn-primary">Create Blog</button>
@@ -94,44 +92,26 @@
         </div>
     </div>
 
-     <!-- Include Summernote CSS and JS -->
-     <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css" rel="stylesheet">
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
- 
-     <script>
-        $(document).ready(function() {
-            $('.summernote').summernote();
-        });
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-        function previewImage(event) {
-            var input = event.target;
-            var preview = document.getElementById('imagePreview');
+    <!-- Include Summernote CSS and JS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
 
-            while (preview.firstChild) {
-                preview.removeChild(preview.firstChild); // Clear previous preview
-            }
-
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function(e) {
-                    var img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.style.maxWidth = '200px'; // Adjust the maximum width as needed
-                    img.style.maxHeight = '200px'; // Adjust the maximum height as needed
-                    preview.appendChild(img);
-                }
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-    </script>
-     
-    <!-- Include Cropper.js -->
+    <!-- Include Cropper.js CSS and JS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
 
     <script>
+        $(document).ready(function() {
+            $('.summernote').summernote({
+                height: 300,   // Set editor height
+                minHeight: 200, // Set minimum height of editor
+                maxHeight: 500, // Set maximum height of editor
+                focus: true    // Set focus to editable area after initializing summernote
+            });
+        });
+
         let cropper;
         let currentFile;
 

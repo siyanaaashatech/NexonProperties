@@ -42,7 +42,6 @@ Route::get("/blog",function(){
 
 })->name("blog");
 
-
 Route::get("/member",function(){
     return view("member");
 
@@ -51,18 +50,13 @@ Route::get("/contact",function(){
     return view("contact");
 })->name("contact");
 
-
 Route::get("/about",function(){
     return view("about");
 })->name('about');
 
-
 Route::get('/hello', function () {
     return view('singleproperties');
 })->name('hello');
-
-
-
 
 Route::prefix('/admin')->name('admin.')->middleware(['web', 'auth'])->group(function () {
 
@@ -106,18 +100,18 @@ Route::prefix('/admin')->name('admin.')->middleware(['web', 'auth'])->group(func
     Route::post('/upload-image', [BlogController::class, 'uploadImage'])->name('uploadImage');
 });
 
-   // Testimonial Routes 
-   Route::resource('admin/testimonials', TestimonialController::class);
+    // Testimonial Routes 
+    Route::resource('admin/testimonials', TestimonialController::class);
 
-   //MetaData Routes
-   Route::resource('metadata', MetadataController::class);
-   Route::put('/metadata/{id}', [MetadataController::class, 'update'])->name('metadata.update');
+    //MetaData Routes
+    Route::resource('metadata', MetadataController::class);
+    Route::put('/metadata/{id}', [MetadataController::class, 'update'])->name('metadata.update');
 
-   //Summernote
-   Route::post('admin/summernote/upload', [BlogController::class, 'uploadImage'])->name('admin.summernote.upload');
+    //Summernote
+    Route::post('admin/summernote/upload', [BlogController::class, 'uploadImage'])->name('admin.summernote.upload');
 
-   //Services
-   Route::resource('services', ServiceController::class)->except(['show']);
+    //Services
+    Route::resource('services', ServiceController::class)->except(['show']);
    
     // Favicon route
     Route::resource('favicons', FaviconController::class);
@@ -132,19 +126,20 @@ Route::prefix('/admin')->name('admin.')->middleware(['web', 'auth'])->group(func
     Route::resource('social-links', SocialLinkController::class);
 
     // Routes for History
-    // Route::get('/application-history/', [HistoriesController::class, 'application_index'])->name('application-history');
-   // Route::get('/system-history/', [HistoriesController::class, 'system_index'])->name('system-history');
+   // Route::get('/application-history/', [HistoriesController::class, 'application_index'])->name('application-history');
+  // Route::get('/system-history/', [HistoriesController::class, 'system_index'])->name('system-history');
 
-// Frontend Routes
-Route::view("/properties", "frontend.properties")->name('properties');
-Route::view("/blog", "frontend.blog")->name('blog');
-Route::view("/member", "frontend.member")->name('member');
-Route::view("/contact", "frontend.contact")->name('contact');
-Route::view("/about", "frontend.about")->name('about');
-Route::view("/singleproperties", "frontend.singleproperties")->name('singleproperties');
+  // Frontend Routes
 
-// Profile Routes
-Route::prefix('/profile')->name('profile.')->middleware(['web', 'auth'])->group(function () {
+  Route::view("/properties", "frontend.properties")->name('properties');
+  Route::view("/blog", "frontend.blog")->name('blog');
+  Route::view("/member", "frontend.member")->name('member');
+  Route::view("/contact", "frontend.contact")->name('contact');
+  Route::view("/about", "frontend.about")->name('about');
+  Route::view("/singleproperties", "frontend.singleproperties")->name('singleproperties');
+
+  // Profile Routes
+  Route::prefix('/profile')->name('profile.')->middleware(['web', 'auth'])->group(function () {
     Route::get('/', [App\Http\Controllers\ProfilesController::class, 'index'])->name('index');
     Route::post('/update/info', [App\Http\Controllers\ProfilesController::class, 'updateInfo'])->name('update.info');
     Route::post('/update/password', [App\Http\Controllers\ProfilesController::class, 'updatePassword'])->name('update.password');

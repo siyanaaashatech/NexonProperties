@@ -97,7 +97,7 @@
                                 value="{{ old('meta_keywords', $siteSetting->metadata->meta_keywords ?? '') }}">
                         </div>
 
-                        <!-- Image Upload with Cropper.js -->
+                        {{-- <!-- Image Upload with Cropper.js -->
                         <div class="form-group mb-3">
                             <label for="main_logo">Main Logo</label>
                             <input type="file" name="main_logo" id="main_logo" class="form-control">
@@ -116,7 +116,7 @@
                                     <img src="{{ asset('storage/' . $siteSetting->side_logo) }}" alt="Current Side Logo" style="max-width: 100%; height: auto;">
                                 </div>
                             @endif
-                        </div>
+                        </div> --}}
 
                         <!-- Crop Data Hidden Field -->
                         <input type="hidden" name="cropData" id="cropData">

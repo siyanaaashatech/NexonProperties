@@ -84,6 +84,7 @@ class SiteSettingController extends Controller
 
     public function update(Request $request, SiteSetting $siteSetting)
     {
+        // Validate SiteSetting fields
         $validatedData = $request->validate([
             'office_title' => 'required|string|max:255',
             'office_address' => 'required|string|max:255',
@@ -100,7 +101,8 @@ class SiteSettingController extends Controller
             'meta_description' => 'nullable|string',
             'meta_keywords' => 'nullable|string',
         ]);
-
+    
+        // Validate Social Links
         $socialLinksData = $request->validate([
             'google_map' => 'nullable|url',
             'facebook_link' => 'nullable|url',
@@ -110,9 +112,51 @@ class SiteSettingController extends Controller
             'reddit_link' => 'nullable|url',
             'embed_fbpage' => 'nullable|string',
         ]);
+       
+    // Initialize the crop data and existing images
+    $cropData = $request->input('cropData') ? json_decode($request->input('cropData'), true) : null;
+    $images = !empty($siteSetting->image) ? json_decode($siteSetting->image, true) : [];
 
-        $cropData = json_decode($request->input('cropData'), true);
-        $images = $this->processImages($request->input('image', []), json_decode($siteSetting->image, true));
+    // Handle new images if provided
+    if ($request->has('image')) {
+        foreach ($request->input('image') as $base64Image) {
+            // Ensure the base64 string is valid and has a valid header
+            if (preg_match('/^data:image\/(\w+);base64,/', $base64Image, $type)) {
+                $base64Image = substr($base64Image, strpos($base64Image, ',') + 1);
+                $decodedImage = base64_decode($base64Image);
+
+                if ($decodedImage === false) {
+                    continue; // Skip invalid base64 string
+                }
+
+                $imageType = strtolower($type[1]); // jpeg, png, gif, etc.
+                if (!in_array($imageType, ['jpg', 'jpeg', 'gif', 'png', 'webp'])) {
+                    continue; // Skip unsupported image types
+                }
+
+                // Create image resource from decoded data
+                $imageResource = imagecreatefromstring($decodedImage);
+                if ($imageResource !== false) {
+                    $imageName = time() . '-' . Str::uuid() . '.webp'; // Use WebP format
+                    $destinationPath = storage_path('app/uploads/images/sitesetting');
+
+                    // Ensure the directory exists
+                    if (!File::exists($destinationPath)) {
+                        File::makeDirectory($destinationPath, 0755, true, true);
+                    }
+
+                    // Save the image and destroy the resource
+                    $savedPath = $destinationPath . '/' . $imageName;
+                    imagewebp($imageResource, $savedPath);
+                    imagedestroy($imageResource);
+
+                    // Store the relative path
+                    $relativeImagePath = 'uploads/images/sitesetting/' . $imageName;
+                    $images[] = $relativeImagePath;
+                }
+            }
+        }
+    }
 
         $siteSetting->update([
             'office_title' => $validatedData['office_title'],
@@ -125,17 +169,8 @@ class SiteSettingController extends Controller
             'image' => json_encode($images),
             'status' => $validatedData['status'],
         ]);
-
-        $socialLinksData = $request->validate([
-        'google_map' => 'nullable|url',
-        'facebook_link' => 'nullable|url',
-        'instagram_link' => 'nullable|url',
-        'linkedin_link' => 'nullable|url',
-        'tiktok_link' => 'nullable|url',
-        'reddit_link' => 'nullable|url',
-        'embed_fbpage' => 'nullable|string',
-    ]);
-
+    
+        // Update Metadata
         $siteSetting->metadata()->updateOrCreate(
             [],
             [
@@ -145,16 +180,17 @@ class SiteSettingController extends Controller
                 'slug' => Str::slug($validatedData['meta_title'] ?? $validatedData['office_title'])
             ]
         );
-
+    
         // Update or create social links
-    SocialLink::updateOrCreate(
-        ['id' => 1], // Assuming there's only one record
-        $socialLinksData
-    );
-
+        SocialLink::updateOrCreate(
+            ['id' => 1], 
+            $socialLinksData
+        );
+    
         session()->flash('success', 'Site setting updated successfully.');
         return redirect()->route('sitesettings.index');
     }
+    
 
     public function destroy(SiteSetting $siteSetting)
     {
@@ -173,43 +209,5 @@ class SiteSettingController extends Controller
         return redirect()->route('sitesettings.index')->with('success', 'Site setting deleted successfully.');
     }
 
-    private function processImages($newImages, $existingImages = [])
-    {
-        $processedImages = $existingImages;
-
-        foreach ($newImages as $base64Image) {
-            if (preg_match('/^data:image\/(\w+);base64,/', $base64Image, $type)) {
-                $base64Image = substr($base64Image, strpos($base64Image, ',') + 1);
-                $decodedImage = base64_decode($base64Image);
-
-                if ($decodedImage === false) {
-                    continue;
-                }
-
-                $imageType = strtolower($type[1]);
-                if (!in_array($imageType, ['jpg', 'jpeg', 'gif', 'png', 'webp'])) {
-                    continue;
-                }
-
-                $imageResource = imagecreatefromstring($decodedImage);
-                if ($imageResource !== false) {
-                    $imageName = time() . '-' . Str::uuid() . '.webp';
-                    $destinationPath = storage_path('app/uploads/images/sitesettings');
-
-                    if (!File::exists($destinationPath)) {
-                        File::makeDirectory($destinationPath, 0755, true, true);
-                    }
-
-                    $savedPath = $destinationPath . '/' . $imageName;
-                    imagewebp($imageResource, $savedPath);
-                    imagedestroy($imageResource);
-
-                    $relativeImagePath = 'uploads/images/sitesettings/' . $imageName;
-                    $processedImages[] = $relativeImagePath;
-                }
-            }
-        }
-
-        return $processedImages;
-    }
+   
 }
