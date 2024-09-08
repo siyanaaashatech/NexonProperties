@@ -42,7 +42,7 @@ class CategoryController extends Controller
             'metadata_id' => $request->metadata_id,
         ]);
 
-        return redirect()->route('admin.categories.index')->with('success', 'Category created successfully.');
+        return redirect()->route('categories.index')->with('success', 'Category created successfully.');
     }
 
     /**
